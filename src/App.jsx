@@ -13,15 +13,20 @@ import {
     Grid,
     Badge,
     Progress,
-    useColorModeValue
+    useColorModeValue,
+    Tooltip,
+    Divider
 } from '@chakra-ui/react';
 import {
     SunIcon,
     MoonIcon,
     StarIcon,
-    InfoIcon,
     SettingsIcon,
-    CalendarIcon
+    CalendarIcon,
+    AtSignIcon,
+    ViewIcon,
+    EditIcon,
+    CheckIcon
 } from '@chakra-ui/icons';
 import { useState } from 'react';
 
@@ -38,32 +43,79 @@ function App() {
             'Exercise Library',
             'Session Planning',
             'Performance Tracking',
-            'AI Recommendations'
+            'AI Recommendations',
+            'Recovery Management'
         ],
-        coaching: ['Goal Setting', 'Team Management', 'Performance Metrics', 'Training Calendar'],
-        club: ['Philosophy', 'Age Groups', 'Development Pathways', 'Exercise Restrictions'],
-        profile: ['Certifications', 'Experience', 'Achievements', 'Performance Analytics']
+        coaching: [
+            'Goal Setting',
+            'Team Management',
+            'Performance Metrics',
+            'Training Calendar',
+            'Certifications'
+        ],
+        club: [
+            'Philosophy',
+            'Age Groups',
+            'Development Pathways',
+            'Exercise Restrictions',
+            'Facility Management'
+        ],
+        profile: [
+            'Certifications',
+            'Experience',
+            'Achievements',
+            'Performance Analytics',
+            'Professional Development'
+        ]
     };
 
     const featureContent = {
         'Exercise Library': {
             title: 'Video Exercise Library',
             progress: 80,
-            items: ['Multiple Angles', 'Slow Motion', 'Technical Breakdown', 'Difficulty Levels']
+            items: [
+                'Multiple Angles',
+                'Slow Motion Analysis',
+                'Technical Breakdown',
+                'Difficulty Levels',
+                'Custom Restrictions',
+                'Video Demonstrations'
+            ]
         },
         'Performance Tracking': {
             title: 'Performance Analytics',
-            progress: 70,
-            items: ['Heat Maps', 'Player Engagement', 'Progress Metrics', 'Real-time Updates']
+            progress: 75,
+            items: [
+                'Heat Maps',
+                'Player Engagement',
+                'Progress Metrics',
+                'Real-time Updates',
+                'Team Statistics',
+                'Individual Reports'
+            ]
         },
         'AI Recommendations': {
             title: 'AI-Powered Training',
-            progress: 60,
+            progress: 65,
             items: [
-                'Dynamic Selection',
+                'Dynamic Exercise Selection',
                 'Difficulty Progression',
                 'Real-time Adjustments',
-                'Personalized Plans'
+                'Personalized Plans',
+                'Team Composition Analysis',
+                'Performance Level Assessment'
+            ]
+        },
+        'Goal Setting': {
+            title: 'Goal Management',
+            progress: 70,
+            items: [
+                'Custom Objectives',
+                'Progress Dashboard',
+                'Achievement Milestones',
+                'Performance Targets',
+                'Team Goals',
+                'Individual Goals'
             ]
         }
     };
@@ -79,22 +131,27 @@ function App() {
 
     const renderFeatureContent = (feature) => {
         const content = featureContent[feature];
-        if (!content) return <Text>Feature content will be implemented here.</Text>;
+        if (!content) return <Text>Feature content will be implemented soon.</Text>;
 
         return (
             <Box>
-                <Heading size="md" mb={4}>
-                    {content.title}
-                </Heading>
+                <HStack mb={4} justify="space-between">
+                    <Heading size="md">{content.title}</Heading>
+                    <Badge colorScheme={content.progress >= 75 ? 'green' : 'orange'}>
+                        {content.progress}% Complete
+                    </Badge>
+                </HStack>
                 <Progress value={content.progress} colorScheme="blue" mb={6} />
-                <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                <Grid templateColumns="repeat(3, 1fr)" gap={4}>
                     {content.items.map((item, index) => (
-                        <Box key={index} p={4} borderRadius="md" borderWidth="1px">
-                            <HStack>
-                                <InfoIcon />
-                                <Text>{item}</Text>
-                            </HStack>
-                        </Box>
+                        <Tooltip key={index} label="Click to view details" placement="top">
+                            <Box p={4} borderRadius="md" borderWidth="1px" cursor="pointer">
+                                <HStack>
+                                    <CheckIcon color="green.500" />
+                                    <Text>{item}</Text>
+                                </HStack>
+                            </Box>
+                        </Tooltip>
                     ))}
                 </Grid>
             </Box>
@@ -112,8 +169,9 @@ function App() {
                                     <SettingsIcon w={6} h={6} />
                                     <Heading size="lg">Training Management System</Heading>
                                 </HStack>
-                                <HStack>
+                                <HStack spacing={4}>
                                     <Badge colorScheme="green">Phase 1</Badge>
+                                    <Badge colorScheme="blue">Beta</Badge>
                                     <IconButton
                                         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                         onClick={toggleColorMode}
@@ -121,15 +179,25 @@ function App() {
                                     />
                                 </HStack>
                             </Flex>
-                            <HStack spacing={4} mt={4}>
+                            <Divider my={4} />
+                            <HStack spacing={4}>
                                 {Object.keys(navigationItems).map((section) => (
                                     <Button
                                         key={section}
                                         colorScheme={activeSection === section ? 'blue' : 'gray'}
                                         onClick={() => handleNavigation(section)}
                                         leftIcon={
-                                            section === 'profile' ? <StarIcon /> : <CalendarIcon />
+                                            section === 'profile' ? (
+                                                <StarIcon />
+                                            ) : section === 'coaching' ? (
+                                                <ViewIcon />
+                                            ) : section === 'club' ? (
+                                                <AtSignIcon />
+                                            ) : (
+                                                <CalendarIcon />
+                                            )
                                         }
+                                        size="md"
                                     >
                                         {section.charAt(0).toUpperCase() + section.slice(1)}
                                     </Button>
@@ -154,7 +222,7 @@ function App() {
                                         colorScheme={selectedFeature === feature ? 'blue' : 'gray'}
                                         onClick={() => handleFeatureSelect(feature)}
                                         justifyContent="flex-start"
-                                        // _hover={{ bg: useColorModeValue('gray.100', 'gray.600') }}
+                                        leftIcon={<EditIcon />}
                                     >
                                         {feature}
                                     </Button>
@@ -172,15 +240,17 @@ function App() {
                                                 activeSection.slice(1)}{' '}
                                             Management
                                         </Heading>
-                                        <Text>Select a feature to get started</Text>
+                                        <Text color="gray.500">
+                                            Select a feature to get started
+                                        </Text>
                                     </Box>
                                 )}
                             </Box>
                         </Flex>
 
                         <Box p={4} bg={bgColor} shadow="md">
-                            <Text textAlign="center">
-                                © Training Management System - Powered by AI
+                            <Text textAlign="center" color="gray.500">
+                                © 2024 Training Management System - Powered by AI
                             </Text>
                         </Box>
                     </Flex>
