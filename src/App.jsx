@@ -9,9 +9,19 @@ import {
     HStack,
     Text,
     useColorMode,
-    IconButton
+    IconButton,
+    Grid,
+    Badge,
+    Progress
 } from '@chakra-ui/react';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
+import {
+    SunIcon,
+    MoonIcon,
+    StarIcon,
+    InfoIcon,
+    SettingsIcon,
+    CalendarIcon
+} from '@chakra-ui/icons';
 import { useState } from 'react';
 
 function App() {
@@ -20,10 +30,38 @@ function App() {
     const { colorMode, toggleColorMode } = useColorMode();
 
     const navigationItems = {
-        training: ['Exercise Library', 'Session Planning', 'Performance Tracking'],
-        coaching: ['Goal Setting', 'Team Management', 'Exercise Recommendations'],
-        club: ['Philosophy', 'Age Groups', 'Development Pathways'],
-        profile: ['Certifications', 'Experience', 'Achievements']
+        training: [
+            'Exercise Library',
+            'Session Planning',
+            'Performance Tracking',
+            'AI Recommendations'
+        ],
+        coaching: ['Goal Setting', 'Team Management', 'Performance Metrics', 'Training Calendar'],
+        club: ['Philosophy', 'Age Groups', 'Development Pathways', 'Exercise Restrictions'],
+        profile: ['Certifications', 'Experience', 'Achievements', 'Performance Analytics']
+    };
+
+    const featureContent = {
+        'Exercise Library': {
+            title: 'Video Exercise Library',
+            progress: 80,
+            items: ['Multiple Angles', 'Slow Motion', 'Technical Breakdown', 'Difficulty Levels']
+        },
+        'Performance Tracking': {
+            title: 'Performance Analytics',
+            progress: 70,
+            items: ['Heat Maps', 'Player Engagement', 'Progress Metrics', 'Real-time Updates']
+        },
+        'AI Recommendations': {
+            title: 'AI-Powered Training',
+            progress: 60,
+            items: [
+                'Dynamic Selection',
+                'Difficulty Progression',
+                'Real-time Adjustments',
+                'Personalized Plans'
+            ]
+        }
     };
 
     const handleNavigation = (section) => {
@@ -35,6 +73,30 @@ function App() {
         setSelectedFeature(feature);
     };
 
+    const renderFeatureContent = (feature) => {
+        const content = featureContent[feature];
+        if (!content) return <Text>Feature content will be implemented here.</Text>;
+
+        return (
+            <Box>
+                <Heading size="md" mb={4}>
+                    {content.title}
+                </Heading>
+                <Progress value={content.progress} colorScheme="blue" mb={6} />
+                <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                    {content.items.map((item, index) => (
+                        <Box key={index} p={4} borderRadius="md" borderWidth="1px">
+                            <HStack>
+                                <InfoIcon />
+                                <Text>{item}</Text>
+                            </HStack>
+                        </Box>
+                    ))}
+                </Grid>
+            </Box>
+        );
+    };
+
     return (
         <ChakraProvider>
             <Box minH="100vh" bg={colorMode === 'light' ? 'gray.50' : 'gray.800'}>
@@ -42,12 +104,18 @@ function App() {
                     <Flex direction="column" h="100vh">
                         <Box p={4} bg={colorMode === 'light' ? 'white' : 'gray.700'} shadow="md">
                             <Flex justify="space-between" align="center">
-                                <Heading size="lg">Training Management System</Heading>
-                                <IconButton
-                                    icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                                    onClick={toggleColorMode}
-                                    variant="ghost"
-                                />
+                                <HStack spacing={2}>
+                                    <SettingsIcon w={6} h={6} />
+                                    <Heading size="lg">Training Management System</Heading>
+                                </HStack>
+                                <HStack>
+                                    <Badge colorScheme="green">Phase 1</Badge>
+                                    <IconButton
+                                        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                                        onClick={toggleColorMode}
+                                        variant="ghost"
+                                    />
+                                </HStack>
                             </Flex>
                             <HStack spacing={4} mt={4}>
                                 {Object.keys(navigationItems).map((section) => (
@@ -55,6 +123,9 @@ function App() {
                                         key={section}
                                         colorScheme={activeSection === section ? 'blue' : 'gray'}
                                         onClick={() => handleNavigation(section)}
+                                        leftIcon={
+                                            section === 'profile' ? <StarIcon /> : <CalendarIcon />
+                                        }
                                     >
                                         {section.charAt(0).toUpperCase() + section.slice(1)}
                                     </Button>
@@ -94,12 +165,7 @@ function App() {
                                 shadow="sm"
                             >
                                 {selectedFeature ? (
-                                    <Box>
-                                        <Heading size="md" mb={4}>
-                                            {selectedFeature}
-                                        </Heading>
-                                        <Text>Feature content will be implemented here.</Text>
-                                    </Box>
+                                    renderFeatureContent(selectedFeature)
                                 ) : (
                                     <Box textAlign="center" py={10}>
                                         <Heading size="md" mb={4}>
@@ -115,7 +181,9 @@ function App() {
                         </Flex>
 
                         <Box p={4} bg={colorMode === 'light' ? 'white' : 'gray.700'} shadow="md">
-                            <Text textAlign="center">Training Management System - Phase 1</Text>
+                            <Text textAlign="center">
+                                © Training Management System - Powered by AI
+                            </Text>
                         </Box>
                     </Flex>
                 </Container>
