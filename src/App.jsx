@@ -12,7 +12,8 @@ import {
     IconButton,
     Grid,
     Badge,
-    Progress
+    Progress,
+    useColorModeValue
 } from '@chakra-ui/react';
 import {
     SunIcon,
@@ -28,6 +29,9 @@ function App() {
     const [activeSection, setActiveSection] = useState('training');
     const [selectedFeature, setSelectedFeature] = useState(null);
     const { colorMode, toggleColorMode } = useColorMode();
+
+    const bgColor = useColorModeValue('white', 'gray.700');
+    const containerBg = useColorModeValue('gray.50', 'gray.800');
 
     const navigationItems = {
         training: [
@@ -99,10 +103,10 @@ function App() {
 
     return (
         <ChakraProvider>
-            <Box minH="100vh" bg={colorMode === 'light' ? 'gray.50' : 'gray.800'}>
+            <Box minH="100vh" bg={containerBg}>
                 <Container maxW="container.xl" p={0}>
                     <Flex direction="column" h="100vh">
-                        <Box p={4} bg={colorMode === 'light' ? 'white' : 'gray.700'} shadow="md">
+                        <Box p={4} bg={bgColor} shadow="md">
                             <Flex justify="space-between" align="center">
                                 <HStack spacing={2}>
                                     <SettingsIcon w={6} h={6} />
@@ -138,7 +142,7 @@ function App() {
                                 w="250px"
                                 spacing={3}
                                 align="stretch"
-                                bg={colorMode === 'light' ? 'white' : 'gray.700'}
+                                bg={bgColor}
                                 p={4}
                                 borderRadius="md"
                                 shadow="sm"
@@ -150,20 +154,14 @@ function App() {
                                         colorScheme={selectedFeature === feature ? 'blue' : 'gray'}
                                         onClick={() => handleFeatureSelect(feature)}
                                         justifyContent="flex-start"
+                                        // _hover={{ bg: useColorModeValue('gray.100', 'gray.600') }}
                                     >
                                         {feature}
                                     </Button>
                                 ))}
                             </VStack>
 
-                            <Box
-                                flex={1}
-                                ml={4}
-                                p={6}
-                                bg={colorMode === 'light' ? 'white' : 'gray.700'}
-                                borderRadius="md"
-                                shadow="sm"
-                            >
+                            <Box flex={1} ml={4} p={6} bg={bgColor} borderRadius="md" shadow="sm">
                                 {selectedFeature ? (
                                     renderFeatureContent(selectedFeature)
                                 ) : (
@@ -180,7 +178,7 @@ function App() {
                             </Box>
                         </Flex>
 
-                        <Box p={4} bg={colorMode === 'light' ? 'white' : 'gray.700'} shadow="md">
+                        <Box p={4} bg={bgColor} shadow="md">
                             <Text textAlign="center">
                                 © Training Management System - Powered by AI
                             </Text>
