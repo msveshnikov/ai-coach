@@ -4,10 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>AI-Powered Training Management System</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <style>
             * {
                 margin: 0;
@@ -29,86 +26,116 @@
             }
 
             .hero {
-                background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                background: linear-gradient(45deg, rgba(37, 99, 235, 0.9), rgba(0, 0, 0, 0.8)),
                     url('https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80');
                 background-size: cover;
                 background-position: center;
                 color: white;
-                padding: 150px 0;
+                padding: 180px 0;
                 text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::after {
+                content: '';
+                position: absolute;
+                bottom: -50px;
+                left: 0;
+                width: 100%;
+                height: 100px;
+                background: #f8fafc;
+                transform: skewY(-3deg);
             }
 
             .hero h1 {
-                font-size: 4rem;
+                font-size: 4.5rem;
                 margin-bottom: 20px;
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                background: linear-gradient(to right, #ffffff, #e2e8f0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
 
             .hero p {
-                font-size: 1.5rem;
-                margin-bottom: 30px;
+                font-size: 1.7rem;
+                margin-bottom: 40px;
+                color: #e2e8f0;
             }
 
             .features {
-                padding: 100px 0;
+                padding: 120px 0;
                 background: white;
+                position: relative;
             }
 
             .feature-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 40px;
-                margin-top: 60px;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 50px;
+                margin-top: 80px;
             }
 
             .feature-card {
                 background: white;
-                padding: 40px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
+                padding: 50px;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border: 1px solid #f1f5f9;
             }
 
             .feature-card:hover {
-                transform: translateY(-10px);
+                transform: translateY(-15px);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+                border-color: #2563eb;
             }
 
             .benefits {
-                padding: 100px 0;
-                background: #f1f5f9;
+                padding: 120px 0;
+                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
             }
 
             .benefits-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 30px;
-                margin-top: 40px;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 40px;
+                margin-top: 60px;
             }
 
             .benefit-card {
                 background: white;
-                padding: 30px;
-                border-radius: 10px;
+                padding: 40px;
+                border-radius: 15px;
                 text-align: center;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+            }
+
+            .benefit-card:hover {
+                transform: scale(1.05);
             }
 
             .cta {
-                padding: 100px 0;
-                background: #2563eb;
+                padding: 120px 0;
+                background: linear-gradient(135deg, #2563eb, #1d4ed8);
                 color: white;
                 text-align: center;
+                position: relative;
             }
 
             .btn {
                 display: inline-block;
-                padding: 15px 30px;
+                padding: 18px 35px;
                 background: #ffffff;
                 color: #2563eb;
                 text-decoration: none;
-                border-radius: 30px;
+                border-radius: 40px;
                 font-weight: 600;
                 margin: 10px;
-                transition: all 0.3s ease;
+                transition: all 0.4s ease;
+                font-size: 1.1rem;
+                border: 2px solid transparent;
             }
 
             .btn-outline {
@@ -118,26 +145,43 @@
             }
 
             .btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
             }
 
             .section-title {
                 text-align: center;
-                margin-bottom: 60px;
-                font-size: 2.5rem;
+                margin-bottom: 70px;
+                font-size: 3rem;
                 color: #1a202c;
+                position: relative;
+                padding-bottom: 20px;
+            }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: #2563eb;
+                border-radius: 2px;
             }
 
             @media (max-width: 768px) {
                 .hero h1 {
-                    font-size: 2.5rem;
+                    font-size: 2.8rem;
                 }
                 .hero p {
-                    font-size: 1.2rem;
+                    font-size: 1.3rem;
                 }
                 .section-title {
-                    font-size: 2rem;
+                    font-size: 2.2rem;
+                }
+                .feature-card, .benefit-card {
+                    padding: 30px;
                 }
             }
         </style>
@@ -158,23 +202,15 @@
                 <div class="feature-grid">
                     <div class="feature-card">
                         <h3>AI-Powered Training</h3>
-                        <p>
-                            Dynamic exercise selection and real-time adjustments based on
-                            performance data
-                        </p>
+                        <p>Dynamic exercise selection and real-time adjustments based on performance data</p>
                     </div>
                     <div class="feature-card">
                         <h3>Club Philosophy</h3>
-                        <p>
-                            Implement consistent methodology and track progression across age groups
-                        </p>
+                        <p>Implement consistent methodology and track progression across age groups</p>
                     </div>
                     <div class="feature-card">
                         <h3>Exercise Library</h3>
-                        <p>
-                            Access thousands of exercises with video demonstrations and technical
-                            breakdowns
-                        </p>
+                        <p>Access thousands of exercises with video demonstrations and technical breakdowns</p>
                     </div>
                 </div>
             </div>
