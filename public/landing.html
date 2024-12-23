@@ -3,11 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Training Management System</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
+        <title>AI-Powered Training Management System</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <style>
             * {
                 margin: 0;
@@ -51,20 +48,7 @@
 
             .features {
                 padding: 100px 0;
-                background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80')
-                    fixed;
-                background-size: cover;
-                position: relative;
-            }
-
-            .features::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: white;
             }
 
             .feature-grid {
@@ -72,7 +56,6 @@
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 40px;
                 margin-top: 60px;
-                position: relative;
             }
 
             .feature-card {
@@ -87,47 +70,53 @@
                 transform: translateY(-10px);
             }
 
-            .pricing {
+            .benefits {
                 padding: 100px 0;
-                background: linear-gradient(135deg, #f6f6f6 0%, #ffffff 100%);
+                background: #f1f5f9;
             }
 
-            .pricing-grid {
+            .benefits-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 40px;
-                margin-top: 60px;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin-top: 40px;
             }
 
-            .pricing-card {
+            .benefit-card {
                 background: white;
-                padding: 40px;
-                border-radius: 15px;
+                padding: 30px;
+                border-radius: 10px;
                 text-align: center;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
             }
 
-            .pricing-card:hover {
-                transform: scale(1.05);
+            .cta {
+                padding: 100px 0;
+                background: #2563eb;
+                color: white;
+                text-align: center;
             }
 
             .btn {
                 display: inline-block;
                 padding: 15px 30px;
-                background: #2563eb;
-                color: white;
+                background: #ffffff;
+                color: #2563eb;
                 text-decoration: none;
                 border-radius: 30px;
                 font-weight: 600;
-                margin-top: 30px;
+                margin: 10px;
                 transition: all 0.3s ease;
             }
 
+            .btn-outline {
+                background: transparent;
+                border: 2px solid white;
+                color: white;
+            }
+
             .btn:hover {
-                background: #1d4ed8;
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+                box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
             }
 
             .section-title {
@@ -135,23 +124,6 @@
                 margin-bottom: 60px;
                 font-size: 2.5rem;
                 color: #1a202c;
-                position: relative;
-            }
-
-            .price {
-                font-size: 2rem;
-                font-weight: 700;
-                margin: 20px 0;
-                color: #2563eb;
-            }
-
-            ul {
-                list-style: none;
-                margin: 20px 0;
-            }
-
-            ul li {
-                margin: 10px 0;
             }
 
             @media (max-width: 768px) {
@@ -170,79 +142,66 @@
     <body>
         <section class="hero">
             <div class="container">
-                <h1>Training Management System</h1>
-                <p>Elevate Your Coaching with AI-Powered Training Solutions</p>
-                <a href="/" class="btn">Start Your Journey</a>
+                <h1>Transform Your Coaching with AI</h1>
+                <p>Intelligent training management for modern coaches and clubs</p>
+                <a href="#" class="btn">Start Free Trial</a>
+                <a href="#" class="btn btn-outline">Watch Demo</a>
             </div>
         </section>
 
         <section class="features">
             <div class="container">
-                <h2 class="section-title">Transformative Features</h2>
+                <h2 class="section-title">Key Features</h2>
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <h3>Smart Training Design</h3>
-                        <p>
-                            Leverage AI for personalized training programs, performance tracking,
-                            and real-time adaptations.
-                        </p>
+                        <h3>AI-Powered Training</h3>
+                        <p>Dynamic exercise selection and real-time adjustments based on performance data</p>
                     </div>
                     <div class="feature-card">
-                        <h3>Club Management Suite</h3>
-                        <p>
-                            Comprehensive tools for philosophy implementation, player development,
-                            and resource management.
-                        </p>
+                        <h3>Club Philosophy</h3>
+                        <p>Implement consistent methodology and track progression across age groups</p>
                     </div>
                     <div class="feature-card">
-                        <h3>Advanced Analytics</h3>
-                        <p>
-                            Deep insights into performance metrics, progress tracking, and
-                            predictive analysis.
-                        </p>
+                        <h3>Exercise Library</h3>
+                        <p>Access thousands of exercises with video demonstrations and technical breakdowns</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="pricing" id="pricing">
+        <section class="benefits">
             <div class="container">
-                <h2 class="section-title">Choose Your Plan</h2>
-                <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <h3>Starter</h3>
-                        <p class="price">$29/month</p>
-                        <ul>
-                            <li>Basic Training Tools</li>
-                            <li>Exercise Library Access</li>
-                            <li>Performance Tracking</li>
-                            <li>Email Support</li>
-                        </ul>
-                        <a href="/" class="btn">Get Started</a>
+                <h2 class="section-title">Why Choose Us</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h3>Save Time</h3>
+                        <p>Automated planning tools streamline your workflow</p>
                     </div>
-                    <div class="pricing-card">
-                        <h3>Professional</h3>
-                        <p class="price">$79/month</p>
-                        <ul>
-                            <li>AI-Powered Features</li>
-                            <li>Advanced Analytics</li>
-                            <li>Mobile App Access</li>
-                            <li>Priority Support</li>
-                        </ul>
-                        <a href="/" class="btn">Upgrade Now</a>
+                    <div class="benefit-card">
+                        <h3>Better Results</h3>
+                        <p>Data-driven insights optimize player development</p>
                     </div>
-                    <div class="pricing-card">
-                        <h3>Enterprise</h3>
-                        <p class="price">Custom</p>
-                        <ul>
-                            <li>Full Platform Access</li>
-                            <li>Custom Integrations</li>
-                            <li>Dedicated Support</li>
-                            <li>Training Consultation</li>
-                        </ul>
-                        <a href="/" class="btn">Contact Sales</a>
+                    <div class="benefit-card">
+                        <h3>Stay Connected</h3>
+                        <p>Collaborate seamlessly with your coaching staff</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Grow Skills</h3>
+                        <p>Access professional development resources</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Ready to Get Started?</h2>
+                <p>Join thousands of coaches already transforming their training approach</p>
+                <div style="margin-top: 40px;">
+                    <a href="#" class="btn">Start Free Trial</a>
+                    <a href="#" class="btn btn-outline">Contact Sales</a>
+                </div>
+                <p style="margin-top: 20px;">30-day free trial • No credit card required</p>
             </div>
         </section>
     </body>
