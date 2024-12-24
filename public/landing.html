@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>AI-Powered Training Management System</title>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
         <style>
             * {
                 margin: 0;
@@ -181,9 +184,110 @@
                 .section-title {
                     font-size: 2.2rem;
                 }
-                .feature-card, .benefit-card {
+                .feature-card,
+                .benefit-card {
                     padding: 30px;
                 }
+            }
+
+            .testimonials {
+                padding: 100px 0;
+                background: #ffffff;
+            }
+
+            .testimonial-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+                margin-top: 60px;
+            }
+
+            .testimonial-card {
+                background: #f8fafc;
+                padding: 30px;
+                border-radius: 15px;
+                position: relative;
+            }
+
+            .testimonial-card img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-bottom: 15px;
+            }
+
+            .pricing {
+                padding: 120px 0;
+                background: #ffffff;
+            }
+
+            .pricing-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+                margin-top: 60px;
+            }
+
+            .pricing-card {
+                background: #ffffff;
+                padding: 40px;
+                border-radius: 20px;
+                border: 2px solid #e2e8f0;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+
+            .pricing-card:hover {
+                border-color: #2563eb;
+                transform: scale(1.02);
+            }
+
+            .price {
+                font-size: 3rem;
+                font-weight: bold;
+                color: #2563eb;
+                margin: 20px 0;
+            }
+
+            .feature-list {
+                list-style: none;
+                margin: 30px 0;
+            }
+
+            .feature-list li {
+                margin: 15px 0;
+                color: #4a5568;
+            }
+
+            .how-it-works {
+                padding: 120px 0;
+                background: #f8fafc;
+            }
+
+            .steps-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 40px;
+                margin-top: 60px;
+            }
+
+            .step-card {
+                text-align: center;
+                padding: 30px;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                background: #2563eb;
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 1.5rem;
+                font-weight: bold;
             }
         </style>
     </head>
@@ -203,15 +307,23 @@
                 <div class="feature-grid">
                     <div class="feature-card">
                         <h3>AI-Powered Training</h3>
-                        <p>Dynamic exercise selection and real-time adjustments based on performance data</p>
+                        <p>
+                            Dynamic exercise selection and real-time adjustments based on
+                            performance data
+                        </p>
                     </div>
                     <div class="feature-card">
                         <h3>Club Philosophy</h3>
-                        <p>Implement consistent methodology and track progression across age groups</p>
+                        <p>
+                            Implement consistent methodology and track progression across age groups
+                        </p>
                     </div>
                     <div class="feature-card">
                         <h3>Exercise Library</h3>
-                        <p>Access thousands of exercises with video demonstrations and technical breakdowns</p>
+                        <p>
+                            Access thousands of exercises with video demonstrations and technical
+                            breakdowns
+                        </p>
                     </div>
                 </div>
             </div>
@@ -236,6 +348,111 @@
                     <div class="benefit-card">
                         <h3>Grow Skills</h3>
                         <p>Access professional development resources</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Create Profile</h3>
+                        <p>Set up your coaching profile and define your team's objectives</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Configure AI</h3>
+                        <p>Input your training preferences and let AI customize your experience</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Start Training</h3>
+                        <p>Generate intelligent training plans and track progress in real-time</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing">
+            <div class="container">
+                <h2 class="section-title">Pricing Plans</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Starter</h3>
+                        <div class="price">$29<span style="font-size: 1rem">/month</span></div>
+                        <ul class="feature-list">
+                            <li>Basic AI Training</li>
+                            <li>Exercise Library Access</li>
+                            <li>Team Management</li>
+                            <li>Email Support</li>
+                        </ul>
+                        <a href="/" class="btn">Get Started</a>
+                    </div>
+                    <div class="pricing-card" style="border-color: #2563eb">
+                        <h3>Professional</h3>
+                        <div class="price">$79<span style="font-size: 1rem">/month</span></div>
+                        <ul class="feature-list">
+                            <li>Advanced AI Features</li>
+                            <li>Full Exercise Library</li>
+                            <li>Club Management</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <a href="/" class="btn">Get Started</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Enterprise</h3>
+                        <div class="price">Custom</div>
+                        <ul class="feature-list">
+                            <li>Custom AI Solutions</li>
+                            <li>White Label Option</li>
+                            <li>API Access</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                        <a href="/" class="btn">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">What Coaches Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <img
+                            src="https://randomuser.me/api/portraits/men/1.jpg"
+                            alt="Coach testimonial"
+                        />
+                        <h3>John Cooper</h3>
+                        <p>
+                            "The AI-powered training recommendations have transformed how I plan
+                            sessions. Incredible tool!"
+                        </p>
+                    </div>
+                    <div class="testimonial-card">
+                        <img
+                            src="https://randomuser.me/api/portraits/women/1.jpg"
+                            alt="Coach testimonial"
+                        />
+                        <h3>Sarah Martinez</h3>
+                        <p>
+                            "Finally, a platform that understands modern coaching needs. The club
+                            management features are exceptional."
+                        </p>
+                    </div>
+                    <div class="testimonial-card">
+                        <img
+                            src="https://randomuser.me/api/portraits/men/2.jpg"
+                            alt="Coach testimonial"
+                        />
+                        <h3>Mike Johnson</h3>
+                        <p>
+                            "The exercise library and progression tracking have helped me develop
+                            better athletes consistently."
+                        </p>
                     </div>
                 </div>
             </div>
