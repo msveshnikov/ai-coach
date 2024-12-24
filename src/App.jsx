@@ -33,6 +33,7 @@ import {
 } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import Exercise from './Exercise';
 
 const API_URL = 'https://allchat.online/api';
 
@@ -49,6 +50,45 @@ Please include:
 - Cool down routine
 
 Format the response with clear sections and bullet points.`;
+
+const exercise = {
+    title: 'Fantasiegeschichte',
+    field: {
+        width: 12,
+        height: 12
+    },
+    elements: [
+        {
+            type: 'player',
+            position: { x: 3, y: 3 },
+            team: 'team1'
+        },
+        {
+            type: 'player',
+            position: { x: 9, y: 3 },
+            team: 'team2'
+        },
+        {
+            type: 'cone',
+            position: { x: 6, y: 6 }
+        },
+        {
+            type: 'path',
+            position: { x: 3, y: 3 },
+            path: [
+                { x: 3, y: 3 },
+                { x: 6, y: 6 },
+                { x: 9, y: 3 }
+            ]
+        }
+    ],
+    description: 'Die Kinder sind als Abenteurer im Urwald unterwegs.',
+    organization: [
+        'Ein 12 x 12 Meter großes Feld markieren.',
+        'Im Feld mehrere Hütchen gemäß Abbildung aufstellen.',
+        'Die Gruppe in Abenteurer und Urwaldaffen aufteilen.'
+    ]
+};
 
 function App() {
     const [activeSection, setActiveSection] = useState('training');
@@ -213,6 +253,7 @@ function App() {
                     </Button>
                     {generatedTraining && (
                         <Box borderWidth="1px" borderRadius="md" p={4}>
+                            <Exercise exercise={exercise} />
                             <ReactMarkdown>{generatedTraining}</ReactMarkdown>
                         </Box>
                     )}
