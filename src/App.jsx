@@ -15,7 +15,9 @@ import {
     Progress,
     useColorModeValue,
     Tooltip,
-    Divider
+    Divider,
+    Textarea,
+    useToast
 } from '@chakra-ui/react';
 import {
     SunIcon,
@@ -26,20 +28,29 @@ import {
     AtSignIcon,
     ViewIcon,
     EditIcon,
-    CheckIcon
+    CheckIcon,
+    SpinnerIcon
 } from '@chakra-ui/icons';
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+
+const API_URL = 'https://allchat.online/api';
 
 function App() {
     const [activeSection, setActiveSection] = useState('training');
     const [selectedFeature, setSelectedFeature] = useState(null);
+    const [trainingParams, setTrainingParams] = useState('');
+    const [generatedTraining, setGeneratedTraining] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
+    const toast = useToast();
 
     const bgColor = useColorModeValue('white', 'gray.700');
     const containerBg = useColorModeValue('gray.50', 'gray.800');
 
     const navigationItems = {
         training: [
+            'Create Training',
             'Exercise Library',
             'Session Planning',
             'Performance Tracking',
@@ -120,6 +131,39 @@ function App() {
         }
     };
 
+    const generateTraining = async () => {
+        setIsLoading(true);
+        try {
+            const token = import.meta.env.VITE_CHAT_TOKEN;
+            const response = await fetch(`${API_URL}/interact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ input: trainingParams })
+            });
+            const data = await response.json();
+            setGeneratedTraining(data.textResponse);
+            toast({
+                title: 'Training Generated',
+                status: 'success',
+                duration: 3000,
+                isClosable: true
+            });
+        } catch {
+            toast({
+                title: 'Error',
+                description: 'Failed to generate training',
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const handleNavigation = (section) => {
         setActiveSection(section);
         setSelectedFeature(null);
@@ -130,6 +174,37 @@ function App() {
     };
 
     const renderFeatureContent = (feature) => {
+        if (feature === 'Create Training') {
+            return (
+                <Box>
+                    <Heading size="md" mb={4}>
+                        Create Training Session
+                    </Heading>
+                    <Textarea
+                        value={trainingParams}
+                        onChange={(e) => setTrainingParams(e.target.value)}
+                        placeholder="Enter training parameters (age group, skill level, focus areas, duration, etc.)"
+                        mb={4}
+                        rows={6}
+                    />
+                    <Button
+                        colorScheme="blue"
+                        onClick={generateTraining}
+                        isLoading={isLoading}
+                        leftIcon={isLoading ? <SpinnerIcon /> : null}
+                        mb={4}
+                    >
+                        Generate Training
+                    </Button>
+                    {generatedTraining && (
+                        <Box borderWidth="1px" borderRadius="md" p={4}>
+                            <ReactMarkdown>{generatedTraining}</ReactMarkdown>
+                        </Box>
+                    )}
+                </Box>
+            );
+        }
+
         const content = featureContent[feature];
         if (!content) return <Text>Feature content will be implemented soon.</Text>;
 
