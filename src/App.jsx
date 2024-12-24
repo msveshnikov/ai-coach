@@ -17,7 +17,18 @@ import {
     Tooltip,
     Divider,
     Textarea,
-    useToast
+    useToast,
+    Drawer,
+    DrawerBody,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    useDisclosure,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
 } from '@chakra-ui/react';
 import {
     SunIcon,
@@ -29,7 +40,9 @@ import {
     ViewIcon,
     EditIcon,
     CheckIcon,
-    SpinnerIcon
+    SpinnerIcon,
+    HamburgerIcon,
+    ChevronDownIcon
 } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -127,6 +140,7 @@ const exercise = {
 };
 
 function App() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [activeSection, setActiveSection] = useState('training');
     const [selectedFeature, setSelectedFeature] = useState(null);
     const [trainingParams, setTrainingParams] = useState('');
@@ -333,12 +347,28 @@ function App() {
                         <Box p={4} bg={bgColor} shadow="md">
                             <Flex justify="space-between" align="center">
                                 <HStack spacing={2}>
+                                    <IconButton
+                                        display={{ base: 'flex', md: 'none' }}
+                                        onClick={onOpen}
+                                        icon={<HamburgerIcon />}
+                                        variant="ghost"
+                                    />
                                     <SettingsIcon w={6} h={6} />
-                                    <Heading size="lg">Training Management System</Heading>
+                                    <Heading size={{ base: 'md', md: 'lg' }}>TMS</Heading>
                                 </HStack>
                                 <HStack spacing={4}>
-                                    <Badge colorScheme="green">Phase 1</Badge>
-                                    <Badge colorScheme="blue">Beta</Badge>
+                                    <Badge
+                                        display={{ base: 'none', md: 'flex' }}
+                                        colorScheme="green"
+                                    >
+                                        Phase 1
+                                    </Badge>
+                                    <Badge
+                                        display={{ base: 'none', md: 'flex' }}
+                                        colorScheme="blue"
+                                    >
+                                        Beta
+                                    </Badge>
                                     <IconButton
                                         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                         onClick={toggleColorMode}
@@ -347,7 +377,7 @@ function App() {
                                 </HStack>
                             </Flex>
                             <Divider my={4} />
-                            <HStack spacing={4}>
+                            <HStack display={{ base: 'none', md: 'flex' }} spacing={4}>
                                 {Object.keys(navigationItems).map((section) => (
                                     <Button
                                         key={section}
@@ -370,10 +400,26 @@ function App() {
                                     </Button>
                                 ))}
                             </HStack>
+                            <Menu display={{ base: 'block', md: 'none' }}>
+                                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                                    {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
+                                </MenuButton>
+                                <MenuList>
+                                    {Object.keys(navigationItems).map((section) => (
+                                        <MenuItem
+                                            key={section}
+                                            onClick={() => handleNavigation(section)}
+                                        >
+                                            {section.charAt(0).toUpperCase() + section.slice(1)}
+                                        </MenuItem>
+                                    ))}
+                                </MenuList>
+                            </Menu>
                         </Box>
 
                         <Flex flex={1} p={4}>
                             <VStack
+                                display={{ base: 'none', md: 'flex' }}
                                 w="250px"
                                 spacing={3}
                                 align="stretch"
@@ -396,7 +442,50 @@ function App() {
                                 ))}
                             </VStack>
 
-                            <Box flex={1} ml={4} p={6} bg={bgColor} borderRadius="md" shadow="sm">
+                            <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+                                <DrawerOverlay>
+                                    <DrawerContent>
+                                        <DrawerCloseButton />
+                                        <DrawerHeader>Menu</DrawerHeader>
+                                        <DrawerBody>
+                                            <VStack spacing={3} align="stretch">
+                                                {navigationItems[activeSection].map((feature) => (
+                                                    <Button
+                                                        key={feature}
+                                                        variant={
+                                                            selectedFeature === feature
+                                                                ? 'solid'
+                                                                : 'ghost'
+                                                        }
+                                                        colorScheme={
+                                                            selectedFeature === feature
+                                                                ? 'blue'
+                                                                : 'gray'
+                                                        }
+                                                        onClick={() => {
+                                                            handleFeatureSelect(feature);
+                                                            onClose();
+                                                        }}
+                                                        justifyContent="flex-start"
+                                                        leftIcon={<EditIcon />}
+                                                    >
+                                                        {feature}
+                                                    </Button>
+                                                ))}
+                                            </VStack>
+                                        </DrawerBody>
+                                    </DrawerContent>
+                                </DrawerOverlay>
+                            </Drawer>
+
+                            <Box
+                                flex={1}
+                                ml={{ base: 0, md: 4 }}
+                                p={6}
+                                bg={bgColor}
+                                borderRadius="md"
+                                shadow="sm"
+                            >
                                 {selectedFeature ? (
                                     renderFeatureContent(selectedFeature)
                                 ) : (
