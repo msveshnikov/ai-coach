@@ -30,11 +30,9 @@ const Exercise = ({ exercise }) => {
         };
 
         const drawPlayer = (x, y, team) => {
-            ctx.beginPath();
-            ctx.arc(x, y, 10, 0, Math.PI * 2);
-            ctx.fillStyle = team === 'team1' ? '#FF0000' : '#0000FF';
-            ctx.fill();
-            ctx.stroke();
+            ctx.font = '30px Arial';
+            const emoji = team === 'team1' ? '🤾‍♂️' : '🤾‍♀️';
+            ctx.fillText(emoji, x - 10, y + 10);
         };
 
         const drawCone = (x, y) => {
