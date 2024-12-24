@@ -36,6 +36,20 @@ import ReactMarkdown from 'react-markdown';
 
 const API_URL = 'https://allchat.online/api';
 
+const PROMPT_TEMPLATE = `Generate a detailed football training session based on these parameters:
+
+Parameters:
+{trainingParams}
+
+Please include:
+- Warm-up exercises
+- Technical drills
+- Tactical exercises 
+- Game situations
+- Cool down routine
+
+Format the response with clear sections and bullet points.`;
+
 function App() {
     const [activeSection, setActiveSection] = useState('training');
     const [selectedFeature, setSelectedFeature] = useState(null);
@@ -135,13 +149,14 @@ function App() {
         setIsLoading(true);
         try {
             const token = import.meta.env.VITE_CHAT_TOKEN;
+            const prompt = PROMPT_TEMPLATE.replace('{trainingParams}', trainingParams);
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ input: trainingParams })
+                body: JSON.stringify({ input: prompt })
             });
             const data = await response.json();
             setGeneratedTraining(data.textResponse);
