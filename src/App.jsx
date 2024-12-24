@@ -62,7 +62,76 @@ Please include:
 - Game situations
 - Cool down routine
 
-Format the response with clear sections and bullet points.`;
+Format the response with clear sections and bullet points.
+
+Also include a diagram of the training with player positions and cones. Diagram should be in JSON schema:
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["field", "elements"],
+    "properties": {
+        "field": {
+            "type": "object",
+            "required": ["width", "height"],
+            "properties": {
+                "width": {
+                    "type": "number",
+                    "description": "Width of the field in meters"
+                },
+                "height": {
+                    "type": "number",
+                    "description": "Height of the field in meters"
+                }
+            }
+        },
+        "elements": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type", "position"],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["player", "cone", "path"],
+                        "description": "Type of element on the field"
+                    },
+                    "position": {
+                        "type": "object",
+                        "required": ["x", "y"],
+                        "properties": {
+                            "x": {
+                                "type": "number",
+                                "description": "X coordinate on the field"
+                            },
+                            "y": {
+                                "type": "number",
+                                "description": "Y coordinate on the field"
+                            }
+                        }
+                    },
+                    "team": {
+                        "type": "string",
+                        "enum": ["team1", "team2"],
+                        "description": "Team assignment for players"
+                    },
+                    "path": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["x", "y"],
+                            "properties": {
+                                "x": { "type": "number" },
+                                "y": { "type": "number" }
+                            }
+                        },
+                        "description": "Array of points defining a movement path"
+                    }
+                }
+            }
+        },
+    }
+}
+`;
 
 const exercise = {
     title: 'Fantasiegeschichte',
@@ -246,7 +315,7 @@ function App() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ input: prompt })
+                body: JSON.stringify({ input: prompt, model: 'gpt-4o-mini' })
             });
             const data = await response.json();
             setGeneratedTraining(data.textResponse);
