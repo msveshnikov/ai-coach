@@ -64,7 +64,7 @@ const exercise = {
             team: 'team1'
         },
         {
-            type: 'player', 
+            type: 'player',
             position: { x: 9, y: 3 },
             team: 'team2'
         },
@@ -88,7 +88,7 @@ const exercise = {
             position: { x: 6, y: 6 }
         },
         {
-            type: 'cone', 
+            type: 'cone',
             position: { x: 3, y: 9 }
         },
         {
