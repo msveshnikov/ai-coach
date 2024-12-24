@@ -125,4 +125,5 @@ https://training-management-system.netlify.app/landing.html
 
 # TODO
 
--   add create a training feature with a text box to enter parameters of the training and a button to generate by AI REST call, and display the result in a MD-formatted text box 
+- add create a training feature with a text box to enter parameters of the training and a button to
+  generate by AI REST call, and display the result in a MD-formatted text box

@@ -64,13 +64,40 @@ const exercise = {
             team: 'team1'
         },
         {
-            type: 'player',
+            type: 'player', 
             position: { x: 9, y: 3 },
             team: 'team2'
         },
         {
+            type: 'player',
+            position: { x: 6, y: 9 },
+            team: 'team1'
+        },
+        {
+            type: 'player',
+            position: { x: 2, y: 7 },
+            team: 'team2'
+        },
+        {
+            type: 'player',
+            position: { x: 10, y: 7 },
+            team: 'team1'
+        },
+        {
             type: 'cone',
             position: { x: 6, y: 6 }
+        },
+        {
+            type: 'cone', 
+            position: { x: 3, y: 9 }
+        },
+        {
+            type: 'cone',
+            position: { x: 9, y: 9 }
+        },
+        {
+            type: 'ball',
+            position: { x: 6, y: 3 }
         },
         {
             type: 'path',
@@ -79,6 +106,15 @@ const exercise = {
                 { x: 3, y: 3 },
                 { x: 6, y: 6 },
                 { x: 9, y: 3 }
+            ]
+        },
+        {
+            type: 'path',
+            position: { x: 6, y: 9 },
+            path: [
+                { x: 6, y: 9 },
+                { x: 6, y: 6 },
+                { x: 6, y: 3 }
             ]
         }
     ],
