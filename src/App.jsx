@@ -211,9 +211,10 @@ const exercise = {
 function App() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [activeSection, setActiveSection] = useState('training');
-    const [selectedFeature, setSelectedFeature] = useState(null);
+    const [selectedFeature, setSelectedFeature] = useState('Create Training');
     const [trainingParams, setTrainingParams] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
+    const [exerciseData, setExerciseData] = useState(exercise);
     const [isLoading, setIsLoading] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
     const toast = useToast();
@@ -304,6 +305,12 @@ function App() {
         }
     };
 
+    function cleanGeneratedCode(code) {
+        const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
+        const match = code.match(codeBlockRegex);
+        return match ? match[1] : null;
+    }
+
     const generateTraining = async () => {
         setIsLoading(true);
         try {
@@ -315,10 +322,23 @@ function App() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ input: prompt, model: 'gpt-4o-mini' })
+                body: JSON.stringify({ input: prompt, model: 'gpt-4o' })
             });
             const data = await response.json();
             setGeneratedTraining(data.textResponse);
+
+            // Extract JSON diagram from response
+            const jsonMatch = cleanGeneratedCode(data.textResponse);
+            if (jsonMatch) {
+                try {
+                    console.log(jsonMatch);
+                    const diagramData = JSON.parse(jsonMatch);
+                    setExerciseData(diagramData);
+                } catch {
+                    console.error('Failed to parse diagram JSON');
+                }
+            }
+
             toast({
                 title: 'Training Generated',
                 status: 'success',
@@ -372,7 +392,7 @@ function App() {
                     </Button>
                     {generatedTraining && (
                         <Box borderWidth="1px" borderRadius="md" p={4}>
-                            <Exercise exercise={exercise} />
+                            <Exercise exercise={exerciseData} />
                             <ReactMarkdown>{generatedTraining}</ReactMarkdown>
                         </Box>
                     )}
