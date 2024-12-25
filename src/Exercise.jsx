@@ -64,8 +64,8 @@ const Exercise = ({ exercise }) => {
             const scaleY = (canvas.height - 2 * padding) / exercise.field.height;
 
             exercise.elements.forEach((element) => {
-                const x = padding + element.position.x * scaleX;
-                const y = padding + element.position.y * scaleY;
+                const x = padding + (element.position?.x ?? 0) * scaleX;
+                const y = padding + (element.position?.y ?? 0) * scaleY;
 
                 switch (element.type) {
                     case 'player':

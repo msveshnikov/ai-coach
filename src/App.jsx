@@ -18,7 +18,13 @@ import {
     RadioGroup,
     Radio,
     Stack,
-    useToast
+    useToast,
+    Textarea,
+    Tabs,
+    TabList,
+    TabPanels,
+    Tab,
+    TabPanel
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
@@ -27,10 +33,13 @@ import Exercise from './Exercise';
 
 const API_URL = 'https://allchat.online/api';
 
-const PROMPT_TEMPLATE = `Generate a detailed football training session based on these parameters:
+const PROMPT_TEMPLATE = `Create a detailed football training session based on these parameters:
 
 Parameters:
 {trainingParams}
+
+Additional Information:
+{additionalInfo}
 
 Please include:
 - Warm-up exercises
@@ -111,77 +120,119 @@ Also include a diagram of the training with player positions and cones. Diagram 
 `;
 
 const exercise = {
-    title: 'Fantasiegeschichte',
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    type: 'object',
+    required: ['field', 'elements'],
+    properties: {
+        field: {
+            type: 'object',
+            required: ['width', 'height'],
+            properties: {
+                width: {
+                    type: 'number',
+                    description: 'Width of the field in meters',
+                    example: 50
+                },
+                height: {
+                    type: 'number',
+                    description: 'Height of the field in meters',
+                    example: 40
+                }
+            }
+        },
+        elements: {
+            type: 'array',
+            items: {
+                type: 'object',
+                required: ['type', 'position'],
+                properties: {
+                    type: {
+                        type: 'string',
+                        enum: ['player', 'cone', 'path'],
+                        description: 'Type of element on the field'
+                    },
+                    position: {
+                        type: 'object',
+                        required: ['x', 'y'],
+                        properties: {
+                            x: {
+                                type: 'number',
+                                description: 'X coordinate on the field'
+                            },
+                            y: {
+                                type: 'number',
+                                description: 'Y coordinate on the field'
+                            }
+                        }
+                    },
+                    team: {
+                        type: 'string',
+                        enum: ['team1', 'team2'],
+                        description: 'Team assignment for players'
+                    },
+                    path: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            required: ['x', 'y'],
+                            properties: {
+                                x: { type: 'number' },
+                                y: { type: 'number' }
+                            }
+                        },
+                        description: 'Array of points defining a movement path'
+                    }
+                }
+            }
+        }
+    },
     field: {
-        width: 12,
-        height: 12
+        width: 50,
+        height: 40
     },
     elements: [
         {
+            type: 'cone',
+            position: { x: 10, y: 5 }
+        },
+        {
+            type: 'cone',
+            position: { x: 15, y: 10 }
+        },
+        {
+            type: 'cone',
+            position: { x: 20, y: 15 }
+        },
+        {
+            type: 'cone',
+            position: { x: 25, y: 20 }
+        },
+        {
+            type: 'cone',
+            position: { x: 30, y: 25 }
+        },
+        {
             type: 'player',
-            position: { x: 3, y: 3 },
+            position: { x: 5, y: 10 },
             team: 'team1'
         },
         {
             type: 'player',
-            position: { x: 9, y: 3 },
+            position: { x: 45, y: 30 },
             team: 'team2'
         },
         {
-            type: 'player',
-            position: { x: 6, y: 9 },
-            team: 'team1'
-        },
-        {
-            type: 'player',
-            position: { x: 2, y: 7 },
-            team: 'team2'
-        },
-        {
-            type: 'player',
-            position: { x: 10, y: 7 },
-            team: 'team1'
-        },
-        {
-            type: 'cone',
-            position: { x: 6, y: 6 }
-        },
-        {
-            type: 'cone',
-            position: { x: 3, y: 9 }
-        },
-        {
-            type: 'cone',
-            position: { x: 9, y: 9 }
-        },
-        {
-            type: 'ball',
-            position: { x: 6, y: 3 }
-        },
-        {
             type: 'path',
-            position: { x: 3, y: 3 },
             path: [
-                { x: 3, y: 3 },
-                { x: 6, y: 6 },
-                { x: 9, y: 3 }
-            ]
-        },
-        {
-            type: 'path',
-            position: { x: 6, y: 9 },
-            path: [
-                { x: 6, y: 9 },
-                { x: 6, y: 6 },
-                { x: 6, y: 3 }
+                { x: 5, y: 10 },
+                { x: 10, y: 5 },
+                { x: 15, y: 10 },
+                { x: 20, y: 15 },
+                { x: 25, y: 20 },
+                { x: 30, y: 25 },
+                { x: 45, y: 30 }
             ]
         }
-    ],
-    description: 'Die Kinder sind als Abenteurer im Urwald unterwegs.',
-    organization: [
-        'Ein 12 x 12 Meter großes Feld markieren.',
-        'Im Feld mehrere Hütchen gemäß Abbildung aufstellen.',
-        'Die Gruppe in Abenteurer und Urwaldaffen aufteilen.'
     ]
 };
 
@@ -192,9 +243,11 @@ function App() {
     const [performanceClass, setPerformanceClass] = useState('');
     const [duration, setDuration] = useState('');
     const [trainingAim, setTrainingAim] = useState('');
+    const [additionalInfo, setAdditionalInfo] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
     const [exerciseData, setExerciseData] = useState(exercise);
 
+    const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
     const toast = useToast();
@@ -221,7 +274,10 @@ function App() {
             };
 
             const token = import.meta.env.VITE_CHAT_TOKEN;
-            const prompt = PROMPT_TEMPLATE.replace('{trainingParams}', JSON.stringify(params));
+            const prompt = PROMPT_TEMPLATE.replace(
+                '{trainingParams}',
+                JSON.stringify(params)
+            ).replace('{additionalInfo}', additionalInfo);
 
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
@@ -237,6 +293,7 @@ function App() {
 
             const data = await response.json();
             setGeneratedTraining(data.textResponse);
+            setActiveTab(1);
 
             const jsonMatch = cleanGeneratedCode(data.textResponse);
             if (jsonMatch) {
@@ -281,102 +338,132 @@ function App() {
                             />
                         </Flex>
 
-                        <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
-                            <VStack spacing={4} align="stretch">
-                                <FormControl>
-                                    <FormLabel>Training Type</FormLabel>
-                                    <RadioGroup value={trainingType} onChange={setTrainingType}>
-                                        <Stack direction="row">
-                                            <Radio value="exercise">Exercise</Radio>
-                                            <Radio value="session">Session</Radio>
-                                            <Radio value="cyclus">Cyclus</Radio>
-                                        </Stack>
-                                    </RadioGroup>
-                                </FormControl>
+                        <Tabs index={activeTab} onChange={setActiveTab}>
+                            <TabList>
+                                <Tab>Configuration</Tab>
+                                <Tab>Generated Training</Tab>
+                            </TabList>
 
-                                <FormControl>
-                                    <FormLabel>Age Group</FormLabel>
-                                    <Select
-                                        placeholder="Select age group"
-                                        value={ageGroup}
-                                        onChange={(e) => setAgeGroup(e.target.value)}
-                                    >
-                                        <option value="u8">Under 8</option>
-                                        <option value="u10">Under 10</option>
-                                        <option value="u12">Under 12</option>
-                                        <option value="u14">Under 14</option>
-                                        <option value="u16">Under 16</option>
-                                        <option value="u18">Under 18</option>
-                                        <option value="senior">Senior</option>
-                                    </Select>
-                                </FormControl>
+                            <TabPanels>
+                                <TabPanel>
+                                    <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
+                                        <VStack spacing={4} align="stretch">
+                                            <FormControl>
+                                                <FormLabel>Training Type</FormLabel>
+                                                <RadioGroup
+                                                    value={trainingType}
+                                                    onChange={setTrainingType}
+                                                >
+                                                    <Stack direction="row">
+                                                        <Radio value="exercise">Exercise</Radio>
+                                                        <Radio value="session">Session</Radio>
+                                                        <Radio value="cyclus">Cyclus</Radio>
+                                                    </Stack>
+                                                </RadioGroup>
+                                            </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Number of Players</FormLabel>
-                                    <NumberInput
-                                        min={1}
-                                        value={playerCount}
-                                        onChange={(value) => setPlayerCount(value)}
-                                    >
-                                        <NumberInputField />
-                                    </NumberInput>
-                                </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Age Group</FormLabel>
+                                                <Select
+                                                    placeholder="Select age group"
+                                                    value={ageGroup}
+                                                    onChange={(e) => setAgeGroup(e.target.value)}
+                                                >
+                                                    <option value="u8">Under 8</option>
+                                                    <option value="u10">Under 10</option>
+                                                    <option value="u12">Under 12</option>
+                                                    <option value="u14">Under 14</option>
+                                                    <option value="u16">Under 16</option>
+                                                    <option value="u18">Under 18</option>
+                                                    <option value="senior">Senior</option>
+                                                </Select>
+                                            </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Performance Class</FormLabel>
-                                    <Select
-                                        placeholder="Select performance class"
-                                        value={performanceClass}
-                                        onChange={(e) => setPerformanceClass(e.target.value)}
-                                    >
-                                        <option value="beginner">Beginner</option>
-                                        <option value="advanced">Advanced</option>
-                                        <option value="high">High</option>
-                                        <option value="pro">Professional</option>
-                                    </Select>
-                                </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Number of Players</FormLabel>
+                                                <NumberInput
+                                                    min={1}
+                                                    value={playerCount}
+                                                    onChange={(value) => setPlayerCount(value)}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
+                                            </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Duration</FormLabel>
-                                    <NumberInput
-                                        min={1}
-                                        value={duration}
-                                        onChange={(value) => setDuration(value)}
-                                    >
-                                        <NumberInputField />
-                                    </NumberInput>
-                                </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Performance Class</FormLabel>
+                                                <Select
+                                                    placeholder="Select performance class"
+                                                    value={performanceClass}
+                                                    onChange={(e) =>
+                                                        setPerformanceClass(e.target.value)
+                                                    }
+                                                >
+                                                    <option value="beginner">Beginner</option>
+                                                    <option value="advanced">Advanced</option>
+                                                    <option value="high">High</option>
+                                                    <option value="pro">Professional</option>
+                                                </Select>
+                                            </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Training Aim</FormLabel>
-                                    <Select
-                                        placeholder="Select training aim"
-                                        value={trainingAim}
-                                        onChange={(e) => setTrainingAim(e.target.value)}
-                                    >
-                                        <option value="technical">Technical</option>
-                                        <option value="tactical">Tactical</option>
-                                        <option value="physical">Physical</option>
-                                        <option value="mental">Mental</option>
-                                    </Select>
-                                </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Duration (minutes)</FormLabel>
+                                                <NumberInput
+                                                    min={1}
+                                                    value={duration}
+                                                    onChange={(value) => setDuration(value)}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
+                                            </FormControl>
 
-                                <Button
-                                    colorScheme="blue"
-                                    onClick={generateTraining}
-                                    isLoading={isLoading}
-                                >
-                                    Generate Training
-                                </Button>
-                            </VStack>
-                        </Box>
+                                            <FormControl>
+                                                <FormLabel>Training Aim</FormLabel>
+                                                <Select
+                                                    placeholder="Select training aim"
+                                                    value={trainingAim}
+                                                    onChange={(e) => setTrainingAim(e.target.value)}
+                                                >
+                                                    <option value="technical">Technical</option>
+                                                    <option value="tactical">Tactical</option>
+                                                    <option value="physical">Physical</option>
+                                                    <option value="mental">Mental</option>
+                                                </Select>
+                                            </FormControl>
 
-                        {generatedTraining && (
-                            <Box borderWidth="1px" borderRadius="md" p={4}>
-                                <Exercise exercise={exerciseData} />
-                                <ReactMarkdown>{generatedTraining}</ReactMarkdown>
-                            </Box>
-                        )}
+                                            <FormControl>
+                                                <FormLabel>Additional Information</FormLabel>
+                                                <Textarea
+                                                    value={additionalInfo}
+                                                    onChange={(e) =>
+                                                        setAdditionalInfo(e.target.value)
+                                                    }
+                                                    placeholder="Enter any additional requirements or specifications"
+                                                    rows={4}
+                                                />
+                                            </FormControl>
+
+                                            <Button
+                                                colorScheme="blue"
+                                                onClick={generateTraining}
+                                                isLoading={isLoading}
+                                            >
+                                                Generate Training
+                                            </Button>
+                                        </VStack>
+                                    </Box>
+                                </TabPanel>
+
+                                <TabPanel>
+                                    {generatedTraining && (
+                                        <Box borderWidth="1px" borderRadius="md" p={4}>
+                                            {exerciseData && <Exercise exercise={exerciseData} />}
+                                            <ReactMarkdown>{generatedTraining}</ReactMarkdown>
+                                        </Box>
+                                    )}
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
 
                         <Box p={4} bg={bgColor} shadow="md">
                             <Text textAlign="center" color="gray.500">

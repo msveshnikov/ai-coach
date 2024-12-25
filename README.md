@@ -141,6 +141,3 @@ Apache 2 #DFBE6F
 Azure Radiance 1 #007FFF
 
 # TODO
-
-
-- add text box for the user to input the additional info about the exercise
