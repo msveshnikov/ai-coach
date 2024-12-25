@@ -1,4 +1,5 @@
-# Training Management System
+# Coach AI
+AI solution for coaches/clubs to create training exercises.
 
 ## DEMO
 

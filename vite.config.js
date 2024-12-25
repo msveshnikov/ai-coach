@@ -10,7 +10,7 @@ export default defineConfig({
             includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
             manifest: {
                 name: 'Training Management System',
-                short_name: 'TMS',
+                short_name: 'Coach AI',
                 description: 'AI-powered training management system for coaches and clubs',
                 theme_color: '#ffffff',
                 background_color: '#ffffff',

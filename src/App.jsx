@@ -443,7 +443,7 @@ function App() {
                                         variant="ghost"
                                     />
                                     <SettingsIcon w={6} h={6} />
-                                    <Heading size={{ base: 'md', md: 'lg' }}>TMS</Heading>
+                                    <Heading size={{ base: 'md', md: 'lg' }}>Coach AI</Heading>
                                 </HStack>
                                 <HStack spacing={4}>
                                     <Badge
