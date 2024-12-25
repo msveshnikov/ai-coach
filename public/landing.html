@@ -22,11 +22,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <style>
+            @font-face {
+                font-family: 'Paramount Sans';
+                src: url('/fonts/ParamountSans.woff2') format('woff2');
+            }
+            @font-face {
+                font-family: 'HelveticaLTStd Roman';
+                src: url('/fonts/HelveticaLTStd-Roman.woff2') format('woff2');
+            }
+
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                font-family: 'Inter', sans-serif;
+                font-family: 'Paramount Sans', sans-serif;
+            }
+
+            :root {
+                --apache: #dfbe6f;
+                --azure: #007fff;
             }
 
             body {
@@ -105,7 +119,7 @@
             .feature-card:hover {
                 transform: translateY(-15px);
                 box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-                border-color: #2563eb;
+                border-color: var(--azure);
             }
 
             .benefits {
@@ -145,7 +159,7 @@
                 display: inline-block;
                 padding: 18px 35px;
                 background: #ffffff;
-                color: #2563eb;
+                color: var(--azure);
                 text-decoration: none;
                 border-radius: 40px;
                 font-weight: 600;
@@ -183,7 +197,7 @@
                 transform: translateX(-50%);
                 width: 80px;
                 height: 4px;
-                background: #2563eb;
+                background: var(--azure);
                 border-radius: 2px;
             }
 
@@ -251,14 +265,14 @@
             }
 
             .pricing-card:hover {
-                border-color: #2563eb;
+                border-color: var(--azure);
                 transform: scale(1.02);
             }
 
             .price {
                 font-size: 3rem;
                 font-weight: bold;
-                color: #2563eb;
+                color: var(--azure);
                 margin: 20px 0;
             }
 
@@ -292,7 +306,7 @@
             .step-number {
                 width: 50px;
                 height: 50px;
-                background: #2563eb;
+                background: var(--azure);
                 color: white;
                 border-radius: 50%;
                 display: flex;
@@ -327,7 +341,7 @@
             .logo {
                 font-size: 1.5rem;
                 font-weight: bold;
-                color: #2563eb;
+                color: var(--azure);
                 text-decoration: none;
             }
 
@@ -344,7 +358,7 @@
             }
 
             .nav-link:hover {
-                color: #2563eb;
+                color: var(--azure);
             }
 
             .sticky-nav {
@@ -399,7 +413,7 @@
             .feature-icon {
                 width: 60px;
                 height: 60px;
-                background: #2563eb;
+                background: var(--azure);
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
@@ -446,7 +460,7 @@
             }
 
             .footer-links a:hover {
-                color: #2563eb;
+                color: var(--azure);
             }
 
             .social-links {
@@ -492,19 +506,17 @@
                 <a href="/" class="btn btn-outline">Watch Demo</a>
             </div>
         </section>
-<!-- 
+        <!-- 
         <nav class="nav-bar">
             <div class="nav-container">
-                <a href="/" class="logo">Coach AI</a>
-                <div class="nav-links">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#pricing" class="nav-link">Pricing</a>
-                    <a href="#testimonials" class="nav-link">Testimonials</a>
-                    <a href="/" class="btn" style="padding: 10px 20px">Get Started</a>
-                </div>
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="Coach AI Logo" height="40" />
+                </a>
+                [Rest of nav content]
             </div>
         </nav> -->
 
+        <!-- Added text input in exercise section -->
         <section class="features">
             <div class="container">
                 <h2 class="section-title">Key Features</h2>
@@ -532,7 +544,6 @@
                 </div>
             </div>
         </section>
-        <!-- Stats section after features -->
         <section class="stats-section">
             <div class="container">
                 <div class="stats-grid" data-aos="fade-up">

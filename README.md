@@ -125,36 +125,22 @@ https://training-management-system.netlify.app/landing.html
 - Secure data handling
 - Cloud storage integration
 
+# Design book
+
+## Fonts
+
+- Paramount Sans
+- HelveticaLTStd Roman
+- Paramount Sans
+- Paramount Sans
+
+## colors
+
+Apache 2 #DFBE6F
+
+Azure Radiance 1 #007FFF
+
 # TODO
 
-## The template “Generate a detailed football training session on these parameters” should be split into 3 options.
-
-- Generate a detailed football training exercise…
-- Generate a detailed football training session…
-- Generate a detailed football training cyclus (micro, macro, semester, half season, whole season
-  and so on)
-
-## The parameters have to be a lot more detailed. Included should be the following options.
-
-- Groupage
-- Teamsize
-- Perfomance class (4 different options)
-- Available coaches
-- Duration
-- player profiles?
-- Aim of the training
-
-The approach would be, giving the coach some kind of interface where he puts in those parameters and
-which kind of prompt (one exercise, whole session or whole cyclus). He has to put in every
-information into the interface and after that a training is created.
-
-Interface:
-
-- Select which kind of training you want to create: exercise, session or cyclus.
-- Which age group do you train?
-- How many players are available?
-- Which performance class is your team? (Beginner,Advanced, high, pro)
-- How long is the training? (For exercise: 0-120 min, session: 45-180 min, cyclus: 1 week-12 months)
-- Put in the individual player profiles (Maybe a premium function, so that the session is adapted to
-  the individual profile)
-- Aim of the training (Differentiates between tactic, technic and individual goals)
+- add logo to landing and update designs according to design book
+- add text box for the user to input the additional info about the exercise
