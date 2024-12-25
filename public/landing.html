@@ -250,7 +250,7 @@
 
             .pricing-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(4, 1fr);
                 gap: 30px;
                 margin-top: 60px;
             }
@@ -264,9 +264,9 @@
                 transition: all 0.3s ease;
             }
 
-            .pricing-card:hover {
-                border-color: var(--azure);
-                transform: scale(1.02);
+            .pricing-card.premium {
+                border-color: var(--apache);
+                background: linear-gradient(135deg, #ffffff, #faf6eb);
             }
 
             .price {
@@ -274,6 +274,10 @@
                 font-weight: bold;
                 color: var(--azure);
                 margin: 20px 0;
+            }
+
+            .pricing-card.premium .price {
+                color: var(--apache);
             }
 
             .feature-list {
@@ -619,6 +623,18 @@
                 <h2 class="section-title">Pricing Plans</h2>
                 <div class="pricing-grid">
                     <div class="pricing-card">
+                        <h3>Free</h3>
+                        <div class="price">$0<span style="font-size: 1rem">/month</span></div>
+                        <ul class="feature-list">
+                            <li>Basic Exercise Library</li>
+                            <li>Team Management</li>
+                            <li>Performance Tracking</li>
+                            <li>Email Support</li>
+                        </ul>
+                        <a href="/" class="btn">Get Started</a>
+                    </div>
+
+                    <div class="pricing-card">
                         <h3>Starter</h3>
                         <div class="price">$29<span style="font-size: 1rem">/month</span></div>
                         <ul class="feature-list">
@@ -627,7 +643,7 @@
                             <li>Team Management</li>
                             <li>Email Support</li>
                         </ul>
-                        <a href="/" class="btn">Get Started</a>
+                        <a href="/" class="btn">Upgrade Now</a>
                     </div>
                     <div class="pricing-card" style="border-color: #2563eb">
                         <h3>Professional</h3>
@@ -638,18 +654,21 @@
                             <li>Club Management</li>
                             <li>Priority Support</li>
                         </ul>
-                        <a href="/" class="btn">Get Started</a>
+                        <a href="/" class="btn">Upgrade Now</a>
                     </div>
-                    <div class="pricing-card">
-                        <h3>Enterprise</h3>
-                        <div class="price">Custom</div>
+
+                    <div class="pricing-card premium">
+                        <h3>Premium</h3>
+                        <div class="price">$149<span style="font-size: 1rem">/month</span></div>
                         <ul class="feature-list">
-                            <li>Custom AI Solutions</li>
-                            <li>White Label Option</li>
-                            <li>API Access</li>
-                            <li>24/7 Support</li>
+                            <!-- <li>Advanced AI Features</li>
+                            <li>Full Exercise Library</li> -->
+                            <li>Club Management</li>
+                            <li>Priority Support</li>
+                            <li>Performance Analytics</li>
+                            <li>Custom Training Plans</li>
                         </ul>
-                        <a href="/" class="btn">Contact Us</a>
+                        <a href="/" class="btn">Upgrade Now</a>
                     </div>
                 </div>
             </div>

@@ -142,5 +142,5 @@ Azure Radiance 1 #007FFF
 
 # TODO
 
-- add logo to landing and update designs according to design book
+
 - add text box for the user to input the additional info about the exercise
