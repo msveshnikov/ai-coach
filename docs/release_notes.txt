@@ -2,7 +2,7 @@ Version 1.0.0 (Latest Release)
 
 New Features:
 • Initial platform launch
-• Core training management system
+• Core Coach AI
 • Basic exercise library implementation
 • User authentication system
 • Performance tracking dashboard

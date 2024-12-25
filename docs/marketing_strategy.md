@@ -1,6 +1,6 @@
-Here's a comprehensive marketing strategy for the Training Management System:
+Here's a comprehensive marketing strategy for the Coach AI:
 
-# Marketing Strategy - Training Management System
+# Marketing Strategy - Coach AI
 
 ## 1. Target Audience Segments
 

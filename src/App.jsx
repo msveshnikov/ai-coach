@@ -1,6 +1,7 @@
 import {
     ChakraProvider,
     Box,
+    Text,
     Container,
     Heading,
     Button,
@@ -22,8 +23,167 @@ import {
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import Exercise from './Exercise';
 
 const API_URL = 'https://allchat.online/api';
+
+const PROMPT_TEMPLATE = `Generate a detailed football training session based on these parameters:
+
+Parameters:
+{trainingParams}
+
+Please include:
+- Warm-up exercises
+- Technical drills
+- Tactical exercises 
+- Game situations
+- Cool down routine
+
+Format the response with clear sections and bullet points.
+
+Also include a diagram of the training with player positions and cones. Diagram should be in JSON schema:
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["field", "elements"],
+    "properties": {
+        "field": {
+            "type": "object",
+            "required": ["width", "height"],
+            "properties": {
+                "width": {
+                    "type": "number",
+                    "description": "Width of the field in meters"
+                },
+                "height": {
+                    "type": "number",
+                    "description": "Height of the field in meters"
+                }
+            }
+        },
+        "elements": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type", "position"],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["player", "cone", "path"],
+                        "description": "Type of element on the field"
+                    },
+                    "position": {
+                        "type": "object",
+                        "required": ["x", "y"],
+                        "properties": {
+                            "x": {
+                                "type": "number",
+                                "description": "X coordinate on the field"
+                            },
+                            "y": {
+                                "type": "number",
+                                "description": "Y coordinate on the field"
+                            }
+                        }
+                    },
+                    "team": {
+                        "type": "string",
+                        "enum": ["team1", "team2"],
+                        "description": "Team assignment for players"
+                    },
+                    "path": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["x", "y"],
+                            "properties": {
+                                "x": { "type": "number" },
+                                "y": { "type": "number" }
+                            }
+                        },
+                        "description": "Array of points defining a movement path"
+                    }
+                }
+            }
+        },
+    }
+}
+`;
+
+const exercise = {
+    title: 'Fantasiegeschichte',
+    field: {
+        width: 12,
+        height: 12
+    },
+    elements: [
+        {
+            type: 'player',
+            position: { x: 3, y: 3 },
+            team: 'team1'
+        },
+        {
+            type: 'player',
+            position: { x: 9, y: 3 },
+            team: 'team2'
+        },
+        {
+            type: 'player',
+            position: { x: 6, y: 9 },
+            team: 'team1'
+        },
+        {
+            type: 'player',
+            position: { x: 2, y: 7 },
+            team: 'team2'
+        },
+        {
+            type: 'player',
+            position: { x: 10, y: 7 },
+            team: 'team1'
+        },
+        {
+            type: 'cone',
+            position: { x: 6, y: 6 }
+        },
+        {
+            type: 'cone',
+            position: { x: 3, y: 9 }
+        },
+        {
+            type: 'cone',
+            position: { x: 9, y: 9 }
+        },
+        {
+            type: 'ball',
+            position: { x: 6, y: 3 }
+        },
+        {
+            type: 'path',
+            position: { x: 3, y: 3 },
+            path: [
+                { x: 3, y: 3 },
+                { x: 6, y: 6 },
+                { x: 9, y: 3 }
+            ]
+        },
+        {
+            type: 'path',
+            position: { x: 6, y: 9 },
+            path: [
+                { x: 6, y: 9 },
+                { x: 6, y: 6 },
+                { x: 6, y: 3 }
+            ]
+        }
+    ],
+    description: 'Die Kinder sind als Abenteurer im Urwald unterwegs.',
+    organization: [
+        'Ein 12 x 12 Meter großes Feld markieren.',
+        'Im Feld mehrere Hütchen gemäß Abbildung aufstellen.',
+        'Die Gruppe in Abenteurer und Urwaldaffen aufteilen.'
+    ]
+};
 
 function App() {
     const [trainingType, setTrainingType] = useState('exercise');
@@ -32,13 +192,21 @@ function App() {
     const [performanceClass, setPerformanceClass] = useState('');
     const [duration, setDuration] = useState('');
     const [trainingAim, setTrainingAim] = useState('');
-    const [generatedContent, setGeneratedContent] = useState('');
+    const [generatedTraining, setGeneratedTraining] = useState('');
+    const [exerciseData, setExerciseData] = useState(exercise);
+
     const [isLoading, setIsLoading] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
     const toast = useToast();
 
     const bgColor = useColorModeValue('white', 'gray.700');
     const containerBg = useColorModeValue('gray.50', 'gray.800');
+
+    function cleanGeneratedCode(code) {
+        const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
+        const match = code.match(codeBlockRegex);
+        return match ? match[1] : null;
+    }
 
     const generateTraining = async () => {
         setIsLoading(true);
@@ -53,6 +221,8 @@ function App() {
             };
 
             const token = import.meta.env.VITE_CHAT_TOKEN;
+            const prompt = PROMPT_TEMPLATE.replace('{trainingParams}', JSON.stringify(params));
+
             const response = await fetch(`${API_URL}/interact`, {
                 method: 'POST',
                 headers: {
@@ -60,13 +230,24 @@ function App() {
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    input: JSON.stringify(params),
-                    model: 'gpt-4'
+                    input: prompt,
+                    model: 'gpt-4o'
                 })
             });
 
             const data = await response.json();
-            setGeneratedContent(data.textResponse);
+            setGeneratedTraining(data.textResponse);
+
+            const jsonMatch = cleanGeneratedCode(data.textResponse);
+            if (jsonMatch) {
+                try {
+                    console.log(jsonMatch);
+                    const diagramData = JSON.parse(jsonMatch);
+                    setExerciseData(diagramData);
+                } catch {
+                    console.error('Failed to parse diagram JSON');
+                }
+            }
 
             toast({
                 title: 'Training Generated',
@@ -190,11 +371,18 @@ function App() {
                             </VStack>
                         </Box>
 
-                        {generatedContent && (
-                            <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
-                                <ReactMarkdown>{generatedContent}</ReactMarkdown>
+                        {generatedTraining && (
+                            <Box borderWidth="1px" borderRadius="md" p={4}>
+                                <Exercise exercise={exerciseData} />
+                                <ReactMarkdown>{generatedTraining}</ReactMarkdown>
                             </Box>
                         )}
+
+                        <Box p={4} bg={bgColor} shadow="md">
+                            <Text textAlign="center" color="gray.500">
+                                © 2024 Coach AI
+                            </Text>
+                        </Box>
                     </Flex>
                 </Container>
             </Box>

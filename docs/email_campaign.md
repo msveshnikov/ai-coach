@@ -1,4 +1,4 @@
-# Email Marketing Campaign for Training Management System
+# Email Marketing Campaign for Coach AI
 
 ## Email 1: Introduction
 
@@ -8,7 +8,7 @@
 Dear [Coach's Name],
 
 Are you ready to transform the way you coach and develop athletes? Introducing our cutting-edge
-Training Management System, powered by AI and designed specifically for forward-thinking coaches and
+Coach AI, powered by AI and designed specifically for forward-thinking coaches and
 clubs.
 
 What makes us different? • Personalized AI-driven training recommendations • Comprehensive exercise
@@ -20,7 +20,7 @@ Join the future of sports coaching. Early adopters get exclusive access to our p
 
 [Get Started Button]
 
-Best regards, The Training Management System Team
+Best regards, The Coach AI Team
 ```
 
 ## Email 2: Feature Highlight
@@ -30,7 +30,7 @@ Best regards, The Training Management System Team
 ```markdown
 Hello [Coach's Name],
 
-Let's dive deeper into how our Training Management System can elevate your coaching:
+Let's dive deeper into how our Coach AI can elevate your coaching:
 
 🎯 Smart Goal Setting
 
@@ -54,7 +54,7 @@ Ready to see these features in action? Book a free demo today!
 
 [Schedule Demo Button]
 
-Best regards, The Training Management System Team
+Best regards, The Coach AI Team
 ```
 
 ## Email 3: Call-to-Action
@@ -65,7 +65,7 @@ Best regards, The Training Management System Team
 Dear [Coach's Name],
 
 Time is running out on our exclusive launch offer! Join the growing community of innovative coaches
-who are already experiencing the benefits of our Training Management System.
+who are already experiencing the benefits of our Coach AI.
 
 🌟 Limited Time Offer: • 50% off annual subscription • Free access to premium features • Priority
 support • Complimentary consultation session
@@ -76,7 +76,7 @@ Don't miss out on this opportunity to revolutionize your coaching methods.
 
 Offer ends in 48 hours!
 
-Best regards, The Training Management System Team
+Best regards, The Coach AI Team
 ```
 
 **Note:** Each email should include:
