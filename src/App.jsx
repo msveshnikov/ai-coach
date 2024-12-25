@@ -6,16 +6,9 @@ import {
     Button,
     Flex,
     VStack,
-    HStack,
-    Text,
     useColorMode,
     IconButton,
-    Grid,
-    Badge,
-    Progress,
     useColorModeValue,
-    Tooltip,
-    Divider,
     Select,
     NumberInput,
     NumberInputField,
@@ -24,37 +17,15 @@ import {
     RadioGroup,
     Radio,
     Stack,
-    useToast,
-    Drawer,
-    DrawerBody,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-    useDisclosure
+    useToast
 } from '@chakra-ui/react';
-import {
-    SunIcon,
-    MoonIcon,
-    StarIcon,
-    SettingsIcon,
-    CalendarIcon,
-    AtSignIcon,
-    ViewIcon,
-    EditIcon,
-    CheckIcon,
-    SpinnerIcon,
-    HamburgerIcon
-} from '@chakra-ui/icons';
+import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Exercise from './Exercise';
 
 const API_URL = 'https://allchat.online/api';
 
 function App() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [activeSection, setActiveSection] = useState('training');
     const [trainingType, setTrainingType] = useState('exercise');
     const [ageGroup, setAgeGroup] = useState('');
     const [playerCount, setPlayerCount] = useState('');
@@ -88,22 +59,22 @@ function App() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     input: JSON.stringify(params),
                     model: 'gpt-4'
                 })
             });
-            
+
             const data = await response.json();
             setGeneratedContent(data.textResponse);
-            
+
             toast({
                 title: 'Training Generated',
                 status: 'success',
                 duration: 3000,
                 isClosable: true
             });
-        } catch (error) {
+        } catch {
             toast({
                 title: 'Error',
                 description: 'Failed to generate training',
@@ -144,7 +115,11 @@ function App() {
 
                                 <FormControl>
                                     <FormLabel>Age Group</FormLabel>
-                                    <Select placeholder="Select age group" value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)}>
+                                    <Select
+                                        placeholder="Select age group"
+                                        value={ageGroup}
+                                        onChange={(e) => setAgeGroup(e.target.value)}
+                                    >
                                         <option value="u8">Under 8</option>
                                         <option value="u10">Under 10</option>
                                         <option value="u12">Under 12</option>
@@ -157,14 +132,22 @@ function App() {
 
                                 <FormControl>
                                     <FormLabel>Number of Players</FormLabel>
-                                    <NumberInput min={1} value={playerCount} onChange={(value) => setPlayerCount(value)}>
+                                    <NumberInput
+                                        min={1}
+                                        value={playerCount}
+                                        onChange={(value) => setPlayerCount(value)}
+                                    >
                                         <NumberInputField />
                                     </NumberInput>
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel>Performance Class</FormLabel>
-                                    <Select placeholder="Select performance class" value={performanceClass} onChange={(e) => setPerformanceClass(e.target.value)}>
+                                    <Select
+                                        placeholder="Select performance class"
+                                        value={performanceClass}
+                                        onChange={(e) => setPerformanceClass(e.target.value)}
+                                    >
                                         <option value="beginner">Beginner</option>
                                         <option value="advanced">Advanced</option>
                                         <option value="high">High</option>
@@ -174,14 +157,22 @@ function App() {
 
                                 <FormControl>
                                     <FormLabel>Duration</FormLabel>
-                                    <NumberInput min={1} value={duration} onChange={(value) => setDuration(value)}>
+                                    <NumberInput
+                                        min={1}
+                                        value={duration}
+                                        onChange={(value) => setDuration(value)}
+                                    >
                                         <NumberInputField />
                                     </NumberInput>
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel>Training Aim</FormLabel>
-                                    <Select placeholder="Select training aim" value={trainingAim} onChange={(e) => setTrainingAim(e.target.value)}>
+                                    <Select
+                                        placeholder="Select training aim"
+                                        value={trainingAim}
+                                        onChange={(e) => setTrainingAim(e.target.value)}
+                                    >
                                         <option value="technical">Technical</option>
                                         <option value="tactical">Tactical</option>
                                         <option value="physical">Physical</option>
