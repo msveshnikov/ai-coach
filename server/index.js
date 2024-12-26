@@ -12,6 +12,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { getTextClaude } from './claude.js';
+import { getTextGemini } from './gemini.js';
 
 dotenv.config();
 
@@ -50,7 +52,8 @@ const UserSchema = new mongoose.Schema({
     role: { type: String, enum: ['coach', 'club'], default: 'coach' },
     certifications: [String],
     experience: String,
-    achievements: [String]
+    achievements: [String],
+    teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }]
 });
 
 const ExerciseSchema = new mongoose.Schema({
@@ -64,8 +67,22 @@ const ExerciseSchema = new mongoose.Schema({
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
+const TeamSchema = new mongoose.Schema({
+    name: String,
+    club: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    coaches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    players: [
+        {
+            name: String,
+            position: String,
+            stats: Object
+        }
+    ]
+});
+
 const User = mongoose.model('User', UserSchema);
 const Exercise = mongoose.model('Exercise', ExerciseSchema);
+const Team = mongoose.model('Team', TeamSchema);
 
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
@@ -76,6 +93,27 @@ const authenticateToken = (req, res, next) => {
         req.user = user;
         next();
     });
+};
+
+const generateAIResponse = async (prompt, model, temperature = 0.5) => {
+    switch (model) {
+        case 'gpt-4o':
+        case `o1-mini`:
+        case 'gpt-4o-mini': {
+            const completion = await openai.chat.completions.create({
+                model,
+                messages: [{ role: 'user', content: prompt }]
+            });
+            return completion.choices[0].message.content;
+        }
+        case 'claude-3-5-sonnet-20241022':
+            return await getTextClaude(prompt, model, temperature);
+        case 'gemini-exp-1206':
+        case 'gemini-2.0-flash-exp':
+            return await getTextGemini(prompt, model, temperature);
+        default:
+            throw new Error('Invalid model specified');
+    }
 };
 
 app.post('/api/register', async (req, res) => {
@@ -108,14 +146,9 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/generate-training', async (req, res) => {
     try {
-        const { prompt } = req.body;
-
-        const completion = await openai.chat.completions.create({
-            model: 'gpt-4o',
-            messages: [{ role: 'user', content: prompt }]
-        });
-
-        res.json({ exercise: completion.choices[0].message.content });
+        const { prompt, model = 'gpt-4o', temperature } = req.body;
+        const exercise = await generateAIResponse(prompt, model, temperature);
+        res.json({ exercise });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -131,7 +164,7 @@ app.post('/api/exercises', authenticateToken, async (req, res) => {
     }
 });
 
-app.get('/api/exercises', authenticateToken, async (req, res) => {
+app.get('/api/exercises', async (req, res) => {
     try {
         const exercises = await Exercise.find().populate('createdBy', 'email role');
         res.json(exercises);
@@ -140,8 +173,23 @@ app.get('/api/exercises', authenticateToken, async (req, res) => {
     }
 });
 
-app.get('*', async (req, res) => {
-    return res.send(fs.readFileSync(join(__dirname, '../dist/index.html'), 'utf8'));
+app.post('/api/teams', authenticateToken, async (req, res) => {
+    try {
+        const team = new Team({ ...req.body, club: req.user.id });
+        await team.save();
+        res.status(201).json(team);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/teams', async (req, res) => {
+    try {
+        const teams = await Team.find({ club: req.user.id }).populate('coaches', 'email');
+        res.json(teams);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 app.get('*', async (req, res) => {

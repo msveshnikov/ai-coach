@@ -155,6 +155,3 @@ https://ai-coach.club
 - Automated scaling
 
 # TODO
-
-- add model selector (gpt-4o, gpt-4o-mini, gemini-exp-1206, claude-3-5-sonnet-20241022,
-  gemini-2.0-flash-exp, o1-mini)
