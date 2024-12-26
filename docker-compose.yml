@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+    backend:
+        image: extender777/ai-coach
+        ports:
+            - '8015:3000'
+        environment:
+            - NODE_ENV=production
+            - OPENAI_KEY=${OPENAI_KEY}
+            - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            - UNSPLASH_API_KEY=${UNSPLASH_API_KEY}
+            - ELEVEN_KEY=${ELEVEN_KEY}
+            - MONGODB_URI=mongodb://mongodb:27017/ai-coach
+            - JWT_SECRET=${JWT_SECRET}
+            - EMAIL=${EMAIL}
+            - FROM_EMAIL=${FROM_EMAIL}
+            - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+            - FRONTEND_URL=https://ai-coachcard.shop
+        depends_on:
+            - mongodb
+        restart: unless-stopped
+
+    mongodb:
+        image: mongo:latest
+        volumes:
+            - mongodb_data:/data/db
+        restart: unless-stopped
+        logging:
+            driver: none
+
+volumes:
+    mongodb_data:

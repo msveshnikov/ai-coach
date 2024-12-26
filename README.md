@@ -4,7 +4,7 @@ AI solution for coaches/clubs to create training exercises.
 
 ## DEMO
 
-https://training-management-system.netlify.app/landing.html
+https://ai-coach.club/landing.html
 
 ## Product Features
 
@@ -141,3 +141,5 @@ Apache 2 #DFBE6F
 Azure Radiance 1 #007FFF
 
 # TODO
+
+-   add backend for training AI request
