@@ -29,8 +29,9 @@ import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Exercise from './Exercise';
+import { API_URL } from './App';
 
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
+
 
 const PROMPT_TEMPLATE = `Create a detailed football training session based on these parameters:
 

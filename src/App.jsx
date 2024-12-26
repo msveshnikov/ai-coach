@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Training from './Training';
 import { Landing } from './Landing';
 
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
+
 function App() {
     // const [isAuthenticated, setIsAuthenticated] = useState(false);
     // const [userProfile, setUserProfile] = useState(null);
