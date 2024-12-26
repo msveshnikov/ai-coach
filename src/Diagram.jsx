@@ -1,11 +1,11 @@
 import { useRef, useEffect } from 'react';
 
-const Exercise = ({ exercise }) => {
+const Diagram = ({ diagram }) => {
     const canvasRef = useRef(null);
     const padding = 40;
 
     useEffect(() => {
-        if (!canvasRef.current || !exercise) return;
+        if (!canvasRef.current || !diagram) return;
 
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
@@ -60,10 +60,10 @@ const Exercise = ({ exercise }) => {
         const render = () => {
             drawField();
 
-            const scaleX = (canvas.width - 2 * padding) / (exercise.field?.width ?? 1);
-            const scaleY = (canvas.height - 2 * padding) / (exercise.field?.height ?? 1);
+            const scaleX = (canvas.width - 2 * padding) / (diagram.field?.width ?? 1);
+            const scaleY = (canvas.height - 2 * padding) / (diagram.field?.height ?? 1);
 
-            exercise.elements?.forEach((element) => {
+            diagram.elements?.forEach((element) => {
                 const x = padding + (element.position?.x ?? 0) * scaleX;
                 const y = padding + (element.position?.y ?? 0) * scaleY;
 
@@ -88,7 +88,7 @@ const Exercise = ({ exercise }) => {
         };
 
         render();
-    }, [exercise]);
+    }, [diagram]);
 
     return (
         <canvas
@@ -100,4 +100,4 @@ const Exercise = ({ exercise }) => {
     );
 };
 
-export default Exercise;
+export default Diagram;

@@ -146,9 +146,10 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/generate-training', async (req, res) => {
     try {
+        console.log(req.body);
         const { prompt, model = 'gpt-4o', temperature } = req.body;
-        const exercise = await generateAIResponse(prompt, model, temperature);
-        res.json({ exercise });
+        const result = await generateAIResponse(prompt, model, temperature);
+        res.json(result);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

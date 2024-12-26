@@ -1,15 +1,15 @@
-# Exercise Component Documentation
+# Diagram Component Documentation
 
 ## Overview
 
-The `Exercise` component is a React component that renders interactive handball exercise diagrams
+The `Diagram` component is a React component that renders interactive handball exercise diagrams
 using HTML5 Canvas. It visualizes players, cones, and movement paths on a field-like background.
 This component is part of a larger application that appears to be focused on handball training or
 exercise visualization.
 
 ## Component Location
 
-`src/Exercise.jsx`
+`src/Diagram.jsx`
 
 ## Dependencies
 
@@ -121,7 +121,7 @@ const exerciseConfig = {
     ]
 };
 
-<Exercise exercise={exerciseConfig} />;
+<Diagram diagram={diagramConfig} />;
 ```
 
 ## Canvas Properties

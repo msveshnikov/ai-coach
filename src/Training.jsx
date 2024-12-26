@@ -23,32 +23,54 @@ import {
     TabList,
     TabPanels,
     Tab,
-    TabPanel
+    TabPanel,
+    Skeleton
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Exercise from './Exercise';
 import { API_URL } from './App';
+import Diagram from './Diagram';
 
-const PROMPT_TEMPLATE = `Create a detailed football training session based on these parameters:
+const PROMPT_TEMPLATE = `You are "AI Coach Pro," an intelligent assistant for soccer coaches. Create a detailed training session based on the following information:
 
-Parameters:
 {trainingParams}
 
-Additional Information:
-{additionalInfo}
+The training session should be in a continuous text format and include the following aspects for each drill in detail:
 
-Please include:
-- Warm-up exercises
-- Technical drills
-- Tactical exercises 
-- Game situations
-- Cool down routine
+*   **Drill Objective:** What should be achieved with this drill?
+*   **Setup:** What materials are needed, and how is the field set up? (e.g., cones, goals, markings)
+*   **Procedure:** **Describe the drill procedure in great detail and in individual steps. Include the actions of the players, the rules, and possible game situations. Use a numbered list to structure the individual steps of the process, if possible. If you can, add the duration of the drill**
+*   **Coaching Points:** What should the coach pay particular attention to? What tips can they give to the players?
+*   **Variations:** How can the drill be varied or adapted (e.g., difficulty, number of players)?
 
-Format the response with clear sections and bullet points.
+Write in clear, understandable language suitable for soccer coaches. Use technical terms where appropriate.
 
-Also include a diagram of the training with player positions and cones. Diagram should be in JSON schema:
+**Example of a training session (Pressing):**
+
+This exercise is the ideal introduction to the topic of pressing. It is not overly demanding (cognitively) and can be adapted to suit the skill level of the players. The goal is to teach the fundamental principles of pressing: chasing the ball, closing passing lanes, and quickly transitioning after a change of possession.
+Equipment and Setup:
+8 cones, 10 players divided into pairs with 5 different-colored bibs, at least 10 balls, 2 coaches. Two rectangles are set up with a distance of 10–15 meters between them. The size of the rectangles is adjusted to the team's skill level.
+Instructions:
+In one rectangle, a 4v2 rondo is played. In the other rectangle, the 4 players pass the ball among themselves without defensive pressure. After losing possession, the two players (a pair wearing the same-colored bibs) responsible for the ball loss must sprint to the other rondo, where the 4v2 game continues. This cycle repeats until all 10 (or more) balls are used. Afterward, there is an active break (collecting the balls), and the drill restarts.
+Coaching Points:
+In the 4v2 rondo, constant movement and availability are crucial. After every pass, players must reposition to open passing lanes.
+The 2 defenders must chase the ball at maximum intensity. They can either both press the ball carrier or one can close the passing lane while the other applies pressure on the ball.
+The transition of the group that loses the ball is key to reinforcing pressing principles. Once the ball is recovered, the two defenders must immediately switch roles and chase at full speed.
+Variations:
+The rectangles can be made larger or smaller as needed.
+The number of touches for the outside players can be limited.
+After a specific number of passes, the ball can be played from the 4v2 group to the 4v0 group, requiring the defenders to chase across the field.
+
+
+**Now generate a new training session that matches the specified training aim and includes at least one drill with a particularly detailed description of the procedure.**
+`;
+
+const DIAGRAM_TEMPLATE = `Create a diagram of the training with player positions and cones. Training description:
+
+{trainingDescription}
+
+Diagram should be in below JSON schema, syntactically correct and without any additional comments:
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
@@ -116,31 +138,6 @@ Also include a diagram of the training with player positions and cones. Diagram 
     }
 }`;
 
-const defaultExercise = {
-    field: { width: 50, height: 40 },
-    elements: [
-        { type: 'cone', position: { x: 10, y: 5 } },
-        { type: 'cone', position: { x: 15, y: 10 } },
-        { type: 'cone', position: { x: 20, y: 15 } },
-        { type: 'cone', position: { x: 25, y: 20 } },
-        { type: 'cone', position: { x: 30, y: 25 } },
-        { type: 'player', position: { x: 5, y: 10 }, team: 'team1' },
-        { type: 'player', position: { x: 45, y: 30 }, team: 'team2' },
-        {
-            type: 'path',
-            path: [
-                { x: 5, y: 10 },
-                { x: 10, y: 5 },
-                { x: 15, y: 10 },
-                { x: 20, y: 15 },
-                { x: 25, y: 20 },
-                { x: 30, y: 25 },
-                { x: 45, y: 30 }
-            ]
-        }
-    ]
-};
-
 function Training() {
     const [trainingType, setTrainingType] = useState('exercise');
     const [ageGroup, setAgeGroup] = useState('');
@@ -150,7 +147,7 @@ function Training() {
     const [trainingAim, setTrainingAim] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
-    const [exerciseData, setExerciseData] = useState(defaultExercise);
+    const [diagramData, setDiagramData] = useState();
     const [selectedModel, setSelectedModel] = useState('gpt-4o');
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -163,26 +160,23 @@ function Training() {
     const cleanGeneratedCode = (code) => {
         const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
         const match = code.match(codeBlockRegex);
-        return match ? match[1] : null;
+        return match ? match[1] : code;
     };
 
     const generateTraining = async () => {
         setIsLoading(true);
         try {
             const params = {
-                type: trainingType,
+                trainingType,
                 ageGroup,
                 playerCount,
                 performanceClass,
                 duration,
-                aim: trainingAim
+                trainingAim,
+                additionalInfo
             };
 
-            const prompt = PROMPT_TEMPLATE.replace(
-                '{trainingParams}',
-                JSON.stringify(params)
-            ).replace('{additionalInfo}', additionalInfo);
-
+            const prompt = PROMPT_TEMPLATE.replace('{trainingParams}', JSON.stringify(params));
             const response = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -190,13 +184,23 @@ function Training() {
             });
 
             const data = await response.json();
-            setGeneratedTraining(data.exercise);
+            setGeneratedTraining(data);
             setActiveTab(1);
 
-            const jsonMatch = cleanGeneratedCode(data.exercise);
+            setDiagramData(null);
+            const diagramPrompt = DIAGRAM_TEMPLATE.replace('{trainingDescription}', data);
+            const diagramResponse = await fetch(`${API_URL}/api/generate-training`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: diagramPrompt, model: selectedModel })
+            });
+
+            const diagramData = await diagramResponse.json();
+            console.log(diagramData);
+            const jsonMatch = cleanGeneratedCode(diagramData);
             if (jsonMatch) {
                 try {
-                    setExerciseData(JSON.parse(jsonMatch));
+                    setDiagramData(JSON.parse(jsonMatch));
                 } catch {
                     console.error('Failed to parse diagram JSON');
                 }
@@ -369,7 +373,11 @@ function Training() {
                             <TabPanel>
                                 {generatedTraining && (
                                     <Box borderWidth="1px" borderRadius="md" p={4}>
-                                        {exerciseData && <Exercise exercise={exerciseData} />}
+                                        {diagramData ? (
+                                            <Diagram diagram={diagramData} />
+                                        ) : (
+                                            <Skeleton height="300px" />
+                                        )}
                                         <ReactMarkdown>{generatedTraining}</ReactMarkdown>
                                     </Box>
                                 )}
@@ -379,7 +387,7 @@ function Training() {
 
                     <Box p={4} bg={bgColor} shadow="md">
                         <Text textAlign="center" color="gray.500">
-                            © 2024 AI Coach
+                            © 2025 AI Coach
                         </Text>
                     </Box>
                 </Flex>
