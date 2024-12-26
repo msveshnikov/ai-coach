@@ -9,9 +9,9 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
             manifest: {
-                name: 'Coach AI',
-                short_name: 'Coach AI',
-                description: 'AI-powered Coach AI for coaches and clubs',
+                name: 'AI Coach',
+                short_name: 'AI Coach',
+                description: 'AI-powered AI Coach for coaches and clubs',
                 theme_color: '#ffffff',
                 background_color: '#ffffff',
                 display: 'standalone',

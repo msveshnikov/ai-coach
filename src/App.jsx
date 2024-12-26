@@ -331,7 +331,7 @@ function App() {
                 <Container maxW="container.xl" p={4}>
                     <Flex direction="column" gap={4}>
                         <Flex justify="space-between" align="center">
-                            <Heading>Coach AI</Heading>
+                            <Heading>AI Coach</Heading>
                             <IconButton
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
@@ -467,7 +467,7 @@ function App() {
 
                         <Box p={4} bg={bgColor} shadow="md">
                             <Text textAlign="center" color="gray.500">
-                                © 2024 Coach AI
+                                © 2024 AI Coach
                             </Text>
                         </Box>
                     </Flex>

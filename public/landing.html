@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
-            content="AI-Powered Coach AI for coaches and clubs. Intelligent training plans, exercise library, and performance tracking."
+            content="AI-Powered AI Coach for coaches and clubs. Intelligent training plans, exercise library, and performance tracking."
         />
         <meta
             name="keywords"
             content="training management, AI coaching, sports technology, exercise planning, coaching software"
         />
-        <meta name="author" content="Coach AI" />
-        <meta property="og:title" content="AI-Powered Coach AI" />
+        <meta name="author" content="AI Coach" />
+        <meta property="og:title" content="AI-Powered AI Coach" />
         <link rel="icon" type="image/png" href="/favicon.png" />
-        <title>AI-Powered Coach AI</title>
+        <title>AI-Powered AI Coach</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
@@ -22,10 +22,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <style>
-            @font-face {
-                font-family: 'Paramount Sans';
-                src: url('/fonts/ParamountSans.woff2') format('woff2');
-            }
             @font-face {
                 font-family: 'HelveticaLTStd Roman';
                 src: url('/fonts/HelveticaLTStd-Roman.woff2') format('woff2');
@@ -149,7 +145,7 @@
 
             .cta {
                 padding: 120px 0;
-                background:  #00208F;
+                background: #00208f;
                 color: white;
                 text-align: center;
                 position: relative;
@@ -199,22 +195,6 @@
                 height: 4px;
                 background: var(--azure);
                 border-radius: 2px;
-            }
-
-            @media (max-width: 768px) {
-                .hero h1 {
-                    font-size: 2.8rem;
-                }
-                .hero p {
-                    font-size: 1.3rem;
-                }
-                .section-title {
-                    font-size: 2.2rem;
-                }
-                .feature-card,
-                .benefit-card {
-                    padding: 30px;
-                }
             }
 
             .testimonials {
@@ -397,7 +377,7 @@
             }
 
             .stats-section {
-                background: #00208F;
+                background: #00208f;
                 padding: 80px 0;
                 color: white;
             }
@@ -495,8 +475,24 @@
             }
 
             @media (max-width: 768px) {
-                .nav-links {
-                    display: none;
+                .hero h1 {
+                    font-size: 2.8rem;
+                }
+                .hero p {
+                    font-size: 1.3rem;
+                }
+                .section-title {
+                    font-size: 2.2rem;
+                }
+                .feature-card,
+                .benefit-card {
+                    padding: 30px;
+                }
+                .pricing-grid {
+                    display: grid;
+                    grid-template-columns: repeat(1, 1fr);
+                    gap: 30px;
+                    margin-top: 60px;
                 }
             }
         </style>
@@ -510,17 +506,6 @@
                 <a href="/" class="btn btn-outline">Watch Demo</a>
             </div>
         </section>
-        <!-- 
-        <nav class="nav-bar">
-            <div class="nav-container">
-                <a href="/" class="logo">
-                    <img src="/images/logo.png" alt="Coach AI Logo" height="40" />
-                </a>
-                [Rest of nav content]
-            </div>
-        </nav> -->
-
-        <!-- Added text input in exercise section -->
         <section class="features">
             <div class="container">
                 <h2 class="section-title">Key Features</h2>
@@ -550,7 +535,7 @@
         </section>
         <section class="stats-section">
             <div class="container">
-                <img src="logo.jpg" alt="Coach AI Logo" width="1100"/>
+                <img src="logo.jpg" alt="AI Coach Logo" width="100%" />
                 <div class="stats-grid" data-aos="fade-up">
                     <div class="stat-item">
                         <h3>10,000+</h3>
@@ -786,7 +771,7 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <p>&copy; 2024 Coach AI. All rights reserved.</p>
+                    <p>&copy; 2024 AI Coach. All rights reserved.</p>
                 </div>
             </div>
         </footer>
@@ -795,15 +780,6 @@
             AOS.init({
                 duration: 1000,
                 once: true
-            });
-
-            window.addEventListener('scroll', () => {
-                const nav = document.querySelector('.nav-bar');
-                if (window.scrollY > 100) {
-                    nav.classList.add('sticky-nav');
-                } else {
-                    nav.classList.remove('sticky-nav');
-                }
             });
         </script>
     </body>

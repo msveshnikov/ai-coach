@@ -1,4 +1,4 @@
-# Coach AI
+# AI Coach
 
 AI solution for coaches/clubs to create training exercises.
 
@@ -142,4 +142,4 @@ Azure Radiance 1 #007FFF
 
 # TODO
 
--   add backend for training AI request
+- add backend for training AI request

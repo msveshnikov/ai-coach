@@ -1,6 +1,6 @@
-Here's a comprehensive marketing strategy for the Coach AI:
+Here's a comprehensive marketing strategy for the AI Coach:
 
-# Marketing Strategy - Coach AI
+# Marketing Strategy - AI Coach
 
 ## 1. Target Audience Segments
 
