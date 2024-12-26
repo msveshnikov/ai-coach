@@ -6,7 +6,7 @@ AI solution for coaches/clubs to create training exercises.
 
 ## DEMO
 
-https://ai-coach.club/landing.html
+https://ai-coach.club
 
 ## Product Features
 
@@ -144,5 +144,3 @@ Apache 2 #DFBE6F
 Azure Radiance 1 #007FFF
 
 # TODO
-
-- add /app route to Training.jsx
