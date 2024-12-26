@@ -20,6 +20,8 @@ services:
         depends_on:
             - mongodb
         restart: unless-stopped
+        volumes:
+            - ./google.json:/app/google.json
 
     mongodb:
         image: mongo:latest

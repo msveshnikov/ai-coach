@@ -112,113 +112,20 @@ Also include a diagram of the training with player positions and cones. Diagram 
                     }
                 }
             }
-        },
-    }
-}
-`;
-
-const exercise = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
-    type: 'object',
-    required: ['field', 'elements'],
-    properties: {
-        field: {
-            type: 'object',
-            required: ['width', 'height'],
-            properties: {
-                width: {
-                    type: 'number',
-                    description: 'Width of the field in meters',
-                    example: 50
-                },
-                height: {
-                    type: 'number',
-                    description: 'Height of the field in meters',
-                    example: 40
-                }
-            }
-        },
-        elements: {
-            type: 'array',
-            items: {
-                type: 'object',
-                required: ['type', 'position'],
-                properties: {
-                    type: {
-                        type: 'string',
-                        enum: ['player', 'cone', 'path'],
-                        description: 'Type of element on the field'
-                    },
-                    position: {
-                        type: 'object',
-                        required: ['x', 'y'],
-                        properties: {
-                            x: {
-                                type: 'number',
-                                description: 'X coordinate on the field'
-                            },
-                            y: {
-                                type: 'number',
-                                description: 'Y coordinate on the field'
-                            }
-                        }
-                    },
-                    team: {
-                        type: 'string',
-                        enum: ['team1', 'team2'],
-                        description: 'Team assignment for players'
-                    },
-                    path: {
-                        type: 'array',
-                        items: {
-                            type: 'object',
-                            required: ['x', 'y'],
-                            properties: {
-                                x: { type: 'number' },
-                                y: { type: 'number' }
-                            }
-                        },
-                        description: 'Array of points defining a movement path'
-                    }
-                }
-            }
         }
-    },
-    field: {
-        width: 50,
-        height: 40
-    },
+    }
+}`;
+
+const defaultExercise = {
+    field: { width: 50, height: 40 },
     elements: [
-        {
-            type: 'cone',
-            position: { x: 10, y: 5 }
-        },
-        {
-            type: 'cone',
-            position: { x: 15, y: 10 }
-        },
-        {
-            type: 'cone',
-            position: { x: 20, y: 15 }
-        },
-        {
-            type: 'cone',
-            position: { x: 25, y: 20 }
-        },
-        {
-            type: 'cone',
-            position: { x: 30, y: 25 }
-        },
-        {
-            type: 'player',
-            position: { x: 5, y: 10 },
-            team: 'team1'
-        },
-        {
-            type: 'player',
-            position: { x: 45, y: 30 },
-            team: 'team2'
-        },
+        { type: 'cone', position: { x: 10, y: 5 } },
+        { type: 'cone', position: { x: 15, y: 10 } },
+        { type: 'cone', position: { x: 20, y: 15 } },
+        { type: 'cone', position: { x: 25, y: 20 } },
+        { type: 'cone', position: { x: 30, y: 25 } },
+        { type: 'player', position: { x: 5, y: 10 }, team: 'team1' },
+        { type: 'player', position: { x: 45, y: 30 }, team: 'team2' },
         {
             type: 'path',
             path: [
@@ -243,8 +150,8 @@ function Training() {
     const [trainingAim, setTrainingAim] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
-    const [exerciseData, setExerciseData] = useState(exercise);
-
+    const [exerciseData, setExerciseData] = useState(defaultExercise);
+    const [selectedModel, setSelectedModel] = useState('gpt-4o');
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
@@ -253,11 +160,11 @@ function Training() {
     const bgColor = useColorModeValue('white', 'gray.700');
     const containerBg = useColorModeValue('gray.50', 'gray.800');
 
-    function cleanGeneratedCode(code) {
+    const cleanGeneratedCode = (code) => {
         const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
         const match = code.match(codeBlockRegex);
         return match ? match[1] : null;
-    }
+    };
 
     const generateTraining = async () => {
         setIsLoading(true);
@@ -278,13 +185,8 @@ function Training() {
 
             const response = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    prompt,
-                    model: 'gpt-4o'
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, model: selectedModel })
             });
 
             const data = await response.json();
@@ -294,8 +196,7 @@ function Training() {
             const jsonMatch = cleanGeneratedCode(data.exercise);
             if (jsonMatch) {
                 try {
-                    const diagramData = JSON.parse(jsonMatch);
-                    setExerciseData(diagramData);
+                    setExerciseData(JSON.parse(jsonMatch));
                 } catch {
                     console.error('Failed to parse diagram JSON');
                 }
@@ -342,6 +243,25 @@ function Training() {
                             <TabPanel>
                                 <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
                                     <VStack spacing={4} align="stretch">
+                                        <FormControl>
+                                            <FormLabel>Model</FormLabel>
+                                            <Select
+                                                value={selectedModel}
+                                                onChange={(e) => setSelectedModel(e.target.value)}
+                                            >
+                                                <option value="o1-mini">O1 Mini</option>
+                                                <option value="gpt-4o">GPT-4 Optimized</option>
+                                                <option value="gpt-4o-mini">GPT-4 Mini</option>
+                                                <option value="claude-3-5-sonnet-20241022">
+                                                    Claude 3.5
+                                                </option>
+                                                <option value="gemini-exp-1206">Gemini Exp</option>
+                                                <option value="gemini-2.0-flash-exp">
+                                                    Gemini 2.0 Flash
+                                                </option>
+                                            </Select>
+                                        </FormControl>
+
                                         <FormControl>
                                             <FormLabel>Training Type</FormLabel>
                                             <RadioGroup
