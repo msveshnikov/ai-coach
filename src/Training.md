@@ -1,8 +1,8 @@
-# App.jsx Documentation
+# Training.jsx Documentation
 
 ## Overview
 
-`App.jsx` is the main component of the AI Coach application, a React-based web application that
+`Training.jsx` is the main component of the AI Coach application, a React-based web application that
 generates customized football training sessions using AI. The component integrates with Chakra UI
 for styling and layout, and communicates with an API to generate training plans.
 
@@ -95,10 +95,10 @@ Handles the API call to generate training sessions.
 ## Usage Example
 
 ```jsx
-import App from './App';
+import Training from './Training';
 
 function Root() {
-    return <App />;
+    return <Training />;
 }
 ```
 
@@ -147,6 +147,6 @@ This file serves as the main application component in a larger project structure
 - `vite.config.js`: Build configuration
 - `main.jsx`: Application entry point
 
-This documentation provides a comprehensive overview of the `App.jsx` component and its role in the
+This documentation provides a comprehensive overview of the `Training.jsx` component and its role in the
 AI Coach application. For specific implementation details, refer to the inline comments in the
 source code.

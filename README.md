@@ -145,4 +145,4 @@ Azure Radiance 1 #007FFF
 
 # TODO
 
-- add backend for training AI request
+- add /app route to Training.jsx
