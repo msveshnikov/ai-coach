@@ -44,7 +44,6 @@ training management, utilizing various React ecosystem libraries and development
 
 ### State Management and Data Handling
 
-- `@reduxjs/toolkit` & `react-redux`: State management
 - `react-query`: Data fetching and caching
 - `axios`: HTTP client
 - `socket.io-client`: Real-time communications
