@@ -27,6 +27,10 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 app.use(cors());
 app.use(helmet());
 app.use(express.json({ limit: '15mb' }));
+app.get('/', async (req, res) => {
+    const html = fs.readFileSync(join(__dirname, '../dist/landing.html'), 'utf8');
+    res.send(html);
+});
 app.use(express.static(join(__dirname, '../dist'), { maxAge: '3d' }));
 app.use(morgan('dev'));
 app.use(compression());
@@ -102,13 +106,12 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.post('/api/generate-training', authenticateToken, async (req, res) => {
+app.post('/api/generate-training', async (req, res) => {
     try {
-        const { parameters } = req.body;
-        const prompt = `Generate a training exercise for ${parameters.ageGroup} players, focusing on ${parameters.focus}, difficulty level: ${parameters.difficulty}`;
+        const { prompt } = req.body;
 
         const completion = await openai.chat.completions.create({
-            model: 'gpt-4',
+            model: 'gpt-4o',
             messages: [{ role: 'user', content: prompt }]
         });
 
@@ -141,6 +144,20 @@ app.get('*', async (req, res) => {
     return res.send(fs.readFileSync(join(__dirname, '../dist/index.html'), 'utf8'));
 });
 
+app.get('*', async (req, res) => {
+    const html = fs.readFileSync(join(__dirname, '../dist/index.html'), 'utf8');
+    if (!req.path.startsWith('/training/')) {
+        return res.send(html);
+    }
+    // const slug = req.path.substring(10);
+    // const enrichedHtml = await enrichMetadata(html, slug);
+    // res.send(enrichedHtml);
+});
+
+app.use((req, res) => {
+    res.status(404).json({ error: 'Not found' });
+});
+
 process.on('uncaughtException', (err, origin) => {
     console.error(`Caught exception: ${err}`, `Exception origin: ${origin}`);
 });
@@ -148,3 +165,5 @@ process.on('uncaughtException', (err, origin) => {
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = './google.json';

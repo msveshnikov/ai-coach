@@ -7,8 +7,8 @@
 ```markdown
 Dear [Coach's Name],
 
-Are you ready to transform the way you coach and develop athletes? Introducing our cutting-edge
-AI Coach, powered by AI and designed specifically for forward-thinking coaches and clubs.
+Are you ready to transform the way you coach and develop athletes? Introducing our cutting-edge AI
+Coach, powered by AI and designed specifically for forward-thinking coaches and clubs.
 
 What makes us different? • Personalized AI-driven training recommendations • Comprehensive exercise
 library with video demonstrations • Advanced performance tracking and analytics • Seamless club-wide

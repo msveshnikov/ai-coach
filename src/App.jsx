@@ -31,7 +31,7 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Exercise from './Exercise';
 
-const API_URL = 'https://allchat.online/api';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
 
 const PROMPT_TEMPLATE = `Create a detailed football training session based on these parameters:
 
@@ -273,29 +273,27 @@ function App() {
                 aim: trainingAim
             };
 
-            const token = import.meta.env.VITE_CHAT_TOKEN;
             const prompt = PROMPT_TEMPLATE.replace(
                 '{trainingParams}',
                 JSON.stringify(params)
             ).replace('{additionalInfo}', additionalInfo);
 
-            const response = await fetch(`${API_URL}/interact`, {
+            const response = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    input: prompt,
+                    prompt,
                     model: 'gpt-4o'
                 })
             });
 
             const data = await response.json();
-            setGeneratedTraining(data.textResponse);
+            setGeneratedTraining(data.exercise);
             setActiveTab(1);
 
-            const jsonMatch = cleanGeneratedCode(data.textResponse);
+            const jsonMatch = cleanGeneratedCode(data.exercise);
             if (jsonMatch) {
                 try {
                     console.log(jsonMatch);

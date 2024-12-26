@@ -2,6 +2,8 @@
 
 AI solution for coaches/clubs to create training exercises.
 
+![alt text](/public/logo.jpg)
+
 ## DEMO
 
 https://ai-coach.club/landing.html
