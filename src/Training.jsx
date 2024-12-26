@@ -31,8 +31,6 @@ import ReactMarkdown from 'react-markdown';
 import Exercise from './Exercise';
 import { API_URL } from './App';
 
-
-
 const PROMPT_TEMPLATE = `Create a detailed football training session based on these parameters:
 
 Parameters:
@@ -296,7 +294,6 @@ function Training() {
             const jsonMatch = cleanGeneratedCode(data.exercise);
             if (jsonMatch) {
                 try {
-                    console.log(jsonMatch);
                     const diagramData = JSON.parse(jsonMatch);
                     setExerciseData(diagramData);
                 } catch {

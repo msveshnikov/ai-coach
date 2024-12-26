@@ -60,10 +60,10 @@ const Exercise = ({ exercise }) => {
         const render = () => {
             drawField();
 
-            const scaleX = (canvas.width - 2 * padding) / exercise.field.width;
-            const scaleY = (canvas.height - 2 * padding) / exercise.field.height;
+            const scaleX = (canvas.width - 2 * padding) / (exercise.field?.width ?? 1);
+            const scaleY = (canvas.height - 2 * padding) / (exercise.field?.height ?? 1);
 
-            exercise.elements.forEach((element) => {
+            exercise.elements?.forEach((element) => {
                 const x = padding + (element.position?.x ?? 0) * scaleX;
                 const y = padding + (element.position?.y ?? 0) * scaleY;
 
