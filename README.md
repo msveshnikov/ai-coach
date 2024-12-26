@@ -130,7 +130,8 @@ https://ai-coach.club/landing.html
 ## Fonts
 
 - Paramount Sans
-- HelveticaLTStd Roman
+- HelveticaLT
+- Std Roman
 - Paramount Sans
 - Paramount Sans
 
