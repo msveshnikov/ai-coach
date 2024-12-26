@@ -1,152 +1,151 @@
-# Training.jsx Documentation
+# Training Component Documentation
 
 ## Overview
 
-`Training.jsx` is the main component of the AI Coach application, a React-based web application that
-generates customized football training sessions using AI. The component integrates with Chakra UI
-for styling and layout, and communicates with an API to generate training plans.
+The `Training.jsx` component is a core part of the AI Coach application, providing an interface for
+users to generate customized football training sessions. It integrates with OpenAI's GPT-4 model to
+create detailed training plans based on user-specified parameters.
+
+## Component Structure
+
+### File Location
+
+`src/Training.jsx`
+
+### Dependencies
+
+- `@chakra-ui/react` - UI component library
+- `@chakra-ui/icons` - Icon components
+- `react-markdown` - Markdown rendering
+- `Exercise.jsx` - Custom component for visualizing training exercises
 
 ## Key Features
 
-- Training configuration form
-- AI-powered training generation
+- Form-based training configuration
+- AI-powered training plan generation
 - Interactive visualization of training exercises
-- Dark/light mode toggle
+- Dark/Light mode support
 - Responsive design
 
-## Dependencies
-
-```javascript
-import { ChakraProvider, ... } from '@chakra-ui/react'
-import { SunIcon, MoonIcon } from '@chakra-ui/icons'
-import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import Exercise from './Exercise'
-```
-
-## Constants
-
-### API_URL
-
-```javascript
-const API_URL = 'https://allchat.online/api';
-```
-
-Base URL for API communications.
-
-### PROMPT_TEMPLATE
-
-A template string that structures the AI prompt for generating training sessions. Includes
-parameters and JSON schema for training diagrams.
-
-### exercise
-
-Default exercise configuration object following the JSON schema for training visualization.
-
-## Component State
+## State Management
 
 ```javascript
 const [trainingType, setTrainingType] = useState('exercise');
 const [ageGroup, setAgeGroup] = useState('');
 const [playerCount, setPlayerCount] = useState('');
-// ... additional state variables
+const [performanceClass, setPerformanceClass] = useState('');
+const [duration, setDuration] = useState('');
+const [trainingAim, setTrainingAim] = useState('');
+const [additionalInfo, setAdditionalInfo] = useState('');
+const [generatedTraining, setGeneratedTraining] = useState('');
+const [exerciseData, setExerciseData] = useState(exercise);
 ```
 
 ## Main Functions
 
-### cleanGeneratedCode
+### `generateTraining`
 
 ```javascript
-function cleanGeneratedCode(code: string): string | null
+const generateTraining = async () => {
+    // Generates training plan using AI
+    Parameters: None
+    Returns: void
+    Triggers API call to '/api/generate-training'
+}
 ```
 
-Extracts JSON code blocks from the AI response.
-
-**Parameters:**
-
-- `code`: Raw response text containing code blocks
-
-**Returns:**
-
-- Cleaned JSON string or null if no match found
-
-### generateTraining
+### `cleanGeneratedCode`
 
 ```javascript
-const generateTraining = async () => void
+function cleanGeneratedCode(code) {
+    // Extracts JSON from code blocks
+    Parameters:
+        - code: string (Raw response from API)
+    Returns: string | null (Cleaned JSON string)
+}
 ```
 
-Handles the API call to generate training sessions.
+## Component Sections
 
-- Constructs prompt from form data
-- Makes API request with authentication
-- Updates UI with response
-- Handles success/error states
+### Configuration Tab
 
-## Component Structure
+- Training Type selection (Exercise/Session/Cyclus)
+- Age Group dropdown
+- Number of Players input
+- Performance Class selection
+- Duration input
+- Training Aim selection
+- Additional Information textarea
 
-1. ChakraProvider wrapper
-2. Main container with dark/light mode toggle
-3. Tab-based interface:
-    - Configuration tab with form inputs
-    - Generated training tab with visualization and markdown content
-4. Footer section
+### Generated Training Tab
+
+- Visual exercise diagram
+- Markdown-rendered training plan
 
 ## Usage Example
 
 ```jsx
 import Training from './Training';
 
-function Root() {
-    return <Training />;
+function App() {
+    return (
+        <div>
+            <Training />
+        </div>
+    );
 }
 ```
 
-## Integration Points
+## Exercise Schema
 
-- Connects with `Exercise.jsx` for training visualization
-- Communicates with external API for training generation
-- Uses environment variables for API authentication
+The component uses a standardized JSON schema for defining training exercises:
+
+- Field dimensions
+- Player positions
+- Cone placements
+- Movement paths
+
+## API Integration
+
+Makes POST requests to `${API_URL}/api/generate-training` with:
+
+- Prompt template
+- Training parameters
+- Model specification (gpt-4)
 
 ## Error Handling
 
-- Toast notifications for success/error states
-- Try-catch blocks for API communication
+- Toast notifications for success/failure
+- Loading states during API calls
 - JSON parsing error handling
+
+## Styling
+
+- Uses Chakra UI theming
+- Supports dark/light mode
+- Responsive container layout
+- Consistent spacing and typography
 
 ## Project Context
 
-This file serves as the main application component in a larger project structure that includes:
+This component serves as the main training generation interface in the AI Coach application, working
+alongside:
 
-- Server-side components (`/server`)
-- Documentation (`/docs`)
-- Public assets (`/public`)
-- Additional React components (`/src`)
+- `App.jsx` - Main application wrapper
+- `Exercise.jsx` - Training visualization component
+- `Landing.jsx` - Initial user interface
 
 ## Notes
 
-- Requires valid API token in environment variables
-- Depends on Chakra UI for styling
-- Uses Vite as build tool
-- Supports responsive design patterns
-- Implements dark/light mode theming
+- Requires API_URL environment variable
+- Depends on Chakra UI theme configuration
+- Assumes server-side endpoint availability
+- Requires appropriate CORS configuration
 
-## Future Considerations
+## Future Improvements
 
-- Add input validation
-- Implement caching for generated trainings
-- Add export functionality
-- Enhance error handling
-- Add user authentication
-- Implement training history
-
-## Related Files
-
-- `Exercise.jsx`: Visualization component
-- `schema.json`: Training diagram schema
-- `vite.config.js`: Build configuration
-- `main.jsx`: Application entry point
-
-This documentation provides a comprehensive overview of the `Training.jsx` component and its role in the
-AI Coach application. For specific implementation details, refer to the inline comments in the
-source code.
+- Add exercise template library
+- Implement save/load functionality
+- Add export options
+- Enhance visualization capabilities
+- Add real-time collaboration features

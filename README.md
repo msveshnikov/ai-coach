@@ -1,6 +1,6 @@
 # AI Coach
 
-AI solution for coaches/clubs to create training exercises.
+AI solution for coaches/clubs to create training exercises
 
 ![alt text](/public/logo.jpg)
 
@@ -8,139 +8,148 @@ AI solution for coaches/clubs to create training exercises.
 
 https://ai-coach.club
 
-## Product Features
+## Design System
 
-### For Coaches
+### Typography
 
-- Personalized Training Configuration
-    - Performance level assessment
-    - Age-specific adaptations
-    - Team composition analysis
-    - Performance tracking metrics
-- Goal Setting & Management
-    - Custom training objectives
-    - Progress tracking dashboard
-    - Achievement milestones
-- AI-Powered Exercise Recommendations
-    - Dynamic exercise selection
-    - Difficulty progression
-    - Real-time adjustments
-- Advanced Planning Tools
-    - Microcycle builder
-    - Macrocycle overview
-    - Calendar integration
-    - Recovery period management
+- Primary: Paramount Sans
+- Secondary: HelveticaLT
+- Body: Std Roman
+- Display: Paramount Sans
 
-### For Clubs
+### Color Palette
 
-- Philosophy Management
-    - Custom playing style definition
-    - Club-wide methodology
-    - Value integration system
-- Age-Group Progression
-    - Developmental pathways
-    - Skill progression mapping
-    - Age-appropriate drills
-- Exercise Library
-    - Customizable restrictions
-    - Club-specific movements
-    - Difficulty categorization
-    - Video demonstrations
+- Primary: Apache (#DFBE6F)
+- Secondary: Azure Radiance (#007FFF)
+- Neutral shades for UI elements
+- High contrast combinations for accessibility
+
+### UI Components
+
+- Modular card system
+- Interactive data visualizations
+- Responsive grid layouts
+- Touch-optimized controls
+
+## Architecture
+
+### Frontend
+
+- React 18+ with Vite
+- Chakra UI component library
+- Progressive Web App (PWA)
+- Responsive design system
+- Client-side caching
+- Offline-first architecture
+
+### Backend
+
+- Node.js server
+- MongoDB database
+- RESTful API design
+- WebSocket integration
+- Docker containerization
 
 ## Core Features
 
-### Training Management
+### Exercise Management
 
-- Coach collaboration platform
-- Exercise video library
-    - Multiple angles
-    - Slow motion analysis
-    - Technical breakdowns
-- Training concept builder
-- Session analysis tools
-    - Performance metrics
-    - Heat maps
-    - Player engagement tracking
+- AI-powered exercise generator
+- Video analysis tools
+- Custom exercise builder
+- Training session templates
+- Real-time collaboration
 
-### Technical Architecture
+### Training Programs
 
-- React-based frontend
-- Responsive design
-- Chakra UI
-- Mongo DB for backend
-- Mobile-first approach
-- PWA capabilities
+- Personalized workout plans
+- Progress tracking
+- Performance analytics
+- Team management tools
+- Recovery monitoring
+
+### Club Management
+
+- Resource scheduling
+- Team hierarchy system
+- Permission management
+- Club-wide analytics
+- Philosophy implementation
 
 ## Premium Features
 
-### Professional Development
+### Advanced Analytics
 
-- Online certification courses
-- Live training sessions
-- Expert consultations
-- Workshop access
+- Performance prediction
+- Injury prevention metrics
+- Team chemistry analysis
+- Competition preparation
+- Custom reporting
 
-### Digital Integration
+### Integration Suite
 
-- Club management system
-- Equipment tracking
-- Facility scheduling
-- Performance analytics
+- Calendar systems
+- Equipment management
+- Facility booking
+- Third-party APIs
+- Data export/import
 
-### Profile System
+### Professional Tools
 
-- Coach portfolios
-    - Certifications
-    - Experience tracking
-    - Achievement showcase
-- Player development
-    - Progress tracking
-    - Performance metrics
-    - Injury history
-    - Growth monitoring
+- Custom branding
+- Multi-team management
+- Advanced permissions
+- API access
+- Priority support
 
-## Roadmap
+## Development Roadmap
 
-### Phase 1
+### Q1 2025
 
-- Core platform development
+- Core platform launch
 - Basic exercise library
-- User authentication
+- Authentication system
+- Mobile responsiveness
 
-### Phase 2
+### Q2 2025
 
 - AI integration
 - Advanced analytics
-- Mobile app release
+- Mobile app beta
+- Video analysis tools
 
-### Phase 3
+### Q3 2025
 
-- Club management tools
+- Club management suite
 - Premium features
-- API integrations
+- API marketplace
+- International localization
 
 ## Technical Requirements
 
-- Modern browser support
+### Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+### Performance
+
+- <3s initial load time
+- 60fps animations
 - Offline functionality
 - Real-time updates
-- Secure data handling
-- Cloud storage integration
 
-# Design book
+### Security
 
-## Fonts
+- GDPR compliance
+- Regular security audits
+- Automated backups
 
-- Paramount Sans
-- HelveticaLT
-- Std Roman
-- Paramount Sans
-- Paramount Sans
+### Infrastructure
 
-## colors
-
-Apache 2 #DFBE6F
-
-Azure Radiance 1 #007FFF
-
-# TODO
+- Cloud-native deployment
+- Container orchestration
+- CDN integration
+- Automated scaling
