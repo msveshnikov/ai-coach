@@ -9,7 +9,6 @@ import morgan from 'morgan';
 import compression from 'compression';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { getUnsplashImages } from './unsplash.js';
 
 dotenv.config();
 
@@ -51,17 +50,6 @@ app.post('/api/generate-message', async (req, res) => {
     } catch (error) {
         console.error('Error generating message:', error);
         res.status(500).json({ error: 'An error occurred while generating the message' });
-    }
-});
-
-app.get('/api/images/:ai-coach', async (req, res) => {
-    try {
-        const { ai-coach } = req.params;
-        const images = await getUnsplashImages(ai-coach);
-        res.json({ images: images.slice(0, 10) });
-    } catch (error) {
-        console.error('Error fetching images:', error);
-        res.status(500).json({ error: 'Failed to fetch images' });
     }
 });
 
