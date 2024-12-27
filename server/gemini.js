@@ -4,12 +4,12 @@ dotenv.config({ override: true });
 
 const vertex_ai = new VertexAI({ project: process.env.GOOGLE_KEY, location: 'us-central1' });
 
-export const getTextGemini = async (prompt, model, temperature) => {
+export const getTextGemini = async (prompt, model, temperature = 0.7) => {
     const generativeModel = vertex_ai.preview.getGenerativeModel({
         model: model,
         generation_config: {
             max_output_tokens: 4096,
-            temperature: temperature || 0.5
+            temperature: temperature
         }
     });
 

@@ -37,7 +37,7 @@ Required environment variables:
 {
     email: String,          // Required, unique
     password: String,       // Required, hashed
-    role: String,          // 'coach' or 'club'
+    role: String,           // 'coach' or 'club'
     certifications: [String],
     experience: String,
     achievements: [String]

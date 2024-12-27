@@ -39,7 +39,7 @@ app.use(compression());
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 50
+    max: 20
 });
 
 app.use(limiter);
@@ -95,7 +95,7 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-const generateAIResponse = async (prompt, model, temperature = 0.5) => {
+const generateAIResponse = async (prompt, model, temperature = 0.7) => {
     switch (model) {
         case 'gpt-4o':
         case `o1-mini`:

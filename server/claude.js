@@ -6,11 +6,11 @@ const anthropic = new Anthropic({
     apiKey: process.env.CLAUDE_KEY
 });
 
-export const getTextClaude = async (prompt, model, temperature) => {
+export const getTextClaude = async (prompt, model, temperature = 0.7) => {
     const data = await anthropic.messages.create({
         model: model,
         max_tokens: 4096,
-        temperature: temperature || 0.5,
+        temperature: temperature,
         messages: [{ role: 'user', content: prompt }]
     });
     if (!data) {

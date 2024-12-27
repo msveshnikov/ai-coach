@@ -11,7 +11,7 @@ export default defineConfig({
             manifest: {
                 name: 'AI Coach',
                 short_name: 'AI Coach',
-                description: 'AI-powered AI Coach for coaches and clubs',
+                description: 'AI-powered Coach for football/soccer',
                 theme_color: '#ffffff',
                 background_color: '#ffffff',
                 display: 'standalone',
@@ -30,7 +30,7 @@ export default defineConfig({
                         src: 'logo512.png',
                         sizes: '512x512',
                         type: 'image/png',
-                        purpose: 'any maskable'
+                        purpose: 'any'
                     }
                 ]
             }
