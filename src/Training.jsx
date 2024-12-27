@@ -105,7 +105,7 @@ function Training() {
     const [trainingAim, setTrainingAim] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
-    const [diagramData, setDiagramData] = useState();
+    const [diagram, setDiagram] = useState();
     const [selectedModel, setSelectedModel] = useState('gpt-4o');
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -160,11 +160,10 @@ function Training() {
             setProgress(50);
             const data = await response.json();
             setGeneratedTraining(data);
-            setHistory((prev) => [...prev, { params, training: data, timestamp: Date.now() }]);
             setActiveTab(1);
 
             setProgress(75);
-            setDiagramData(null);
+            setDiagram(null);
             const diagramPrompt = DIAGRAM_TEMPLATE.replace('{trainingDescription}', data);
             const diagramResponse = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
@@ -174,13 +173,19 @@ function Training() {
 
             const diagramData = await diagramResponse.json();
             const jsonMatch = cleanGeneratedCode(diagramData);
+            let diagramJson;
             if (jsonMatch) {
                 try {
-                    setDiagramData(JSON.parse(jsonMatch));
+                    diagramJson = JSON.parse(jsonMatch);
+                    setDiagram(diagramJson);
                 } catch (error) {
                     console.error('Failed to parse diagram JSON:', error);
                 }
             }
+            setHistory((prev) => [
+                ...prev,
+                { params, training: data, diagram: diagramJson, timestamp: Date.now() }
+            ]);
 
             setProgress(100);
             toast({
@@ -204,7 +209,7 @@ function Training() {
 
     const exportTraining = () => {
         const blob = new Blob(
-            [JSON.stringify({ training: generatedTraining, diagram: diagramData }, null, 2)],
+            [JSON.stringify({ training: generatedTraining, diagram: diagram }, null, 2)],
             { type: 'application/json' }
         );
         const url = URL.createObjectURL(blob);
@@ -433,8 +438,8 @@ function Training() {
                             <TabPanel>
                                 {generatedTraining && (
                                     <Box borderWidth="1px" borderRadius="md" p={4}>
-                                        {diagramData ? (
-                                            <Diagram diagram={diagramData} />
+                                        {diagram ? (
+                                            <Diagram diagram={diagram} />
                                         ) : (
                                             <Skeleton height="300px" />
                                         )}
@@ -454,6 +459,7 @@ function Training() {
                                             cursor="pointer"
                                             onClick={() => {
                                                 setGeneratedTraining(item.training);
+                                                setDiagram(item.diagram);
                                                 setActiveTab(1);
                                             }}
                                         >

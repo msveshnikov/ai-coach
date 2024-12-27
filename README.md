@@ -126,5 +126,3 @@ https://ai-coach.club
 - International localization
 
 # TODO
-
-- historize diagram as well
