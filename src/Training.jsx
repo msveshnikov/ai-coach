@@ -267,7 +267,7 @@ function Training() {
                             <TabPanel>
                                 <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
                                     <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                                        <GridItem colSpan={2}>
+                                        <GridItem colSpan={1}>
                                             <FormControl>
                                                 <FormLabel>Model</FormLabel>
                                                 <Select
@@ -292,7 +292,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={2}>
+                                        <GridItem colSpan={1}>
                                             <FormControl>
                                                 <FormLabel>Training Type</FormLabel>
                                                 <RadioGroup
@@ -302,7 +302,7 @@ function Training() {
                                                     <Stack direction="row">
                                                         <Radio value="exercise">Exercise</Radio>
                                                         <Radio value="session">Session</Radio>
-                                                        <Radio value="cyclus">Cyclus</Radio>
+                                                        {/* <Radio value="cyclus">Cyclus</Radio> */}
                                                     </Stack>
                                                 </RadioGroup>
                                             </FormControl>
@@ -383,7 +383,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={2}>
+                                        <GridItem colSpan={1}>
                                             <FormControl>
                                                 <FormLabel>Training Aim</FormLabel>
                                                 <Select
@@ -406,7 +406,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={2}>
+                                        <GridItem colSpan={1}>
                                             <FormControl>
                                                 <FormLabel>Additional Information</FormLabel>
                                                 <Textarea
