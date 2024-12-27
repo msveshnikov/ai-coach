@@ -211,7 +211,6 @@ docker-compose logs -f
 - Live chat support
 - Community forums
 
-
 ---
 
 For more information, visit [https://ai-coach.club](https://ai-coach.club) or contact

@@ -256,7 +256,7 @@ function Training() {
 
                     {isLoading && <Progress value={progress} size="xs" colorScheme="blue" />}
 
-                    <Tabs index={activeTab} onChange={setActiveTab} >
+                    <Tabs index={activeTab} onChange={setActiveTab}>
                         <TabList>
                             <Tab>Configuration</Tab>
                             <Tab>Generated Training</Tab>
@@ -465,7 +465,7 @@ function Training() {
                                         >
                                             <Flex justify="space-between" align="center">
                                                 <Text fontWeight="bold">
-                                                    Training #{history.length - index}
+                                                    Training #{index+1}
                                                 </Text>
                                                 <Badge colorScheme="blue">
                                                     {item.params.trainingType}
