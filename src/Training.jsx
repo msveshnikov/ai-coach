@@ -230,7 +230,7 @@ function Training() {
 
     return (
         <Box minH="100vh" bg={containerBg}>
-            <Container maxW="container.xl" p={4}>
+            <Container maxW="container.xl" p={[2, 4]}>
                 <Flex direction="column" gap={4}>
                     <Flex justify="space-between" align="center">
                         <Heading>AI Coach</Heading>
@@ -256,7 +256,7 @@ function Training() {
 
                     {isLoading && <Progress value={progress} size="xs" colorScheme="blue" />}
 
-                    <Tabs index={activeTab} onChange={setActiveTab}>
+                    <Tabs index={activeTab} onChange={setActiveTab} >
                         <TabList>
                             <Tab>Configuration</Tab>
                             <Tab>Generated Training</Tab>
@@ -265,11 +265,11 @@ function Training() {
 
                         <TabPanels>
                             <TabPanel>
-                                <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
-                                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                                        <GridItem colSpan={1}>
+                                <Box bg={bgColor} p={[3, 6]} borderRadius="lg" shadow="sm">
+                                    <Grid templateColumns={['1fr', 'repeat(2, 1fr)']} gap={[4, 6]}>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Model</FormLabel>
+                                                <FormLabel fontSize={['sm', 'md']}>Model</FormLabel>
                                                 <Select
                                                     value={selectedModel}
                                                     onChange={(e) =>
@@ -292,7 +292,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={1}>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Training Type</FormLabel>
                                                 <RadioGroup
@@ -302,13 +302,13 @@ function Training() {
                                                     <Stack direction="row">
                                                         <Radio value="exercise">Exercise</Radio>
                                                         <Radio value="session">Session</Radio>
-                                                        {/* <Radio value="cyclus">Cyclus</Radio> */}
+                                                        <Radio value="cyclus">Cyclus</Radio>
                                                     </Stack>
                                                 </RadioGroup>
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Age Group</FormLabel>
                                                 <Select
@@ -335,7 +335,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Number of Players</FormLabel>
                                                 <NumberInput
@@ -348,7 +348,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Performance Class</FormLabel>
                                                 <Select
@@ -370,7 +370,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Duration (minutes)</FormLabel>
                                                 <NumberInput
@@ -383,7 +383,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={1}>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Training Aim</FormLabel>
                                                 <Select
@@ -406,7 +406,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={1}>
+                                        <GridItem colSpan={[2, 1]}>
                                             <FormControl>
                                                 <FormLabel>Additional Information</FormLabel>
                                                 <Textarea
@@ -420,7 +420,7 @@ function Training() {
                                             </FormControl>
                                         </GridItem>
 
-                                        <GridItem colSpan={2}>
+                                        <GridItem colSpan={[2, 1]}>
                                             <Button
                                                 w="100%"
                                                 colorScheme="blue"
