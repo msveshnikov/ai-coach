@@ -46,15 +46,16 @@ const Diagram = ({ diagram }) => {
         };
 
         const drawShootPass = (points) => {
+            if (!points?.length) return;
             ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            for (let i = 1; i < points.length; i++) {
-                ctx.lineTo(points[i].x, points[i].y);
+            ctx.moveTo(points?.[0]?.x, points?.[0]?.y);
+            for (let i = 1; i < points?.length; i++) {
+                ctx.lineTo(points?.[i].x, points?.[i].y);
             }
             ctx.strokeStyle = '#FFFFFF';
             ctx.lineWidth = 2;
             ctx.stroke();
-            drawArrowhead(points[points.length - 1].x, points[points.length - 1].y, 0);
+            drawArrowhead(points[points.length - 1]?.x, points[points.length - 1]?.y, 0);
         };
 
         const drawRun = (points) => {
@@ -149,7 +150,7 @@ const Diagram = ({ diagram }) => {
                         break;
                     case 'shoot':
                         drawShootPass(
-                            element.path.map((p) => ({
+                            element.path?.map((p) => ({
                                 x: padding + p.x * scaleX,
                                 y: padding + p.y * scaleY
                             }))

@@ -464,9 +464,7 @@ function Training() {
                                             }}
                                         >
                                             <Flex justify="space-between" align="center">
-                                                <Text fontWeight="bold">
-                                                    Training #{index+1}
-                                                </Text>
+                                                <Text fontWeight="bold">Training #{index + 1}</Text>
                                                 <Badge colorScheme="blue">
                                                     {item.params.trainingType}
                                                 </Badge>

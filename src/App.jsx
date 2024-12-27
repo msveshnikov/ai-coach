@@ -24,7 +24,9 @@ function App() {
                 const data = await response.json();
                 setIsAuthenticated(data.authenticated);
                 setUserProfile(data.profile);
-            } catch { /* empty */ }
+            } catch {
+                /* empty */
+            }
         };
         checkAuth();
     }, [toast]);
