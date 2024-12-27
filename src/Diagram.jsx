@@ -181,8 +181,8 @@ const Diagram = ({ diagram }) => {
                         break;
                     case 'zone':
                         drawZone(
-                            padding + element.position.x * scaleX,
-                            padding + element.position.y * scaleY,
+                            padding + element.position?.x * scaleX,
+                            padding + element.position?.y * scaleY,
                             element.width * scaleX,
                             element.height * scaleY
                         );
