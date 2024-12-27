@@ -24,13 +24,15 @@ import {
     TabPanels,
     Tab,
     TabPanel,
-    Skeleton
+    Skeleton,
+    Badge
 } from '@chakra-ui/react';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { SunIcon, MoonIcon, DownloadIcon, RepeatIcon } from '@chakra-ui/icons';
+import { useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { API_URL } from './App';
 import Diagram from './Diagram';
+import diagramSchema from './diagramSchema.json';
 
 const PROMPT_TEMPLATE = `You are "AI Coach Pro," an intelligent assistant for soccer coaches. Create a detailed training session based on the following information:
 
@@ -66,77 +68,19 @@ After a specific number of passes, the ball can be played from the 4v2 group to 
 **Now generate a new training exercise (just 1 exercise) that matches the specified training aim and includes at least one drill with a particularly detailed description of the procedure.**
 `;
 
-const DIAGRAM_TEMPLATE = `Create a diagram of the exercise with player positions and cones. Exercise description:
+const DIAGRAM_TEMPLATE = `Create a JSON diagram of the exercise with player positions, cones, and movement paths. Include all movement types:
+- Shoot/Pass: Arrow pointing right inside
+- Run: Dashed line with right arrow
+- Dribbling: Squiggly line with right arrow
+- Cross/Long Ball: Curved line with right downward arrow
+- Long Run: Dotted line with right downward arrow
+- Focus Area: Horizontal solid and dashed lines
+- Zone: Rectangle with black dots at corners
 
+Exercise description:
 {trainingDescription}
 
-Diagram should be in below JSON schema, syntactically correct and without any additional comments:
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "required": ["field", "elements"],
-    "properties": {
-        "field": {
-            "type": "object",
-            "required": ["width", "height"],
-            "properties": {
-                "width": {
-                    "type": "number",
-                    "description": "Width of the field in meters"
-                },
-                "height": {
-                    "type": "number",
-                    "description": "Height of the field in meters"
-                }
-            }
-        },
-        "elements": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "required": ["type", "position"],
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "enum": ["player", "cone", "path"],
-                        "description": "Type of element on the field"
-                    },
-                    "position": {
-                        "type": "object",
-                        "required": ["x", "y"],
-                        "properties": {
-                            "x": {
-                                "type": "number",
-                                "description": "X coordinate on the field"
-                            },
-                            "y": {
-                                "type": "number",
-                                "description": "Y coordinate on the field"
-                            }
-                        }
-                    },
-                    "team": {
-                        "type": "string",
-                        "enum": ["team1", "team2"],
-                        "description": "Team assignment for players"
-                    },
-                    "path": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "required": ["x", "y"],
-                            "properties": {
-                                "x": { "type": "number" },
-                                "y": { "type": "number" }
-                            }
-                        },
-                        "description": "Array of points defining a movement path"
-                    }
-                }
-            }
-        }
-    }
-}`;
+Response must be valid JSON matching this schema: ${JSON.stringify(diagramSchema)}`;
 
 function Training() {
     const [trainingType, setTrainingType] = useState('exercise');
@@ -151,17 +95,18 @@ function Training() {
     const [selectedModel, setSelectedModel] = useState('gpt-4o');
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [history, setHistory] = useState([]);
     const { colorMode, toggleColorMode } = useColorMode();
     const toast = useToast();
 
     const bgColor = useColorModeValue('white', 'gray.700');
     const containerBg = useColorModeValue('gray.50', 'gray.800');
 
-    const cleanGeneratedCode = (code) => {
+    const cleanGeneratedCode = useCallback((code) => {
         const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
         const match = code.match(codeBlockRegex);
         return match ? match[1] : code;
-    };
+    }, []);
 
     const generateTraining = async () => {
         setIsLoading(true);
@@ -185,6 +130,7 @@ function Training() {
 
             const data = await response.json();
             setGeneratedTraining(data);
+            setHistory((prev) => [...prev, { params, training: data }]);
             setActiveTab(1);
 
             setDiagramData(null);
@@ -201,8 +147,8 @@ function Training() {
             if (jsonMatch) {
                 try {
                     setDiagramData(JSON.parse(jsonMatch));
-                } catch {
-                    console.error('Failed to parse diagram JSON');
+                } catch (error) {
+                    console.error('Failed to parse diagram JSON:', error);
                 }
             }
 
@@ -225,22 +171,47 @@ function Training() {
         }
     };
 
+    const exportTraining = () => {
+        const blob = new Blob(
+            [JSON.stringify({ training: generatedTraining, diagram: diagramData })],
+            {
+                type: 'application/json'
+            }
+        );
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'training-session.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <Box minH="100vh" bg={containerBg}>
             <Container maxW="container.xl" p={4}>
                 <Flex direction="column" gap={4}>
                     <Flex justify="space-between" align="center">
                         <Heading>AI Coach</Heading>
-                        <IconButton
-                            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                            onClick={toggleColorMode}
-                        />
+                        <Flex gap={2}>
+                            <IconButton
+                                icon={<DownloadIcon />}
+                                onClick={exportTraining}
+                                isDisabled={!generatedTraining}
+                            />
+                            <IconButton
+                                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                                onClick={toggleColorMode}
+                            />
+                        </Flex>
                     </Flex>
 
                     <Tabs index={activeTab} onChange={setActiveTab}>
                         <TabList>
                             <Tab>Configuration</Tab>
                             <Tab>Generated Training</Tab>
+                            <Tab>History</Tab>
                         </TabList>
 
                         <TabPanels>
@@ -363,6 +334,7 @@ function Training() {
                                             colorScheme="blue"
                                             onClick={generateTraining}
                                             isLoading={isLoading}
+                                            leftIcon={<RepeatIcon />}
                                         >
                                             Generate Training
                                         </Button>
@@ -381,6 +353,37 @@ function Training() {
                                         <ReactMarkdown>{generatedTraining}</ReactMarkdown>
                                     </Box>
                                 )}
+                            </TabPanel>
+
+                            <TabPanel>
+                                <VStack spacing={4} align="stretch">
+                                    {history.map((item, index) => (
+                                        <Box
+                                            key={index}
+                                            p={4}
+                                            borderWidth="1px"
+                                            borderRadius="md"
+                                            cursor="pointer"
+                                            onClick={() => {
+                                                setGeneratedTraining(item.training);
+                                                setActiveTab(1);
+                                            }}
+                                        >
+                                            <Flex justify="space-between" align="center">
+                                                <Text fontWeight="bold">
+                                                    Training #{history.length - index}
+                                                </Text>
+                                                <Badge colorScheme="blue">
+                                                    {item.params.trainingType}
+                                                </Badge>
+                                            </Flex>
+                                            <Text noOfLines={2} fontSize="sm" color="gray.500">
+                                                {item.params.trainingAim} -{' '}
+                                                {item.params.performanceClass}
+                                            </Text>
+                                        </Box>
+                                    ))}
+                                </VStack>
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

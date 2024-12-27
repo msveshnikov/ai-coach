@@ -30,7 +30,18 @@
                 "properties": {
                     "type": {
                         "type": "string",
-                        "enum": ["player", "cone", "path"],
+                        "enum": [
+                            "player",
+                            "cone",
+                            "path",
+                            "shoot",
+                            "run",
+                            "dribble",
+                            "cross",
+                            "longRun",
+                            "focusArea",
+                            "zone"
+                        ],
                         "description": "Type of element on the field"
                     },
                     "position": {
@@ -63,20 +74,36 @@
                             }
                         },
                         "description": "Array of points defining a movement path"
+                    },
+                    "style": {
+                        "type": "object",
+                        "properties": {
+                            "lineType": {
+                                "type": "string",
+                                "enum": ["solid", "dashed", "dotted", "squiggly", "curved"],
+                                "description": "Type of line to draw"
+                            },
+                            "arrowDirection": {
+                                "type": "string",
+                                "enum": ["right", "rightDown", "none"],
+                                "description": "Direction of the arrow at the end of the line"
+                            },
+                            "corners": {
+                                "type": "boolean",
+                                "description": "Whether to draw dots at corners (for zones)"
+                            }
+                        }
+                    },
+                    "dimensions": {
+                        "type": "object",
+                        "properties": {
+                            "width": { "type": "number" },
+                            "height": { "type": "number" }
+                        },
+                        "description": "Dimensions for areas and zones"
                     }
                 }
             }
-        },
-        "description": {
-            "type": "string",
-            "description": "Story or context of the exercise"
-        },
-        "organization": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "description": "Step by step instructions for setting up and running the exercise"
         }
     }
 }
