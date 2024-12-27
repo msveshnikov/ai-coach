@@ -63,10 +63,10 @@ The number of touches for the outside players can be limited.
 After a specific number of passes, the ball can be played from the 4v2 group to the 4v0 group, requiring the defenders to chase across the field.
 
 
-**Now generate a new training session that matches the specified training aim and includes at least one drill with a particularly detailed description of the procedure.**
+**Now generate a new training exercise (just 1 exercise) that matches the specified training aim and includes at least one drill with a particularly detailed description of the procedure.**
 `;
 
-const DIAGRAM_TEMPLATE = `Create a diagram of the training with player positions and cones. Training description:
+const DIAGRAM_TEMPLATE = `Create a diagram of the exercise with player positions and cones. Exercise description:
 
 {trainingDescription}
 

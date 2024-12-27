@@ -155,3 +155,23 @@ https://ai-coach.club
 - Automated scaling
 
 # TODO
+
+Add more Drawing Rules to json schema and renderer:
+
+Shoot/Pass: Represented by an arrow pointing to the right inside.
+
+Run: Represented by a dashed line with an arrow pointing to the right at its end.
+
+Dribbling/Run with Ball: Represented by a squiggly line with an arrow pointing to the right at its
+end.
+
+Cross/Long Ball: Represented by a curved line with an arrow pointing to the right downwards at its
+end.
+
+Run (more used for longer runs): Represented by a dotted line with an arrow pointing to the right
+downwards at its end.
+
+Area of focus/possible lines for field separation (potential zones or sections): Represented by a
+horizontal solid line and a horizontal dashed line below it.
+
+Area/Zone: Represented by a rectangle with a black dot on each of the four corners.
