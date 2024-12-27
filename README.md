@@ -127,3 +127,4 @@ https://ai-coach.club
 
 # TODO
 
+- historize diagram as well

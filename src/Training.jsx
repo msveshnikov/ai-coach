@@ -25,10 +25,24 @@ import {
     Tab,
     TabPanel,
     Skeleton,
-    Badge
+    Badge,
+    Grid,
+    GridItem,
+    Progress,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure
 } from '@chakra-ui/react';
-import { SunIcon, MoonIcon, DownloadIcon, RepeatIcon } from '@chakra-ui/icons';
-import { useState, useCallback } from 'react';
+import { SunIcon, MoonIcon, RepeatIcon, SettingsIcon } from '@chakra-ui/icons';
+import { useState, useCallback, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { API_URL } from './App';
 import Diagram from './Diagram';
@@ -96,11 +110,24 @@ function Training() {
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [history, setHistory] = useState([]);
+    const [progress, setProgress] = useState(0);
     const { colorMode, toggleColorMode } = useColorMode();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
     const bgColor = useColorModeValue('white', 'gray.700');
     const containerBg = useColorModeValue('gray.50', 'gray.800');
+
+    useEffect(() => {
+        const savedHistory = localStorage.getItem('trainingHistory');
+        if (savedHistory) {
+            setHistory(JSON.parse(savedHistory));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('trainingHistory', JSON.stringify(history));
+    }, [history]);
 
     const cleanGeneratedCode = useCallback((code) => {
         const codeBlockRegex = /```(?:json)?\n([\s\S]*?)\n```/;
@@ -110,6 +137,7 @@ function Training() {
 
     const generateTraining = async () => {
         setIsLoading(true);
+        setProgress(0);
         try {
             const params = {
                 trainingType,
@@ -121,6 +149,7 @@ function Training() {
                 additionalInfo
             };
 
+            setProgress(25);
             const prompt = PROMPT_TEMPLATE.replace('{trainingParams}', JSON.stringify(params));
             const response = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
@@ -128,11 +157,13 @@ function Training() {
                 body: JSON.stringify({ prompt, model: selectedModel })
             });
 
+            setProgress(50);
             const data = await response.json();
             setGeneratedTraining(data);
-            setHistory((prev) => [...prev, { params, training: data }]);
+            setHistory((prev) => [...prev, { params, training: data, timestamp: Date.now() }]);
             setActiveTab(1);
 
+            setProgress(75);
             setDiagramData(null);
             const diagramPrompt = DIAGRAM_TEMPLATE.replace('{trainingDescription}', data);
             const diagramResponse = await fetch(`${API_URL}/api/generate-training`, {
@@ -142,7 +173,6 @@ function Training() {
             });
 
             const diagramData = await diagramResponse.json();
-            console.log(diagramData);
             const jsonMatch = cleanGeneratedCode(diagramData);
             if (jsonMatch) {
                 try {
@@ -152,6 +182,7 @@ function Training() {
                 }
             }
 
+            setProgress(100);
             toast({
                 title: 'Training Generated',
                 status: 'success',
@@ -173,19 +204,23 @@ function Training() {
 
     const exportTraining = () => {
         const blob = new Blob(
-            [JSON.stringify({ training: generatedTraining, diagram: diagramData })],
-            {
-                type: 'application/json'
-            }
+            [JSON.stringify({ training: generatedTraining, diagram: diagramData }, null, 2)],
+            { type: 'application/json' }
         );
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'training-session.json';
+        a.download = `training-session-${Date.now()}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    };
+
+    const clearHistory = () => {
+        setHistory([]);
+        localStorage.removeItem('trainingHistory');
+        onClose();
     };
 
     return (
@@ -195,17 +230,26 @@ function Training() {
                     <Flex justify="space-between" align="center">
                         <Heading>AI Coach</Heading>
                         <Flex gap={2}>
-                            <IconButton
-                                icon={<DownloadIcon />}
-                                onClick={exportTraining}
-                                isDisabled={!generatedTraining}
-                            />
+                            <Menu>
+                                <MenuButton as={IconButton} icon={<SettingsIcon />} />
+                                <MenuList>
+                                    <MenuItem onClick={onOpen}>Clear History</MenuItem>
+                                    <MenuItem
+                                        onClick={exportTraining}
+                                        isDisabled={!generatedTraining}
+                                    >
+                                        Export Training
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
                             <IconButton
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
                             />
                         </Flex>
                     </Flex>
+
+                    {isLoading && <Progress value={progress} size="xs" colorScheme="blue" />}
 
                     <Tabs index={activeTab} onChange={setActiveTab}>
                         <TabList>
@@ -217,128 +261,172 @@ function Training() {
                         <TabPanels>
                             <TabPanel>
                                 <Box bg={bgColor} p={6} borderRadius="lg" shadow="sm">
-                                    <VStack spacing={4} align="stretch">
-                                        <FormControl>
-                                            <FormLabel>Model</FormLabel>
-                                            <Select
-                                                value={selectedModel}
-                                                onChange={(e) => setSelectedModel(e.target.value)}
+                                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                                        <GridItem colSpan={2}>
+                                            <FormControl>
+                                                <FormLabel>Model</FormLabel>
+                                                <Select
+                                                    value={selectedModel}
+                                                    onChange={(e) =>
+                                                        setSelectedModel(e.target.value)
+                                                    }
+                                                >
+                                                    <option value="o1-mini">O1 Mini</option>{' '}
+                                                    <option value="gpt-4o">GPT-4 Optimized</option>
+                                                    <option value="gpt-4o-mini">GPT-4 Mini</option>
+                                                    <option value="claude-3-5-sonnet-20241022">
+                                                        Claude 3.5
+                                                    </option>
+                                                    <option value="gemini-exp-1206">
+                                                        Gemini Exp
+                                                    </option>
+                                                    <option value="gemini-2.0-flash-exp">
+                                                        Gemini 2.0 Flash
+                                                    </option>
+                                                </Select>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem colSpan={2}>
+                                            <FormControl>
+                                                <FormLabel>Training Type</FormLabel>
+                                                <RadioGroup
+                                                    value={trainingType}
+                                                    onChange={setTrainingType}
+                                                >
+                                                    <Stack direction="row">
+                                                        <Radio value="exercise">Exercise</Radio>
+                                                        <Radio value="session">Session</Radio>
+                                                        <Radio value="cyclus">Cyclus</Radio>
+                                                    </Stack>
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem>
+                                            <FormControl>
+                                                <FormLabel>Age Group</FormLabel>
+                                                <Select
+                                                    placeholder="Select age group"
+                                                    value={ageGroup}
+                                                    onChange={(e) => setAgeGroup(e.target.value)}
+                                                >
+                                                    {[
+                                                        'u8',
+                                                        'u10',
+                                                        'u12',
+                                                        'u14',
+                                                        'u16',
+                                                        'u18',
+                                                        'senior'
+                                                    ].map((age) => (
+                                                        <option key={age} value={age}>
+                                                            {age === 'senior'
+                                                                ? 'Senior'
+                                                                : `Under ${age.slice(1)}`}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem>
+                                            <FormControl>
+                                                <FormLabel>Number of Players</FormLabel>
+                                                <NumberInput
+                                                    min={1}
+                                                    value={playerCount}
+                                                    onChange={(value) => setPlayerCount(value)}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem>
+                                            <FormControl>
+                                                <FormLabel>Performance Class</FormLabel>
+                                                <Select
+                                                    placeholder="Select performance class"
+                                                    value={performanceClass}
+                                                    onChange={(e) =>
+                                                        setPerformanceClass(e.target.value)
+                                                    }
+                                                >
+                                                    {['beginner', 'advanced', 'high', 'pro'].map(
+                                                        (level) => (
+                                                            <option key={level} value={level}>
+                                                                {level.charAt(0).toUpperCase() +
+                                                                    level.slice(1)}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </Select>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem>
+                                            <FormControl>
+                                                <FormLabel>Duration (minutes)</FormLabel>
+                                                <NumberInput
+                                                    min={1}
+                                                    value={duration}
+                                                    onChange={(value) => setDuration(value)}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem colSpan={2}>
+                                            <FormControl>
+                                                <FormLabel>Training Aim</FormLabel>
+                                                <Select
+                                                    placeholder="Select training aim"
+                                                    value={trainingAim}
+                                                    onChange={(e) => setTrainingAim(e.target.value)}
+                                                >
+                                                    {[
+                                                        'technical',
+                                                        'tactical',
+                                                        'physical',
+                                                        'mental'
+                                                    ].map((aim) => (
+                                                        <option key={aim} value={aim}>
+                                                            {aim.charAt(0).toUpperCase() +
+                                                                aim.slice(1)}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem colSpan={2}>
+                                            <FormControl>
+                                                <FormLabel>Additional Information</FormLabel>
+                                                <Textarea
+                                                    value={additionalInfo}
+                                                    onChange={(e) =>
+                                                        setAdditionalInfo(e.target.value)
+                                                    }
+                                                    placeholder="Enter any additional requirements or specifications"
+                                                    rows={4}
+                                                />
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem colSpan={2}>
+                                            <Button
+                                                w="100%"
+                                                colorScheme="blue"
+                                                onClick={generateTraining}
+                                                isLoading={isLoading}
+                                                leftIcon={<RepeatIcon />}
                                             >
-                                                <option value="o1-mini">O1 Mini</option>
-                                                <option value="gpt-4o">GPT-4 Optimized</option>
-                                                <option value="gpt-4o-mini">GPT-4 Mini</option>
-                                                <option value="claude-3-5-sonnet-20241022">
-                                                    Claude 3.5
-                                                </option>
-                                                <option value="gemini-exp-1206">Gemini Exp</option>
-                                                <option value="gemini-2.0-flash-exp">
-                                                    Gemini 2.0 Flash
-                                                </option>
-                                            </Select>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Training Type</FormLabel>
-                                            <RadioGroup
-                                                value={trainingType}
-                                                onChange={setTrainingType}
-                                            >
-                                                <Stack direction="row">
-                                                    <Radio value="exercise">Exercise</Radio>
-                                                    <Radio value="session">Session</Radio>
-                                                    <Radio value="cyclus">Cyclus</Radio>
-                                                </Stack>
-                                            </RadioGroup>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Age Group</FormLabel>
-                                            <Select
-                                                placeholder="Select age group"
-                                                value={ageGroup}
-                                                onChange={(e) => setAgeGroup(e.target.value)}
-                                            >
-                                                <option value="u8">Under 8</option>
-                                                <option value="u10">Under 10</option>
-                                                <option value="u12">Under 12</option>
-                                                <option value="u14">Under 14</option>
-                                                <option value="u16">Under 16</option>
-                                                <option value="u18">Under 18</option>
-                                                <option value="senior">Senior</option>
-                                            </Select>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Number of Players</FormLabel>
-                                            <NumberInput
-                                                min={1}
-                                                value={playerCount}
-                                                onChange={(value) => setPlayerCount(value)}
-                                            >
-                                                <NumberInputField />
-                                            </NumberInput>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Performance Class</FormLabel>
-                                            <Select
-                                                placeholder="Select performance class"
-                                                value={performanceClass}
-                                                onChange={(e) =>
-                                                    setPerformanceClass(e.target.value)
-                                                }
-                                            >
-                                                <option value="beginner">Beginner</option>
-                                                <option value="advanced">Advanced</option>
-                                                <option value="high">High</option>
-                                                <option value="pro">Professional</option>
-                                            </Select>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Duration (minutes)</FormLabel>
-                                            <NumberInput
-                                                min={1}
-                                                value={duration}
-                                                onChange={(value) => setDuration(value)}
-                                            >
-                                                <NumberInputField />
-                                            </NumberInput>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Training Aim</FormLabel>
-                                            <Select
-                                                placeholder="Select training aim"
-                                                value={trainingAim}
-                                                onChange={(e) => setTrainingAim(e.target.value)}
-                                            >
-                                                <option value="technical">Technical</option>
-                                                <option value="tactical">Tactical</option>
-                                                <option value="physical">Physical</option>
-                                                <option value="mental">Mental</option>
-                                            </Select>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Additional Information</FormLabel>
-                                            <Textarea
-                                                value={additionalInfo}
-                                                onChange={(e) => setAdditionalInfo(e.target.value)}
-                                                placeholder="Enter any additional requirements or specifications"
-                                                rows={4}
-                                            />
-                                        </FormControl>
-
-                                        <Button
-                                            colorScheme="blue"
-                                            onClick={generateTraining}
-                                            isLoading={isLoading}
-                                            leftIcon={<RepeatIcon />}
-                                        >
-                                            Generate Training
-                                        </Button>
-                                    </VStack>
+                                                Generate Training
+                                            </Button>
+                                        </GridItem>
+                                    </Grid>
                                 </Box>
                             </TabPanel>
 
@@ -381,6 +469,9 @@ function Training() {
                                                 {item.params.trainingAim} -{' '}
                                                 {item.params.performanceClass}
                                             </Text>
+                                            <Text fontSize="xs" color="gray.400">
+                                                {new Date(item.timestamp).toLocaleString()}
+                                            </Text>
                                         </Box>
                                     ))}
                                 </VStack>
@@ -395,6 +486,20 @@ function Training() {
                     </Box>
                 </Flex>
             </Container>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Clear History</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Text mb={4}>Are you sure you want to clear all training history?</Text>
+                        <Button colorScheme="red" onClick={clearHistory}>
+                            Clear History
+                        </Button>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 }
