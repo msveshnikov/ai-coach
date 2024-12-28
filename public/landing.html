@@ -507,7 +507,7 @@
 
             .waitlist-form input,
             .waitlist-form select {
-                padding: 15px;
+                padding: 5px;
                 border: 2px solid #e2e8f0;
                 border-radius: 10px;
                 flex: 1;
@@ -673,7 +673,7 @@
                             <option value="club">Club Manager</option>
                             <option value="organization">Organization</option>
                         </select>
-                        <button type="submit" class="btn">Join Waiting List</button>
+                        <button type="submit" class="btn">Join List</button>
                     </form>
                     <p class="waitlist-note">Current wait time: ~2 weeks</p>
                 </div>
@@ -837,4 +837,41 @@
             </div>
         </footer>
     </body>
+    <script>
+        document.querySelector('.waitlist-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = e.target.querySelector('input[type="email"]').value;
+            const role = e.target.querySelector('select').value;
+
+            try {
+                const response = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        role
+                    })
+                });
+
+                if (response.ok) {
+                    const button = e.target.querySelector('button');
+                    button.textContent = 'Added to Waitlist!';
+                    button.disabled = true;
+
+                    setTimeout(() => {
+                        button.textContent = 'Join Waiting List';
+                        button.disabled = false;
+                        e.target.reset();
+                    }, 3000);
+                } else {
+                    throw new Error('Failed to join waitlist');
+                }
+            } catch (err) {
+                alert('Error joining waitlist. Please try again.');
+            }
+        });
+    </script>
 </html>

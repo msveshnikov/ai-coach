@@ -126,3 +126,5 @@ https://aicoachpro.ai
 - International localization
 
 # TODO
+
+- implement POST /api/waitlist with payload {email: "msveshnikov@gmail.com", role: "coach"} and save to MongoDB

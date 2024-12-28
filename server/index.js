@@ -17,6 +17,7 @@ import { getTextGemini } from './gemini.js';
 import User from './models/User.js';
 import Exercise from './models/Exercise.js';
 import Team from './models/Team.js';
+import Waitlist from './models/Waitlist.js';
 
 dotenv.config();
 
@@ -85,6 +86,20 @@ const generateAIResponse = async (prompt, model, temperature = 0.7) => {
             throw new Error('Invalid model specified');
     }
 };
+
+app.post('/api/waitlist', async (req, res) => {
+    try {
+        const { email, role } = req.body;
+        const waitlistEntry = new Waitlist({ email, role });
+        await waitlistEntry.save();
+        res.status(201).json({ message: 'Added to waitlist successfully' });
+    } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ error: 'Email already on waitlist' });
+        }
+        res.status(500).json({ error: error.message });
+    }
+});
 
 app.post('/api/register', async (req, res) => {
     try {
