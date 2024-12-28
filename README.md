@@ -4,7 +4,7 @@ AI solution for coaches/clubs to create training exercises
 
 ![alt text](/public/logo.jpg)
 
-## DEMO
+## PROD
 
 https://aicoachpro.ai
 

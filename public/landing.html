@@ -2,19 +2,36 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
             name="description"
-            content="AI-Powered AI Coach for coaches and clubs. Intelligent training plans, exercise library, and performance tracking."
+            content="AI Coach for Coaches and Clubs - Advanced AI-powered platform for personalized training configuration, goal setting, and club management"
         />
         <meta
             name="keywords"
-            content="training management, AI coaching, sports technology, exercise planning, coaching software"
+            content="training management, coaching platform, sports training, AI coaching, club management, exercise library"
         />
         <meta name="author" content="AI Coach" />
-        <meta property="og:title" content="AI-Powered AI Coach" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <title>AI-Powered AI Coach</title>
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="AI Coach" />
+        <meta
+            property="og:description"
+            content="Advanced training management platform for coaches and sports clubs"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aicoachpro.ai" />
+        <meta property="og:image" content="/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AI Coach" />
+        <meta
+            name="twitter:description"
+            content="Advanced training management platform for coaches and sports clubs"
+        />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="canonical" href="https://aicoachpro.ai" />
+        <link rel="apple-touch-icon" href="/logo192.png" />
+        <title>AI Coach | Advanced Coaching Platform</title>
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
@@ -51,7 +68,7 @@
 
             .hero {
                 background: linear-gradient(45deg, rgba(37, 99, 235, 0.9), rgba(0, 0, 0, 0.3)),
-                    url('/hero.jpg');
+                    url('hero.jpg');
                 background-size: cover;
                 background-position: center;
                 color: white;
@@ -472,6 +489,43 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
 
+            .waiting-list {
+                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+                margin-bottom: 60px;
+                border: 2px solid var(--azure);
+            }
+
+            .waitlist-form {
+                display: flex;
+                gap: 15px;
+                max-width: 600px;
+                margin: 30px auto;
+            }
+
+            .waitlist-form input,
+            .waitlist-form select {
+                padding: 15px;
+                border: 2px solid #e2e8f0;
+                border-radius: 10px;
+                flex: 1;
+                font-size: 1rem;
+            }
+
+            .waitlist-note {
+                color: #64748b;
+                font-size: 0.9rem;
+                margin-top: 15px;
+            }
+
+            @media (max-width: 768px) {
+                .waitlist-form {
+                    flex-direction: column;
+                }
+            }
+
             @media (max-width: 768px) {
                 .hero h1 {
                     font-size: 2.8rem;
@@ -605,6 +659,24 @@
         <section class="pricing">
             <div class="container">
                 <h2 class="section-title">Pricing Plans</h2>
+                <div class="waiting-list">
+                    <h3>Join the Waiting List</h3>
+                    <p>
+                        Due to high demand, we're currently accepting new users through a waiting
+                        list system.
+                    </p>
+                    <form class="waitlist-form">
+                        <input type="email" placeholder="Enter your email" required />
+                        <select required>
+                            <option value="">Select your role</option>
+                            <option value="coach">Coach</option>
+                            <option value="club">Club Manager</option>
+                            <option value="organization">Organization</option>
+                        </select>
+                        <button type="submit" class="btn">Join Waiting List</button>
+                    </form>
+                    <p class="waitlist-note">Current wait time: ~2 weeks</p>
+                </div>
                 <div class="pricing-grid">
                     <div class="pricing-card">
                         <h3>Free</h3>
