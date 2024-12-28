@@ -6,7 +6,7 @@ AI solution for coaches/clubs to create training exercises
 
 ## DEMO
 
-https://ai-coach.club
+https://aicoachpro.ai
 
 ## Design System
 

@@ -7,7 +7,7 @@ import Analytics from './Analytics';
 import ClubManagement from './ClubManagement';
 import Profile from './Profile';
 
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://aicoachpro.ai';
 export const AuthContext = createContext(null);
 
 function App() {

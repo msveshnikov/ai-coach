@@ -9,13 +9,13 @@ up the basic layout and routing infrastructure for the AI Coach application.
 ## Environment Configuration
 
 ```javascript
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://aicoachpro.ai';
 ```
 
 This constant determines the API endpoint based on the development environment:
 
 - Development: `http://localhost:3000`
-- Production: `https://ai-coach.club`
+- Production: `https://aicoachpro.ai`
 
 ## Main Components
 
