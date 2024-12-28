@@ -1,0 +1,46 @@
+{
+    "training": {
+        "title": "AI Coach",
+        "configuration": "Configuração",
+        "generatedTraining": "Treino Gerado",
+        "history": "Histórico",
+        "model": "Modelo",
+        "trainingType": "Tipo de Treino",
+        "exercise": "Exercício",
+        "session": "Sessão",
+        "cyclus": "Ciclo",
+        "ageGroup": "Faixa Etária",
+        "selectAgeGroup": "Selecione a faixa etária",
+        "under": "Sub",
+        "senior": "Sênior",
+        "playerCount": "Número de Jogadores",
+        "performanceClass": "Nível de Desempenho",
+        "selectPerformanceClass": "Selecione o nível de desempenho",
+        "beginner": "Iniciante",
+        "advanced": "Avançado",
+        "high": "Alto",
+        "pro": "Profissional",
+        "duration": "Duração (minutos)",
+        "trainingAim": "Objetivo do Treino",
+        "selectTrainingAim": "Selecione o objetivo do treino",
+        "technical": "Técnico",
+        "tactical": "Tático",
+        "physical": "Físico",
+        "mental": "Mental",
+        "additionalInfo": "Informações Adicionais",
+        "additionalInfoPlaceholder": "Digite requisitos ou especificações adicionais",
+        "generateTraining": "Gerar Treino",
+        "clearHistory": "Limpar Histórico",
+        "exportTraining": "Exportar Treino",
+        "confirmClearHistory": "Tem certeza que deseja limpar todo o histórico de treinos?",
+        "training": "Treino",
+        "success": {
+            "title": "Treino Gerado",
+            "description": "Treino gerado com sucesso"
+        },
+        "error": {
+            "title": "Erro",
+            "description": "Falha ao gerar treino"
+        }
+    }
+}

@@ -6,6 +6,8 @@ import { Landing } from './Landing';
 import Analytics from './Analytics';
 import ClubManagement from './ClubManagement';
 import Profile from './Profile';
+import './i18n.jsx';
+import { I18nextProvider } from 'react-i18next';
 
 export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://aicoachpro.ai';
 export const AuthContext = createContext(null);
@@ -41,27 +43,37 @@ function App() {
     return (
         <ChakraProvider>
             <AuthContext.Provider value={authContextValue}>
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<Landing />} />
-                        <Route path="/app/*" element={<Training />} />
-                        <Route
-                            path="/profile"
-                            element={isAuthenticated ? <Profile /> : <Navigate to="/" replace />}
-                        />
-                        <Route
-                            path="/club/*"
-                            element={
-                                isAuthenticated ? <ClubManagement /> : <Navigate to="/" replace />
-                            }
-                        />
-                        <Route
-                            path="/analytics/*"
-                            element={isAuthenticated ? <Analytics /> : <Navigate to="/" replace />}
-                        />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Routes>
-                </Router>
+                <I18nextProvider>
+                    <Router>
+                        <Routes>
+                            <Route path="/" element={<Landing />} />
+                            <Route path="/app/*" element={<Training />} />
+                            <Route
+                                path="/profile"
+                                element={
+                                    isAuthenticated ? <Profile /> : <Navigate to="/" replace />
+                                }
+                            />
+                            <Route
+                                path="/club/*"
+                                element={
+                                    isAuthenticated ? (
+                                        <ClubManagement />
+                                    ) : (
+                                        <Navigate to="/" replace />
+                                    )
+                                }
+                            />
+                            <Route
+                                path="/analytics/*"
+                                element={
+                                    isAuthenticated ? <Analytics /> : <Navigate to="/" replace />
+                                }
+                            />
+                            <Route path="*" element={<Navigate to="/" replace />} />
+                        </Routes>
+                    </Router>
+                </I18nextProvider>
             </AuthContext.Provider>
         </ChakraProvider>
     );

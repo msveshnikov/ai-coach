@@ -1,0 +1,81 @@
+{
+    "common": {
+        "title": "AI Coach",
+        "copyright": "© 2025 AI Coach"
+    },
+    "nav": {
+        "configuration": "Configuration",
+        "generatedTraining": "Generated Training",
+        "history": "History"
+    },
+    "settings": {
+        "clearHistory": "Clear History",
+        "exportTraining": "Export Training",
+        "clearHistoryConfirm": "Are you sure you want to clear all training history?"
+    },
+    "form": {
+        "model": {
+            "label": "Model",
+            "options": {
+                "o1Mini": "O1 Mini",
+                "gpt4o": "GPT-4 Optimized",
+                "gpt4oMini": "GPT-4 Mini",
+                "claude": "Claude 3.5",
+                "geminiExp": "Gemini Exp",
+                "geminiFlash": "Gemini 2.0 Flash"
+            }
+        },
+        "trainingType": {
+            "label": "Training Type",
+            "exercise": "Exercise",
+            "session": "Session",
+            "cyclus": "Cyclus"
+        },
+        "ageGroup": {
+            "label": "Age Group",
+            "senior": "Senior",
+            "under": "Under"
+        },
+        "playerCount": {
+            "label": "Number of Players"
+        },
+        "performanceClass": {
+            "label": "Performance Class",
+            "beginner": "Beginner",
+            "advanced": "Advanced",
+            "high": "High",
+            "pro": "Pro"
+        },
+        "duration": {
+            "label": "Duration (minutes)"
+        },
+        "trainingAim": {
+            "label": "Training Aim",
+            "technical": "Technical",
+            "tactical": "Tactical",
+            "physical": "Physical",
+            "mental": "Mental"
+        },
+        "additionalInfo": {
+            "label": "Additional Information",
+            "placeholder": "Enter any additional requirements or specifications"
+        },
+        "generate": "Generate Training"
+    },
+    "history": {
+        "training": "Training #",
+        "type": "Type",
+        "aim": "Aim",
+        "class": "Class"
+    },
+    "notifications": {
+        "success": {
+            "title": "Training Generated",
+            "description": "Training session has been successfully generated"
+        },
+        "error": {
+            "title": "Error",
+            "description": "Failed to generate training"
+        }
+    }
+}

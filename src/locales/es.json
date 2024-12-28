@@ -1,0 +1,64 @@
+{
+    "training": {
+        "title": "AI Coach",
+        "config": {
+            "model": "Modelo",
+            "trainingType": "Tipo de Entrenamiento",
+            "ageGroup": "Grupo de Edad",
+            "playerCount": "Número de Jugadores",
+            "performanceClass": "Nivel de Rendimiento",
+            "duration": "Duración (minutos)",
+            "trainingAim": "Objetivo del Entrenamiento",
+            "additionalInfo": "Información Adicional"
+        },
+        "types": {
+            "exercise": "Ejercicio",
+            "session": "Sesión",
+            "cyclus": "Ciclo"
+        },
+        "ages": {
+            "u8": "Sub-8",
+            "u10": "Sub-10",
+            "u12": "Sub-12",
+            "u14": "Sub-14",
+            "u16": "Sub-16",
+            "u18": "Sub-18",
+            "senior": "Senior"
+        },
+        "performance": {
+            "beginner": "Principiante",
+            "advanced": "Avanzado",
+            "high": "Alto",
+            "pro": "Profesional"
+        },
+        "aims": {
+            "technical": "Técnico",
+            "tactical": "Táctico",
+            "physical": "Físico",
+            "mental": "Mental"
+        },
+        "buttons": {
+            "generate": "Generar Entrenamiento",
+            "export": "Exportar Entrenamiento",
+            "clearHistory": "Borrar Historial"
+        },
+        "tabs": {
+            "configuration": "Configuración",
+            "generated": "Entrenamiento Generado",
+            "history": "Historial"
+        },
+        "messages": {
+            "success": "Entrenamiento Generado",
+            "error": "Error al generar el entrenamiento",
+            "clearConfirm": "¿Está seguro que desea borrar todo el historial de entrenamientos?"
+        }
+    },
+    "common": {
+        "select": "Seleccionar",
+        "loading": "Cargando",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "settings": "Ajustes"
+    }
+}

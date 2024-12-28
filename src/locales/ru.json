@@ -1,0 +1,60 @@
+{
+    "aiCoach": "ИИ Тренер",
+    "common": {
+        "ageGroups": {
+            "u8": "До 8 лет",
+            "u10": "До 10 лет",
+            "u12": "До 12 лет",
+            "u14": "До 14 лет",
+            "u16": "До 16 лет",
+            "u18": "До 18 лет",
+            "senior": "Взрослые"
+        },
+        "performanceClass": {
+            "beginner": "Начинающий",
+            "advanced": "Продвинутый",
+            "high": "Высокий",
+            "pro": "Профессионал"
+        },
+        "trainingTypes": {
+            "exercise": "Упражнение",
+            "session": "Тренировка",
+            "cyclus": "Цикл"
+        },
+        "trainingAims": {
+            "technical": "Техника",
+            "tactical": "Тактика",
+            "physical": "Физподготовка",
+            "mental": "Психология"
+        }
+    },
+    "training": {
+        "configuration": "Настройка",
+        "generatedTraining": "Сгенерированная тренировка",
+        "history": "История",
+        "model": "Модель",
+        "trainingType": "Тип тренировки",
+        "ageGroup": "Возрастная группа",
+        "playerCount": "Количество игроков",
+        "performanceClass": "Уровень подготовки",
+        "duration": "Длительность (минут)",
+        "trainingAim": "Цель тренировки",
+        "additionalInfo": "Дополнительная информация",
+        "generateTraining": "Создать тренировку",
+        "clearHistory": "Очистить историю",
+        "exportTraining": "Экспорт тренировки",
+        "training": "Тренировка",
+        "confirmClearHistory": "Вы уверены, что хотите очистить всю историю тренировок?"
+    },
+    "notifications": {
+        "trainingGenerated": "Тренировка создана",
+        "error": "Ошибка",
+        "failedToGenerate": "Не удалось создать тренировку"
+    },
+    "placeholders": {
+        "selectAgeGroup": "Выберите возрастную группу",
+        "selectPerformanceClass": "Выберите уровень подготовки",
+        "selectTrainingAim": "Выберите цель тренировки",
+        "additionalInfo": "Введите дополнительные требования или характеристики"
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "training": {
+        "title": "AI Coach",
+        "tabs": {
+            "configuration": "Configuratie",
+            "generatedTraining": "Gegenereerde Training",
+            "history": "Geschiedenis"
+        },
+        "form": {
+            "model": {
+                "label": "Model",
+                "options": {
+                    "o1Mini": "O1 Mini",
+                    "gpt4o": "GPT-4 Geoptimaliseerd",
+                    "gpt4oMini": "GPT-4 Mini",
+                    "claude": "Claude 3.5",
+                    "geminiExp": "Gemini Exp",
+                    "geminiFlash": "Gemini 2.0 Flash"
+                }
+            },
+            "trainingType": {
+                "label": "Type Training",
+                "options": {
+                    "exercise": "Oefening",
+                    "session": "Sessie",
+                    "cyclus": "Cyclus"
+                }
+            },
+            "ageGroup": {
+                "label": "Leeftijdsgroep",
+                "placeholder": "Selecteer leeftijdsgroep",
+                "options": {
+                    "u8": "Onder 8",
+                    "u10": "Onder 10",
+                    "u12": "Onder 12",
+                    "u14": "Onder 14",
+                    "u16": "Onder 16",
+                    "u18": "Onder 18",
+                    "senior": "Senior"
+                }
+            },
+            "playerCount": {
+                "label": "Aantal Spelers"
+            },
+            "performanceClass": {
+                "label": "Prestatieniveau",
+                "placeholder": "Selecteer prestatieniveau",
+                "options": {
+                    "beginner": "Beginner",
+                    "advanced": "Gevorderd",
+                    "high": "Hoog",
+                    "pro": "Professional"
+                }
+            },
+            "duration": {
+                "label": "Duur (minuten)"
+            },
+            "trainingAim": {
+                "label": "Trainingsdoel",
+                "placeholder": "Selecteer trainingsdoel",
+                "options": {
+                    "technical": "Technisch",
+                    "tactical": "Tactisch",
+                    "physical": "Fysiek",
+                    "mental": "Mentaal"
+                }
+            },
+            "additionalInfo": {
+                "label": "Aanvullende Informatie",
+                "placeholder": "Voer eventuele aanvullende vereisten of specificaties in"
+            }
+        },
+        "buttons": {
+            "generate": "Genereer Training",
+            "clearHistory": "Geschiedenis Wissen",
+            "export": "Exporteer Training"
+        },
+        "messages": {
+            "success": "Training Gegenereerd",
+            "error": "Fout bij het genereren van training",
+            "clearHistoryConfirm": "Weet u zeker dat u alle trainingsgeschiedenis wilt wissen?"
+        },
+        "copyright": "© 2025 AI Coach"
+    }
+}

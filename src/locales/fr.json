@@ -1,0 +1,51 @@
+{
+    "training": {
+        "title": "AI Coach",
+        "configuration": "Configuration",
+        "generatedTraining": "Entraînement généré",
+        "history": "Historique",
+        "model": "Modèle",
+        "trainingType": "Type d'entraînement",
+        "types": {
+            "exercise": "Exercice",
+            "session": "Séance",
+            "cyclus": "Cycle"
+        },
+        "ageGroup": "Catégorie d'âge",
+        "ageGroups": {
+            "u8": "Moins de 8 ans",
+            "u10": "Moins de 10 ans",
+            "u12": "Moins de 12 ans",
+            "u14": "Moins de 14 ans",
+            "u16": "Moins de 16 ans",
+            "u18": "Moins de 18 ans",
+            "senior": "Senior"
+        },
+        "playerCount": "Nombre de joueurs",
+        "performanceClass": "Niveau",
+        "levels": {
+            "beginner": "Débutant",
+            "advanced": "Intermédiaire",
+            "high": "Avancé",
+            "pro": "Professionnel"
+        },
+        "duration": "Durée (minutes)",
+        "trainingAim": "Objectif",
+        "aims": {
+            "technical": "Technique",
+            "tactical": "Tactique",
+            "physical": "Physique",
+            "mental": "Mental"
+        },
+        "additionalInfo": "Informations supplémentaires",
+        "additionalInfoPlaceholder": "Entrez des exigences ou spécifications supplémentaires",
+        "generateButton": "Générer l'entraînement",
+        "clearHistory": "Effacer l'historique",
+        "clearHistoryConfirm": "Êtes-vous sûr de vouloir effacer tout l'historique d'entraînement ?",
+        "exportTraining": "Exporter l'entraînement",
+        "messages": {
+            "success": "Entraînement généré",
+            "error": "Échec de la génération de l'entraînement"
+        }
+    }
+}

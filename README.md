@@ -126,3 +126,5 @@ https://aicoachpro.ai
 - International localization
 
 # TODO
+
+- Localize to top10 languages

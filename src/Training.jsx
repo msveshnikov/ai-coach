@@ -44,6 +44,7 @@ import {
 import { SunIcon, MoonIcon, RepeatIcon, SettingsIcon } from '@chakra-ui/icons';
 import { useState, useCallback, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 import { API_URL } from './App';
 import Diagram from './Diagram';
 import diagramSchema from './diagramSchema.json';
@@ -97,6 +98,7 @@ Exercise description:
 Response must be valid JSON matching this schema: ${JSON.stringify(diagramSchema)}`;
 
 function Training() {
+    const { t, i18n } = useTranslation();
     const [trainingType, setTrainingType] = useState('exercise');
     const [ageGroup, setAgeGroup] = useState('');
     const [playerCount, setPlayerCount] = useState('');
@@ -146,7 +148,8 @@ function Training() {
                 performanceClass,
                 duration,
                 trainingAim,
-                additionalInfo
+                additionalInfo,
+                language: i18n.language
             };
 
             setProgress(25);
@@ -189,15 +192,15 @@ function Training() {
 
             setProgress(100);
             toast({
-                title: 'Training Generated',
+                title: t('trainingGenerated'),
                 status: 'success',
                 duration: 3000,
                 isClosable: true
             });
         } catch {
             toast({
-                title: 'Error',
-                description: 'Failed to generate training',
+                title: t('error'),
+                description: t('failedToGenerateTraining'),
                 status: 'error',
                 duration: 3000,
                 isClosable: true
@@ -228,22 +231,42 @@ function Training() {
         onClose();
     };
 
+    const handleLanguageChange = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
     return (
         <Box minH="100vh" bg={containerBg}>
             <Container maxW="container.xl" p={[2, 4]}>
                 <Flex direction="column" gap={4}>
                     <Flex justify="space-between" align="center">
-                        <Heading>AI Coach</Heading>
+                        <Heading>{t('aiCoach')}</Heading>
                         <Flex gap={2}>
+                            <Select
+                                w="100px"
+                                value={i18n.language}
+                                onChange={(e) => handleLanguageChange(e.target.value)}
+                            >
+                                <option value="en">EN</option>
+                                <option value="de">DE</option>
+                                <option value="es">ES</option>
+                                <option value="fr">FR</option>
+                                <option value="it">IT</option>
+                                <option value="nl">NL</option>
+                                <option value="pl">PL</option>
+                                <option value="pt">PT</option>
+                                <option value="ru">RU</option>
+                                <option value="sr">SR</option>
+                            </Select>
                             <Menu>
                                 <MenuButton as={IconButton} icon={<SettingsIcon />} />
                                 <MenuList>
-                                    <MenuItem onClick={onOpen}>Clear History</MenuItem>
+                                    <MenuItem onClick={onOpen}>{t('clearHistory')}</MenuItem>
                                     <MenuItem
                                         onClick={exportTraining}
                                         isDisabled={!generatedTraining}
                                     >
-                                        Export Training
+                                        {t('exportTraining')}
                                     </MenuItem>
                                 </MenuList>
                             </Menu>
@@ -258,9 +281,9 @@ function Training() {
 
                     <Tabs index={activeTab} onChange={setActiveTab}>
                         <TabList>
-                            <Tab>Configuration</Tab>
-                            <Tab>Generated Training</Tab>
-                            <Tab>History</Tab>
+                            <Tab>{t('nav.configuration')}</Tab>
+                            <Tab>{t('nav.generatedTraining')}</Tab>
+                            <Tab>{t('nav.history')}</Tab>
                         </TabList>
 
                         <TabPanels>
@@ -464,14 +487,16 @@ function Training() {
                                             }}
                                         >
                                             <Flex justify="space-between" align="center">
-                                                <Text fontWeight="bold">Training #{index + 1}</Text>
+                                                <Text fontWeight="bold">
+                                                    {t('training')} #{index + 1}
+                                                </Text>
                                                 <Badge colorScheme="blue">
-                                                    {item.params.trainingType}
+                                                    {t(item.params.trainingType)}
                                                 </Badge>
                                             </Flex>
                                             <Text noOfLines={2} fontSize="sm" color="gray.500">
-                                                {item.params.trainingAim} -{' '}
-                                                {item.params.performanceClass}
+                                                {t(item.params.trainingAim)} -{' '}
+                                                {t(item.params.performanceClass)}
                                             </Text>
                                             <Text fontSize="xs" color="gray.400">
                                                 {new Date(item.timestamp).toLocaleString()}
@@ -494,12 +519,12 @@ function Training() {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Clear History</ModalHeader>
+                    <ModalHeader>{t('clearHistory')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text mb={4}>Are you sure you want to clear all training history?</Text>
+                        <Text mb={4}>{t('clearHistoryConfirmation')}</Text>
                         <Button colorScheme="red" onClick={clearHistory}>
-                            Clear History
+                            {t('clearHistory')}
                         </Button>
                     </ModalBody>
                 </ModalContent>

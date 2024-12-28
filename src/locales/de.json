@@ -1,0 +1,70 @@
+{
+    "training": {
+        "title": "AI Coach",
+        "configuration": "Konfiguration",
+        "generatedTraining": "Generiertes Training",
+        "history": "Verlauf",
+        "model": {
+            "label": "Modell",
+            "options": {
+                "o1Mini": "O1 Mini",
+                "gpt4o": "GPT-4 Optimiert",
+                "gpt4oMini": "GPT-4 Mini",
+                "claude": "Claude 3.5",
+                "geminiExp": "Gemini Exp",
+                "geminiFlash": "Gemini 2.0 Flash"
+            }
+        },
+        "trainingType": {
+            "label": "Trainingsart",
+            "exercise": "Übung",
+            "session": "Einheit",
+            "cyclus": "Zyklus"
+        },
+        "ageGroup": {
+            "label": "Altersgruppe",
+            "placeholder": "Altersgruppe auswählen",
+            "senior": "Senioren",
+            "under": "Unter"
+        },
+        "playerCount": {
+            "label": "Anzahl Spieler"
+        },
+        "performanceClass": {
+            "label": "Leistungsklasse",
+            "placeholder": "Leistungsklasse auswählen",
+            "beginner": "Anfänger",
+            "advanced": "Fortgeschritten",
+            "high": "Hoch",
+            "pro": "Profi"
+        },
+        "duration": {
+            "label": "Dauer (Minuten)"
+        },
+        "trainingAim": {
+            "label": "Trainingsziel",
+            "placeholder": "Trainingsziel auswählen",
+            "technical": "Technisch",
+            "tactical": "Taktisch",
+            "physical": "Physisch",
+            "mental": "Mental"
+        },
+        "additionalInfo": {
+            "label": "Zusätzliche Informationen",
+            "placeholder": "Geben Sie zusätzliche Anforderungen oder Spezifikationen ein"
+        },
+        "buttons": {
+            "generate": "Training generieren",
+            "clearHistory": "Verlauf löschen",
+            "export": "Training exportieren"
+        },
+        "messages": {
+            "success": "Training generiert",
+            "error": "Fehler beim Generieren des Trainings",
+            "clearHistoryConfirm": "Möchten Sie wirklich den gesamten Trainingsverlauf löschen?"
+        }
+    },
+    "common": {
+        "copyright": "© 2025 AI Coach"
+    }
+}
