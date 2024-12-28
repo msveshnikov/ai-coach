@@ -10,3 +10,5 @@ ssh -l ubuntu aicoachpro.ai "docker exec ai-coach_mongodb_1 mongoexport --db ai-
 REM Copy exported files to local machine
 scp ubuntu@aicoachpro.ai:/home/ubuntu/users.csv .
 scp ubuntu@aicoachpro.ai:/home/ubuntu/waitlists.csv .
+scp ubuntu@aicoachpro.ai:/home/ubuntu/exercises.csv .
+scp ubuntu@aicoachpro.ai:/home/ubuntu/teams.csv .
