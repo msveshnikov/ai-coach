@@ -16,19 +16,19 @@ function App() {
     const toast = useToast();
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch(`${API_URL}/api/auth/check`, {
-                    credentials: 'include'
-                });
-                const data = await response.json();
-                setIsAuthenticated(data.authenticated);
-                setUserProfile(data.profile);
-            } catch {
-                /* empty */
-            }
-        };
-        checkAuth();
+        // const checkAuth = async () => {
+        //     try {
+        //         const response = await fetch(`${API_URL}/api/auth/check`, {
+        //             credentials: 'include'
+        //         });
+        //         const data = await response.json();
+        //         setIsAuthenticated(data.authenticated);
+        //         setUserProfile(data.profile);
+        //     } catch {
+        //         /* empty */
+        //     }
+        // };
+        // checkAuth();
     }, [toast]);
 
     const authContextValue = {
