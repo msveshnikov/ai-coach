@@ -1,43 +1,73 @@
 {
-    "training": {
+    "common": {
         "title": "AI Coach",
+        "copyright": "© 2025 AI Coach"
+    },
+    "nav": {
         "configuration": "Configurazione",
         "generatedTraining": "Allenamento Generato",
-        "history": "Cronologia",
-        "model": "Modello",
-        "trainingType": "Tipo di Allenamento",
-        "exercise": "Esercizio",
-        "session": "Sessione",
-        "cyclus": "Ciclo",
-        "ageGroup": "Fascia d'Età",
-        "selectAgeGroup": "Seleziona fascia d'età",
-        "under": "Under",
-        "senior": "Senior",
-        "playerCount": "Numero di Giocatori",
-        "performanceClass": "Livello di Prestazione",
-        "selectPerformanceClass": "Seleziona livello di prestazione",
-        "beginner": "Principiante",
-        "advanced": "Avanzato",
-        "high": "Alto",
-        "pro": "Professionista",
-        "duration": "Durata (minuti)",
-        "trainingAim": "Obiettivo Allenamento",
-        "selectTrainingAim": "Seleziona obiettivo allenamento",
-        "technical": "Tecnico",
-        "tactical": "Tattico",
-        "physical": "Fisico",
-        "mental": "Mentale",
-        "additionalInfo": "Informazioni Aggiuntive",
-        "additionalInfoPlaceholder": "Inserisci requisiti o specifiche aggiuntive",
-        "generateTraining": "Genera Allenamento",
+        "history": "Cronologia"
+    },
+    "settings": {
         "clearHistory": "Cancella Cronologia",
         "exportTraining": "Esporta Allenamento",
-        "confirmClearHistory": "Sei sicuro di voler cancellare tutta la cronologia degli allenamenti?",
-        "success": "Allenamento Generato",
-        "error": "Errore",
-        "errorMessage": "Impossibile generare l'allenamento"
+        "clearHistoryConfirm": "Sei sicuro di voler cancellare tutta la cronologia degli allenamenti?"
     },
-    "common": {
-        "copyright": "© 2025 AI Coach"
+    "form": {
+        "model": {
+            "label": "Modello"
+        },
+        "trainingType": {
+            "label": "Tipo di Allenamento",
+            "exercise": "Esercizio",
+            "session": "Sessione",
+            "cyclus": "Ciclo"
+        },
+        "ageGroup": {
+            "label": "Fascia d'Età",
+            "senior": "Senior",
+            "under": "Under"
+        },
+        "playerCount": {
+            "label": "Numero di Giocatori"
+        },
+        "performanceClass": {
+            "label": "Livello di Prestazione",
+            "beginner": "Principiante",
+            "advanced": "Avanzato",
+            "high": "Alto",
+            "pro": "Professionista"
+        },
+        "duration": {
+            "label": "Durata (minuti)"
+        },
+        "trainingAim": {
+            "label": "Obiettivo dell'Allenamento",
+            "technical": "Tecnico",
+            "tactical": "Tattico",
+            "physical": "Fisico",
+            "mental": "Mentale"
+        },
+        "additionalInfo": {
+            "label": "Informazioni Aggiuntive",
+            "placeholder": "Inserisci requisiti o specifiche aggiuntive"
+        },
+        "generate": "Genera Allenamento"
+    },
+    "history": {
+        "training": "Allenamento",
+        "type": "Tipo",
+        "aim": "Obiettivo",
+        "class": "Livello"
+    },
+    "notifications": {
+        "success": {
+            "title": "Allenamento Generato",
+            "description": "La sessione di allenamento è stata generata con successo"
+        },
+        "error": {
+            "title": "Errore",
+            "description": "Impossibile generare l'allenamento"
+        }
     }
 }

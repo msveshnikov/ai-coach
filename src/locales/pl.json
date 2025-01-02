@@ -1,50 +1,73 @@
 {
-    "training": {
+    "common": {
         "title": "AI Coach",
+        "copyright": "© 2025 AI Coach"
+    },
+    "nav": {
         "configuration": "Konfiguracja",
         "generatedTraining": "Wygenerowany Trening",
-        "history": "Historia",
-        "model": "Model",
-        "trainingType": "Typ Treningu",
-        "exercise": "Ćwiczenie",
-        "session": "Sesja",
-        "cyclus": "Cykl",
-        "ageGroup": "Grupa Wiekowa",
-        "selectAgeGroup": "Wybierz grupę wiekową",
-        "senior": "Senior",
-        "under": "Do lat",
-        "playerCount": "Liczba Graczy",
-        "performanceClass": "Poziom Zaawansowania",
-        "selectPerformanceClass": "Wybierz poziom zaawansowania",
-        "beginner": "Początkujący",
-        "advanced": "Zaawansowany",
-        "high": "Wysoki",
-        "pro": "Profesjonalny",
-        "duration": "Czas trwania (minuty)",
-        "trainingAim": "Cel Treningu",
-        "selectTrainingAim": "Wybierz cel treningu",
-        "technical": "Techniczny",
-        "tactical": "Taktyczny",
-        "physical": "Fizyczny",
-        "mental": "Mentalny",
-        "additionalInfo": "Dodatkowe Informacje",
-        "additionalInfoPlaceholder": "Wprowadź dodatkowe wymagania lub specyfikacje",
-        "generateTraining": "Generuj Trening",
+        "history": "Historia"
+    },
+    "settings": {
         "clearHistory": "Wyczyść Historię",
         "exportTraining": "Eksportuj Trening",
-        "confirmClearHistory": "Czy na pewno chcesz wyczyścić całą historię treningów?",
-        "success": "Sukces",
-        "trainingGenerated": "Trening wygenerowany",
-        "error": "Błąd",
-        "generationFailed": "Nie udało się wygenerować treningu"
+        "clearHistoryConfirm": "Czy na pewno chcesz wyczyścić całą historię treningów?"
     },
-    "common": {
-        "yes": "Tak",
-        "no": "Nie",
-        "cancel": "Anuluj",
-        "save": "Zapisz",
-        "delete": "Usuń",
-        "edit": "Edytuj",
-        "close": "Zamknij"
+    "form": {
+        "model": {
+            "label": "Model"
+        },
+        "trainingType": {
+            "label": "Rodzaj Treningu",
+            "exercise": "Ćwiczenie",
+            "session": "Sesja",
+            "cyclus": "Cykl"
+        },
+        "ageGroup": {
+            "label": "Grupa Wiekowa",
+            "senior": "Senior",
+            "under": "Junior"
+        },
+        "playerCount": {
+            "label": "Liczba Zawodników"
+        },
+        "performanceClass": {
+            "label": "Poziom Zaawansowania",
+            "beginner": "Początkujący",
+            "advanced": "Zaawansowany",
+            "high": "Wysoki",
+            "pro": "Profesjonalny"
+        },
+        "duration": {
+            "label": "Czas Trwania (minuty)"
+        },
+        "trainingAim": {
+            "label": "Cel Treningu",
+            "technical": "Techniczny",
+            "tactical": "Taktyczny",
+            "physical": "Fizyczny",
+            "mental": "Mentalny"
+        },
+        "additionalInfo": {
+            "label": "Dodatkowe Informacje",
+            "placeholder": "Wprowadź dodatkowe wymagania lub specyfikacje"
+        },
+        "generate": "Generuj Trening"
+    },
+    "history": {
+        "training": "Trening",
+        "type": "Typ",
+        "aim": "Cel",
+        "class": "Poziom"
+    },
+    "notifications": {
+        "success": {
+            "title": "Trening Wygenerowany",
+            "description": "Trening został pomyślnie wygenerowany"
+        },
+        "error": {
+            "title": "Błąd",
+            "description": "Nie udało się wygenerować treningu"
+        }
     }
 }

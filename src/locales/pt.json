@@ -1,42 +1,69 @@
 {
-    "training": {
+    "common": {
         "title": "AI Coach",
+        "copyright": "© 2025 AI Coach"
+    },
+    "nav": {
         "configuration": "Configuração",
         "generatedTraining": "Treino Gerado",
-        "history": "Histórico",
-        "model": "Modelo",
-        "trainingType": "Tipo de Treino",
-        "exercise": "Exercício",
-        "session": "Sessão",
-        "cyclus": "Ciclo",
-        "ageGroup": "Faixa Etária",
-        "selectAgeGroup": "Selecione a faixa etária",
-        "under": "Sub",
-        "senior": "Sênior",
-        "playerCount": "Número de Jogadores",
-        "performanceClass": "Nível de Desempenho",
-        "selectPerformanceClass": "Selecione o nível de desempenho",
-        "beginner": "Iniciante",
-        "advanced": "Avançado",
-        "high": "Alto",
-        "pro": "Profissional",
-        "duration": "Duração (minutos)",
-        "trainingAim": "Objetivo do Treino",
-        "selectTrainingAim": "Selecione o objetivo do treino",
-        "technical": "Técnico",
-        "tactical": "Tático",
-        "physical": "Físico",
-        "mental": "Mental",
-        "additionalInfo": "Informações Adicionais",
-        "additionalInfoPlaceholder": "Digite requisitos ou especificações adicionais",
-        "generateTraining": "Gerar Treino",
+        "history": "Histórico"
+    },
+    "settings": {
         "clearHistory": "Limpar Histórico",
         "exportTraining": "Exportar Treino",
-        "confirmClearHistory": "Tem certeza que deseja limpar todo o histórico de treinos?",
+        "clearHistoryConfirm": "Tem certeza que deseja limpar todo o histórico de treinos?"
+    },
+    "form": {
+        "model": {
+            "label": "Modelo"
+        },
+        "trainingType": {
+            "label": "Tipo de Treino",
+            "exercise": "Exercício",
+            "session": "Sessão",
+            "cyclus": "Ciclo"
+        },
+        "ageGroup": {
+            "label": "Faixa Etária",
+            "senior": "Sênior",
+            "under": "Sub"
+        },
+        "playerCount": {
+            "label": "Número de Jogadores"
+        },
+        "performanceClass": {
+            "label": "Nível de Desempenho",
+            "beginner": "Iniciante",
+            "advanced": "Avançado",
+            "high": "Alto",
+            "pro": "Profissional"
+        },
+        "duration": {
+            "label": "Duração (minutos)"
+        },
+        "trainingAim": {
+            "label": "Objetivo do Treino",
+            "technical": "Técnico",
+            "tactical": "Tático",
+            "physical": "Físico",
+            "mental": "Mental"
+        },
+        "additionalInfo": {
+            "label": "Informações Adicionais",
+            "placeholder": "Insira requisitos ou especificações adicionais"
+        },
+        "generate": "Gerar Treino"
+    },
+    "history": {
         "training": "Treino",
+        "type": "Tipo",
+        "aim": "Objetivo",
+        "class": "Nível"
+    },
+    "notifications": {
         "success": {
             "title": "Treino Gerado",
-            "description": "Treino gerado com sucesso"
+            "description": "Sessão de treino foi gerada com sucesso"
         },
         "error": {
             "title": "Erro",
