@@ -15,15 +15,7 @@
     },
     "form": {
         "model": {
-            "label": "Model",
-            "options": {
-                "o1Mini": "O1 Mini",
-                "gpt4o": "GPT-4 Optimized",
-                "gpt4oMini": "GPT-4 Mini",
-                "claude": "Claude 3.5",
-                "geminiExp": "Gemini Exp",
-                "geminiFlash": "Gemini 2.0 Flash"
-            }
+            "label": "Model"
         },
         "trainingType": {
             "label": "Training Type",
@@ -63,7 +55,7 @@
         "generate": "Generate Training"
     },
     "history": {
-        "training": "Training #",
+        "training": "Training",
         "type": "Type",
         "aim": "Aim",
         "class": "Class"

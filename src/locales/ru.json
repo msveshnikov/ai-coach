@@ -1,60 +1,73 @@
 {
-    "aiCoach": "ИИ Тренер",
     "common": {
-        "ageGroups": {
-            "u8": "До 8 лет",
-            "u10": "До 10 лет",
-            "u12": "До 12 лет",
-            "u14": "До 14 лет",
-            "u16": "До 16 лет",
-            "u18": "До 18 лет",
-            "senior": "Взрослые"
+        "title": "AI Coach",
+        "copyright": "© 2025 AI Coach"
+    },
+    "nav": {
+        "configuration": "Конфигурация",
+        "generatedTraining": "Сгенерированная тренировка",
+        "history": "История"
+    },
+    "settings": {
+        "clearHistory": "Очистить историю",
+        "exportTraining": "Экспорт тренировки",
+        "clearHistoryConfirm": "Вы уверены, что хотите очистить всю историю тренировок?"
+    },
+    "form": {
+        "model": {
+            "label": "Модель"
+        },
+        "trainingType": {
+            "label": "Тип тренировки",
+            "exercise": "Упражнение",
+            "session": "Сессия",
+            "cyclus": "Цикл"
+        },
+        "ageGroup": {
+            "label": "Возрастная группа",
+            "senior": "Взрослые",
+            "under": "Юниоры"
+        },
+        "playerCount": {
+            "label": "Количество игроков"
         },
         "performanceClass": {
+            "label": "Уровень подготовки",
             "beginner": "Начинающий",
             "advanced": "Продвинутый",
             "high": "Высокий",
-            "pro": "Профессионал"
+            "pro": "Профессиональный"
         },
-        "trainingTypes": {
-            "exercise": "Упражнение",
-            "session": "Тренировка",
-            "cyclus": "Цикл"
+        "duration": {
+            "label": "Продолжительность (минуты)"
         },
-        "trainingAims": {
-            "technical": "Техника",
-            "tactical": "Тактика",
-            "physical": "Физподготовка",
-            "mental": "Психология"
-        }
+        "trainingAim": {
+            "label": "Цель тренировки",
+            "technical": "Техническая",
+            "tactical": "Тактическая",
+            "physical": "Физическая",
+            "mental": "Ментальная"
+        },
+        "additionalInfo": {
+            "label": "Дополнительная информация",
+            "placeholder": "Введите дополнительные требования или спецификации"
+        },
+        "generate": "Сгенерировать тренировку"
     },
-    "training": {
-        "configuration": "Настройка",
-        "generatedTraining": "Сгенерированная тренировка",
-        "history": "История",
-        "model": "Модель",
-        "trainingType": "Тип тренировки",
-        "ageGroup": "Возрастная группа",
-        "playerCount": "Количество игроков",
-        "performanceClass": "Уровень подготовки",
-        "duration": "Длительность (минут)",
-        "trainingAim": "Цель тренировки",
-        "additionalInfo": "Дополнительная информация",
-        "generateTraining": "Создать тренировку",
-        "clearHistory": "Очистить историю",
-        "exportTraining": "Экспорт тренировки",
+    "history": {
         "training": "Тренировка",
-        "confirmClearHistory": "Вы уверены, что хотите очистить всю историю тренировок?"
+        "type": "Тип",
+        "aim": "Цель",
+        "class": "Уровень"
     },
     "notifications": {
-        "trainingGenerated": "Тренировка создана",
-        "error": "Ошибка",
-        "failedToGenerate": "Не удалось создать тренировку"
-    },
-    "placeholders": {
-        "selectAgeGroup": "Выберите возрастную группу",
-        "selectPerformanceClass": "Выберите уровень подготовки",
-        "selectTrainingAim": "Выберите цель тренировки",
-        "additionalInfo": "Введите дополнительные требования или характеристики"
+        "success": {
+            "title": "Тренировка сгенерирована",
+            "description": "Тренировка успешно сгенерирована"
+        },
+        "error": {
+            "title": "Ошибка",
+            "description": "Не удалось сгенерировать тренировку"
+        }
     }
 }

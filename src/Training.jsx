@@ -192,15 +192,16 @@ function Training() {
 
             setProgress(100);
             toast({
-                title: t('trainingGenerated'),
+                title: t('notifications.success.title'),
+                description: t('notifications.success.description'),
                 status: 'success',
                 duration: 3000,
                 isClosable: true
             });
         } catch {
             toast({
-                title: t('error'),
-                description: t('failedToGenerateTraining'),
+                title: t('notifications.error.title'),
+                description: t('notifications.error.description'),
                 status: 'error',
                 duration: 3000,
                 isClosable: true
@@ -240,7 +241,7 @@ function Training() {
             <Container maxW="container.xl" p={[2, 4]}>
                 <Flex direction="column" gap={4}>
                     <Flex justify="space-between" align="center">
-                        <Heading>{t('aiCoach')}</Heading>
+                        <Heading>{t('common.title')}</Heading>
                         <Flex gap={2}>
                             <Select
                                 w="100px"
@@ -261,12 +262,14 @@ function Training() {
                             <Menu>
                                 <MenuButton as={IconButton} icon={<SettingsIcon />} />
                                 <MenuList>
-                                    <MenuItem onClick={onOpen}>{t('clearHistory')}</MenuItem>
+                                    <MenuItem onClick={onOpen}>
+                                        {t('settings.clearHistory')}
+                                    </MenuItem>
                                     <MenuItem
                                         onClick={exportTraining}
                                         isDisabled={!generatedTraining}
                                     >
-                                        {t('exportTraining')}
+                                        {t('settings.exportTraining')}
                                     </MenuItem>
                                 </MenuList>
                             </Menu>
@@ -292,7 +295,7 @@ function Training() {
                                     <Grid templateColumns={['1fr', 'repeat(2, 1fr)']} gap={[4, 6]}>
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel fontSize={['sm', 'md']}>Model</FormLabel>
+                                                <FormLabel>{t('form.model.label')}</FormLabel>
                                                 <Select
                                                     value={selectedModel}
                                                     onChange={(e) =>
@@ -317,15 +320,23 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Training Type</FormLabel>
+                                                <FormLabel>
+                                                    {t('form.trainingType.label')}
+                                                </FormLabel>
                                                 <RadioGroup
                                                     value={trainingType}
                                                     onChange={setTrainingType}
                                                 >
                                                     <Stack direction="row">
-                                                        <Radio value="exercise">Exercise</Radio>
-                                                        <Radio value="session">Session</Radio>
-                                                        <Radio value="cyclus">Cyclus</Radio>
+                                                        <Radio value="exercise">
+                                                            {t('form.trainingType.exercise')}
+                                                        </Radio>
+                                                        <Radio value="session">
+                                                            {t('form.trainingType.session')}
+                                                        </Radio>
+                                                        <Radio value="cyclus">
+                                                            {t('form.trainingType.cyclus')}
+                                                        </Radio>
                                                     </Stack>
                                                 </RadioGroup>
                                             </FormControl>
@@ -333,9 +344,9 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Age Group</FormLabel>
+                                                <FormLabel>{t('form.ageGroup.label')}</FormLabel>
                                                 <Select
-                                                    placeholder="Select age group"
+                                                    placeholder={t('form.ageGroup.label')}
                                                     value={ageGroup}
                                                     onChange={(e) => setAgeGroup(e.target.value)}
                                                 >
@@ -350,8 +361,8 @@ function Training() {
                                                     ].map((age) => (
                                                         <option key={age} value={age}>
                                                             {age === 'senior'
-                                                                ? 'Senior'
-                                                                : `Under ${age.slice(1)}`}
+                                                                ? t('form.ageGroup.senior')
+                                                                : `${t('form.ageGroup.under')} ${age.slice(1)}`}
                                                         </option>
                                                     ))}
                                                 </Select>
@@ -360,7 +371,7 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Number of Players</FormLabel>
+                                                <FormLabel>{t('form.playerCount.label')}</FormLabel>
                                                 <NumberInput
                                                     min={1}
                                                     value={playerCount}
@@ -373,9 +384,11 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Performance Class</FormLabel>
+                                                <FormLabel>
+                                                    {t('form.performanceClass.label')}
+                                                </FormLabel>
                                                 <Select
-                                                    placeholder="Select performance class"
+                                                    placeholder={t('form.performanceClass.label')}
                                                     value={performanceClass}
                                                     onChange={(e) =>
                                                         setPerformanceClass(e.target.value)
@@ -384,8 +397,9 @@ function Training() {
                                                     {['beginner', 'advanced', 'high', 'pro'].map(
                                                         (level) => (
                                                             <option key={level} value={level}>
-                                                                {level.charAt(0).toUpperCase() +
-                                                                    level.slice(1)}
+                                                                {t(
+                                                                    `form.performanceClass.${level}`
+                                                                )}
                                                             </option>
                                                         )
                                                     )}
@@ -395,7 +409,7 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Duration (minutes)</FormLabel>
+                                                <FormLabel>{t('form.duration.label')}</FormLabel>
                                                 <NumberInput
                                                     min={1}
                                                     value={duration}
@@ -408,9 +422,9 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Training Aim</FormLabel>
+                                                <FormLabel>{t('form.trainingAim.label')}</FormLabel>
                                                 <Select
-                                                    placeholder="Select training aim"
+                                                    placeholder={t('form.trainingAim.label')}
                                                     value={trainingAim}
                                                     onChange={(e) => setTrainingAim(e.target.value)}
                                                 >
@@ -421,8 +435,7 @@ function Training() {
                                                         'mental'
                                                     ].map((aim) => (
                                                         <option key={aim} value={aim}>
-                                                            {aim.charAt(0).toUpperCase() +
-                                                                aim.slice(1)}
+                                                            {t(`form.trainingAim.${aim}`)}
                                                         </option>
                                                     ))}
                                                 </Select>
@@ -431,13 +444,17 @@ function Training() {
 
                                         <GridItem colSpan={[2, 1]}>
                                             <FormControl>
-                                                <FormLabel>Additional Information</FormLabel>
+                                                <FormLabel>
+                                                    {t('form.additionalInfo.label')}
+                                                </FormLabel>
                                                 <Textarea
                                                     value={additionalInfo}
                                                     onChange={(e) =>
                                                         setAdditionalInfo(e.target.value)
                                                     }
-                                                    placeholder="Enter any additional requirements or specifications"
+                                                    placeholder={t(
+                                                        'form.additionalInfo.placeholder'
+                                                    )}
                                                     rows={4}
                                                 />
                                             </FormControl>
@@ -451,7 +468,7 @@ function Training() {
                                                 isLoading={isLoading}
                                                 leftIcon={<RepeatIcon />}
                                             >
-                                                Generate Training
+                                                {t('form.generate')}
                                             </Button>
                                         </GridItem>
                                     </Grid>
@@ -488,15 +505,19 @@ function Training() {
                                         >
                                             <Flex justify="space-between" align="center">
                                                 <Text fontWeight="bold">
-                                                    {t('training')} #{index + 1}
+                                                    {t('history.training')} #{index + 1}
                                                 </Text>
                                                 <Badge colorScheme="blue">
-                                                    {t(item.params.trainingType)}
+                                                    {t(
+                                                        `form.trainingType.${item.params.trainingType}`
+                                                    )}
                                                 </Badge>
                                             </Flex>
                                             <Text noOfLines={2} fontSize="sm" color="gray.500">
-                                                {t(item.params.trainingAim)} -{' '}
-                                                {t(item.params.performanceClass)}
+                                                {t(`form.trainingAim.${item.params.trainingAim}`)} -{' '}
+                                                {t(
+                                                    `form.performanceClass.${item.params.performanceClass}`
+                                                )}
                                             </Text>
                                             <Text fontSize="xs" color="gray.400">
                                                 {new Date(item.timestamp).toLocaleString()}
@@ -510,7 +531,7 @@ function Training() {
 
                     <Box p={4} bg={bgColor} shadow="md">
                         <Text textAlign="center" color="gray.500">
-                            © 2025 AI Coach
+                            {t('common.copyright')}
                         </Text>
                     </Box>
                 </Flex>
@@ -519,12 +540,12 @@ function Training() {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>{t('clearHistory')}</ModalHeader>
+                    <ModalHeader>{t('settings.clearHistory')}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text mb={4}>{t('clearHistoryConfirmation')}</Text>
+                        <Text mb={4}>{t('settings.clearHistoryConfirm')}</Text>
                         <Button colorScheme="red" onClick={clearHistory}>
-                            {t('clearHistory')}
+                            {t('settings.clearHistory')}
                         </Button>
                     </ModalBody>
                 </ModalContent>
