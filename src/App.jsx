@@ -1,4 +1,4 @@
-import { ChakraProvider, useToast } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect, createContext } from 'react';
 import Training from './Training';
@@ -16,28 +16,11 @@ export const AuthContext = createContext(null);
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
-    const toast = useToast();
-    
+
     useEffect(() => {
         ReactGA.initialize('G-01VHJVVKF3');
         ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
     }, []);
-
-    useEffect(() => {
-        // const checkAuth = async () => {
-        //     try {
-        //         const response = await fetch(`${API_URL}/api/auth/check`, {
-        //             credentials: 'include'
-        //         });
-        //         const data = await response.json();
-        //         setIsAuthenticated(data.authenticated);
-        //         setUserProfile(data.profile);
-        //     } catch {
-        //         /* empty */
-        //     }
-        // };
-        // checkAuth();
-    }, [toast]);
 
     const authContextValue = {
         isAuthenticated,

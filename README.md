@@ -8,22 +8,6 @@ AI solution for coaches/clubs to create training exercises
 
 https://aicoachpro.ai
 
-## Design System
-
-### Typography
-
-- Primary: Paramount Sans
-- Secondary: HelveticaLT
-- Body: Std Roman
-- Display: Paramount Sans
-
-### Color Palette
-
-- Primary: Apache (#DFBE6F)
-- Secondary: Azure Radiance (#007FFF)
-- Neutral shades for UI elements
-- High contrast combinations for accessibility
-
 ### UI Components
 
 - Modular card system
@@ -39,15 +23,11 @@ https://aicoachpro.ai
 - Chakra UI component library
 - Progressive Web App (PWA)
 - Responsive design system
-- Client-side caching
-- Offline-first architecture
 
 ### Backend
 
 - Node.js server
 - MongoDB database
-- RESTful API design
-- WebSocket integration
 - Docker containerization
 
 ## Core Features
@@ -55,10 +35,8 @@ https://aicoachpro.ai
 ### Exercise Management
 
 - AI-powered exercise generator
-- Video analysis tools
 - Custom exercise builder
 - Training session templates
-- Real-time collaboration
 
 ### Training Programs
 
@@ -98,33 +76,20 @@ https://aicoachpro.ai
 
 - Custom branding
 - Multi-team management
-- Advanced permissions
-- API access
-- Priority support
 
 ## Development Roadmap
 
 ### Q1 2025
 
 - Core platform launch
+- AI integration
+- Mobile responsiveness
+- International localization
+- Mobile app beta
 - Basic exercise library
 - Authentication system
-- Mobile responsiveness
-
-### Q2 2025
-
-- AI integration
 - Advanced analytics
-- Mobile app beta
-- Video analysis tools
-
-### Q3 2025
-
 - Club management suite
 - Premium features
-- API marketplace
-- International localization
 
 # TODO
-
-- Localize to top10 languages
