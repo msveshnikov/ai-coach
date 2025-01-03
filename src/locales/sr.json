@@ -14,8 +14,17 @@
         "clearHistoryConfirm": "Да ли сте сигурни да желите да обришете сву историју тренинга?"
     },
     "form": {
-        "model": {
+        "textModel": {
             "label": "Модел"
+        },
+        "diagramModel": {
+            "label": "Модел Дијаграма"
+        },
+        "textTemperature": {
+            "label": "Температура Текста"
+        },
+        "diagramTemperature": {
+            "label": "Температура Дијаграма"
         },
         "trainingType": {
             "label": "Тип тренинга",

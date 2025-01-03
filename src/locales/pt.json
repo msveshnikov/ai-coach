@@ -14,8 +14,17 @@
         "clearHistoryConfirm": "Tem certeza que deseja limpar todo o histórico de treinos?"
     },
     "form": {
-        "model": {
+        "textModel": {
             "label": "Modelo"
+        },
+        "diagramModel": {
+            "label": "Modelo de Diagrama"
+        },
+        "textTemperature": {
+            "label": "Temperatura do Texto"
+        },
+        "diagramTemperature": {
+            "label": "Temperatura do Diagrama"
         },
         "trainingType": {
             "label": "Tipo de Treino",

@@ -259,16 +259,16 @@ function Training() {
                                 value={i18n.language}
                                 onChange={(e) => handleLanguageChange(e.target.value)}
                             >
-                                <option value="en">EN</option>
-                                <option value="de">DE</option>
-                                <option value="es">ES</option>
-                                <option value="fr">FR</option>
-                                <option value="it">IT</option>
-                                <option value="nl">NL</option>
-                                <option value="pl">PL</option>
-                                <option value="pt">PT</option>
-                                <option value="ru">RU</option>
-                                <option value="sr">SR</option>
+                                <option value="en">🇬🇧 EN</option>
+                                <option value="de">🇩🇪 DE</option>
+                                <option value="es">🇪🇸 ES</option>
+                                <option value="fr">🇫🇷 FR</option>
+                                <option value="it">🇮🇹 IT</option>
+                                <option value="nl">🇳🇱 NL</option>
+                                <option value="pl">🇵🇱 PL</option>
+                                <option value="pt">🇵🇹 PT</option>
+                                <option value="ru">🇷🇺 RU</option>
+                                <option value="sr">🇷🇸 SR</option>
                             </Select>
                             <Menu>
                                 <MenuButton as={IconButton} icon={<SettingsIcon />} />

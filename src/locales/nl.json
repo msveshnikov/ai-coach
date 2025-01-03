@@ -14,8 +14,17 @@
         "clearHistoryConfirm": "Weet je zeker dat je alle trainingsgeschiedenis wilt wissen?"
     },
     "form": {
-        "model": {
+        "textModel": {
             "label": "Model"
+        },
+        "diagramModel": {
+            "label": "Diagrammodel"
+        },
+        "textTemperature": {
+            "label": "Teksttemperatuur"
+        },
+        "diagramTemperature": {
+            "label": "Diagramtemperatuur"
         },
         "trainingType": {
             "label": "Type Training",
