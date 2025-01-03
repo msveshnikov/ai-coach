@@ -325,21 +325,24 @@ function Training() {
                                                     </option>
                                                 </Select>
                                             </FormControl>
+
                                             <FormControl mt={2}>
                                                 <FormLabel>
                                                     {t('form.textTemperature.label')}
                                                 </FormLabel>
-                                                <NumberInput
+                                                <Select
                                                     value={textTemperature}
-                                                    onChange={(value) =>
-                                                        setTextTemperature(parseFloat(value))
+                                                    onChange={(e) =>
+                                                        setTextTemperature(
+                                                            parseFloat(e.target.value)
+                                                        )
                                                     }
-                                                    step={0.1}
-                                                    min={0}
-                                                    max={1}
                                                 >
-                                                    <NumberInputField />
-                                                </NumberInput>
+                                                    <option value={0}>0.0</option>
+                                                    <option value={0.5}>0.5</option>
+                                                    <option value={0.7}>0.7</option>
+                                                    <option value={1}>1.0</option>
+                                                </Select>
                                             </FormControl>
                                         </GridItem>
 
@@ -372,18 +375,20 @@ function Training() {
                                                 <FormLabel>
                                                     {t('form.diagramTemperature.label')}
                                                 </FormLabel>
-                                                <NumberInput
+                                                <Select
                                                     value={diagramTemperature}
-                                                    onChange={(value) =>
-                                                        setDiagramTemperature(parseFloat(value))
+                                                    onChange={(e) =>
+                                                        setDiagramTemperature(
+                                                            parseFloat(e.target.value)
+                                                        )
                                                     }
-                                                    step={0.1}
-                                                    min={0}
-                                                    max={1}
                                                 >
-                                                    <NumberInputField />
-                                                </NumberInput>
-                                            </FormControl>
+                                                    <option value={0}>0.0</option>
+                                                    <option value={0.5}>0.5</option>
+                                                    <option value={0.7}>0.7</option>
+                                                    <option value={1}>1.0</option>
+                                                </Select>
+                                            </FormControl>{' '}
                                         </GridItem>
 
                                         <GridItem colSpan={[2, 1]}>

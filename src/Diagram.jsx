@@ -93,12 +93,12 @@ const Diagram = ({ diagram }) => {
         const drawCross = (points) => {
             ctx.beginPath();
             ctx.moveTo(points[0].x, points[0].y);
-            const cp1x = points[0].x + (points[1].x - points[0].x) / 2;
-            const cp1y = points[0].y - 30;
-            ctx.quadraticCurveTo(cp1x, cp1y, points[1].x, points[1].y);
+            const cp1x = points[0]?.x + (points[1]?.x - points[0]?.x) / 2;
+            const cp1y = points[0]?.y - 30;
+            ctx.quadraticCurveTo(cp1x, cp1y, points[1]?.x, points[1]?.y);
             ctx.strokeStyle = '#FFFFFF';
             ctx.stroke();
-            drawArrowhead(points[1].x, points[1].y, Math.PI / 4);
+            drawArrowhead(points[1]?.x, points[1]?.y, Math.PI / 4);
         };
 
         const drawZone = (x, y, width, height) => {
@@ -151,32 +151,32 @@ const Diagram = ({ diagram }) => {
                     case 'shoot':
                         drawShootPass(
                             element.path?.map((p) => ({
-                                x: padding + p.x * scaleX,
-                                y: padding + p.y * scaleY
+                                x: padding + p?.x * scaleX,
+                                y: padding + p?.y * scaleY
                             }))
                         );
                         break;
                     case 'run':
                         drawRun(
                             element.path.map((p) => ({
-                                x: padding + p.x * scaleX,
-                                y: padding + p.y * scaleY
+                                x: padding + p?.x * scaleX,
+                                y: padding + p?.y * scaleY
                             }))
                         );
                         break;
                     case 'dribble':
                         drawDribble(
                             element.path.map((p) => ({
-                                x: padding + p.x * scaleX,
-                                y: padding + p.y * scaleY
+                                x: padding + p?.x * scaleX,
+                                y: padding + p?.y * scaleY
                             }))
                         );
                         break;
                     case 'cross':
                         drawCross(
                             element.path.map((p) => ({
-                                x: padding + p.x * scaleX,
-                                y: padding + p.y * scaleY
+                                x: padding + p?.x * scaleX,
+                                y: padding + p?.y * scaleY
                             }))
                         );
                         break;
