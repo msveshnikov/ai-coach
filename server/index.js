@@ -7,7 +7,6 @@ import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import compression from 'compression';
-import helmet from 'helmet';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { dirname, join } from 'path';
@@ -31,7 +30,6 @@ const port = process.env.PORT || 3000;
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 app.use(cors());
-app.use(helmet());
 app.use(express.json({ limit: '15mb' }));
 app.use(express.static(join(__dirname, '../dist'), { maxAge: '3d' }));
 app.use(morgan('dev'));

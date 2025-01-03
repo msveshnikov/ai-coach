@@ -19,7 +19,6 @@ function App() {
 
     useEffect(() => {
         ReactGA.initialize('G-01VHJVVKF3');
-        ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
     }, []);
 
     const authContextValue = {
