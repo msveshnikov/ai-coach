@@ -101,7 +101,7 @@ const Analytics = () => {
                     <Tab>Performance Trends</Tab>
                     <Tab>Injury Prevention</Tab>
                     <Tab>Team Chemistry</Tab>
-                    <Tab>Predictions</Tab>
+                    {/* <Tab>Predictions</Tab> */}
                 </TabList>
 
                 <TabPanels>

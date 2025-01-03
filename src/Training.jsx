@@ -6,7 +6,6 @@ import {
     Button,
     Flex,
     VStack,
-    useColorMode,
     IconButton,
     useColorModeValue,
     Select,
@@ -41,7 +40,7 @@ import {
     ModalCloseButton,
     useDisclosure
 } from '@chakra-ui/react';
-import { SunIcon, MoonIcon, RepeatIcon, SettingsIcon } from '@chakra-ui/icons';
+import { RepeatIcon, SettingsIcon } from '@chakra-ui/icons';
 import { useState, useCallback, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
@@ -116,7 +115,6 @@ function Training() {
     const [isLoading, setIsLoading] = useState(false);
     const [history, setHistory] = useState([]);
     const [progress, setProgress] = useState(0);
-    const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
@@ -284,10 +282,10 @@ function Training() {
                                     </MenuItem>
                                 </MenuList>
                             </Menu>
-                            <IconButton
+                            {/* <IconButton
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
-                            />
+                            /> */}
                         </Flex>
                     </Flex>
 
@@ -601,12 +599,6 @@ function Training() {
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
-
-                    <Box p={4} bg={bgColor} shadow="md">
-                        <Text textAlign="center" color="gray.500">
-                            {t('common.copyright')}
-                        </Text>
-                    </Box>
                 </Flex>
             </Container>
 

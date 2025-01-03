@@ -120,7 +120,7 @@ export default function ClubManagement() {
                     <Tab>Teams</Tab>
                     <Tab>Facilities</Tab>
                     <Tab>Permissions</Tab>
-                    <Tab>Analytics</Tab>
+                    {/* <Tab>Analytics</Tab> */}
                 </TabList>
 
                 <TabPanels>
