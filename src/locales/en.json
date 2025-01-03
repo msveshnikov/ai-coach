@@ -14,8 +14,17 @@
         "clearHistoryConfirm": "Are you sure you want to clear all training history?"
     },
     "form": {
-        "model": {
+        "textModel": {
             "label": "Model"
+        },
+        "diagramModel": {
+            "label": "Diagram Model"
+        },
+        "textTemperature": {
+            "label": "Text Temperature"
+        },
+        "diagramTemperature": {
+            "label": "Diagram Temperature"
         },
         "trainingType": {
             "label": "Training Type",

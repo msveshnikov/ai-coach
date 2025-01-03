@@ -108,7 +108,10 @@ function Training() {
     const [additionalInfo, setAdditionalInfo] = useState('');
     const [generatedTraining, setGeneratedTraining] = useState('');
     const [diagram, setDiagram] = useState();
-    const [selectedModel, setSelectedModel] = useState('gpt-4o');
+    const [textModel, setTextModel] = useState('gemini-exp-1206');
+    const [diagramModel, setDiagramModel] = useState('claude-3-5-sonnet-20241022');
+    const [textTemperature, setTextTemperature] = useState(1);
+    const [diagramTemperature, setDiagramTemperature] = useState(0);
     const [activeTab, setActiveTab] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [history, setHistory] = useState([]);
@@ -157,7 +160,11 @@ function Training() {
             const response = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, model: selectedModel })
+                body: JSON.stringify({
+                    prompt,
+                    model: textModel,
+                    temperature: textTemperature
+                })
             });
 
             setProgress(50);
@@ -171,7 +178,11 @@ function Training() {
             const diagramResponse = await fetch(`${API_URL}/api/generate-training`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: diagramPrompt, model: selectedModel })
+                body: JSON.stringify({
+                    prompt: diagramPrompt,
+                    model: diagramModel,
+                    temperature: diagramTemperature
+                })
             });
 
             const diagramData = await diagramResponse.json();
@@ -293,13 +304,54 @@ function Training() {
                             <TabPanel>
                                 <Box bg={bgColor} p={[3, 6]} borderRadius="lg" shadow="sm">
                                     <Grid templateColumns={['1fr', 'repeat(2, 1fr)']} gap={[4, 6]}>
-                                        <GridItem colSpan={[2, 1]}>
+                                        <GridItem colSpan={1}>
                                             <FormControl>
-                                                <FormLabel>{t('form.model.label')}</FormLabel>
+                                                <FormLabel>{t('form.textModel.label')}</FormLabel>
                                                 <Select
-                                                    value={selectedModel}
+                                                    value={textModel}
+                                                    onChange={(e) => setTextModel(e.target.value)}
+                                                >
+                                                    <option value="o1-mini">O1 Mini</option>{' '}
+                                                    <option value="gpt-4o">GPT-4 Optimized</option>
+                                                    <option value="gpt-4o-mini">GPT-4 Mini</option>
+                                                    <option value="claude-3-5-sonnet-20241022">
+                                                        Claude 3.5
+                                                    </option>
+                                                    <option value="gemini-exp-1206">
+                                                        Gemini Exp
+                                                    </option>
+                                                    <option value="gemini-2.0-flash-exp">
+                                                        Gemini 2.0 Flash
+                                                    </option>
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl mt={2}>
+                                                <FormLabel>
+                                                    {t('form.textTemperature.label')}
+                                                </FormLabel>
+                                                <NumberInput
+                                                    value={textTemperature}
+                                                    onChange={(value) =>
+                                                        setTextTemperature(parseFloat(value))
+                                                    }
+                                                    step={0.1}
+                                                    min={0}
+                                                    max={1}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
+                                            </FormControl>
+                                        </GridItem>
+
+                                        <GridItem colSpan={1}>
+                                            <FormControl>
+                                                <FormLabel>
+                                                    {t('form.diagramModel.label')}
+                                                </FormLabel>
+                                                <Select
+                                                    value={diagramModel}
                                                     onChange={(e) =>
-                                                        setSelectedModel(e.target.value)
+                                                        setDiagramModel(e.target.value)
                                                     }
                                                 >
                                                     <option value="o1-mini">O1 Mini</option>{' '}
@@ -315,6 +367,22 @@ function Training() {
                                                         Gemini 2.0 Flash
                                                     </option>
                                                 </Select>
+                                            </FormControl>
+                                            <FormControl mt={2}>
+                                                <FormLabel>
+                                                    {t('form.diagramTemperature.label')}
+                                                </FormLabel>
+                                                <NumberInput
+                                                    value={diagramTemperature}
+                                                    onChange={(value) =>
+                                                        setDiagramTemperature(parseFloat(value))
+                                                    }
+                                                    step={0.1}
+                                                    min={0}
+                                                    max={1}
+                                                >
+                                                    <NumberInputField />
+                                                </NumberInput>
                                             </FormControl>
                                         </GridItem>
 
