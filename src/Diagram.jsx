@@ -31,7 +31,7 @@ const Diagram = ({ diagram }) => {
 
         const drawPlayer = (x, y, team) => {
             ctx.font = '30px Arial';
-            const emoji = team === 'team1' ? '🤾‍♂️' : '🤾‍♀️';
+            const emoji = team === 'team1' ? '⛹️' : '⛹️‍♂️';
             ctx.fillText(emoji, x - 10, y + 10);
         };
 
