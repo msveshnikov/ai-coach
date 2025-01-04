@@ -93,7 +93,3 @@ https://aicoachpro.ai
 - Premium features
 
 # TODO
-
--   add iOS style navigation (bottom)
--   add icons and reduce font, so bottom bar always fit and always visible
--   remove auth for now
