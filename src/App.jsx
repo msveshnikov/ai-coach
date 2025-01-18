@@ -11,7 +11,7 @@ import './i18n.jsx';
 import { I18nextProvider } from 'react-i18next';
 import ReactGA from 'react-ga4';
 
-export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://aicoachpro.ai';
+export const API_URL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://ai-coach.club';
 
 function App() {
     useEffect(() => {

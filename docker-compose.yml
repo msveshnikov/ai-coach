@@ -17,7 +17,7 @@ services:
             - EMAIL=${EMAIL}
             - FROM_EMAIL=${FROM_EMAIL}
             - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-            - FRONTEND_URL=https://aicoachpro.ai
+            - FRONTEND_URL=https://ai-coach.club
         depends_on:
             - mongodb
         restart: unless-stopped

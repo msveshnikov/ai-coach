@@ -6,7 +6,7 @@ AI solution for coaches/clubs to create training exercises
 
 ## PROD
 
-https://aicoachpro.ai
+https://ai-coach.club
 
 ### UI Components
 

@@ -213,5 +213,5 @@ docker-compose logs -f
 
 ---
 
-For more information, visit [https://aicoachpro.ai](https://aicoachpro.ai) or contact
-support@aicoachpro.ai.
+For more information, visit [https://ai-coach.club](https://ai-coach.club) or contact
+support@ai-coach.club.
