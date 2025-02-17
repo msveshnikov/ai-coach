@@ -12,7 +12,7 @@
     "dependencies": {
         "@anthropic-ai/sdk": "^0.33.1",
         "@google-cloud/vertexai": "^1.9.2",
-        "bcryptjs": "^2.4.3",
+        "bcryptjs": "^3.0.1",
         "compression": "^1.7.5",
         "cors": "^2.8.5",
         "dotenv": "^16.4.7",
